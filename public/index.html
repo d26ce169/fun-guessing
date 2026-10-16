@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Fun Guessing - Multiplayer Indian Pop Culture Party Game</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="logo-group">
+        <span class="logo-icon">✨</span>
+        <div class="logo-text">
+          <h1>FUN GUESSING</h1>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Room Code Pill (shown when in room) -->
+        <div id="headerRoomCode" class="room-code-badge hidden" title="Click to copy team code">
+          <span class="badge-label">ROOM:</span>
+          <span id="headerCodeText" class="badge-code">------</span>
+          <button id="copyHeaderCodeBtn" class="copy-icon-btn">📋</button>
+        </div>
+
+        <!-- Point Table Button -->
+        <button id="openPointTableBtn" class="point-table-btn" title="View Point Table">
+          <span class="btn-icon">🏆</span>
+          <span class="btn-text">Point Table</span>
+          <span id="myScoreBadge" class="score-pill">0 pts</span>
+        </button>
+
+        <!-- Sound Toggle -->
+        <button id="soundToggleBtn" class="icon-toggle-btn" title="Mute/Unmute Audio">🔊</button>
+      </div>
+    </header>
+
+    <!-- MAIN VIEW CONTAINER -->
+    <main class="main-content">
+
+      <!-- VIEW 1: AUTH / LOBBY JOIN -->
+      <section id="authScreen" class="view-panel active">
+        <div class="card welcome-card">
+          <h2 class="hero-title">Fun Guessing</h2>
+
+          <div class="form-section">
+            <label class="input-label" for="playerNameInput">Your Name</label>
+            <input type="text" id="playerNameInput" maxlength="14" placeholder="Enter your name" autofocus autocomplete="off">
+
+            <label class="input-label" style="margin-top: 14px;">Choose Avatar</label>
+            <div class="avatar-picker" id="avatarPicker">
+              <button class="avatar-option active" data-avatar="🦁">🦁</button>
+              <button class="avatar-option" data-avatar="👑">👑</button>
+              <button class="avatar-option" data-avatar="👓">👓</button>
+              <button class="avatar-option" data-avatar="🏏">🏏</button>
+              <button class="avatar-option" data-avatar="🔥">🔥</button>
+              <button class="avatar-option" data-avatar="🎬">🎬</button>
+              <button class="avatar-option" data-avatar="⚡">⚡</button>
+              <button class="avatar-option" data-avatar="🎯">🎯</button>
+            </div>
+          </div>
+
+          <div class="tabs-container">
+            <div class="tab-buttons">
+              <button id="tabCreateBtn" class="tab-btn active">Create Room</button>
+              <button id="tabJoinBtn" class="tab-btn">Join with Code</button>
+            </div>
+
+            <div id="createRoomPanel" class="tab-panel active">
+              <button id="createRoomBtn" class="btn btn-primary btn-large">
+                <span>🚀</span> Create Room (Host)
+              </button>
+            </div>
+
+            <div id="joinRoomPanel" class="tab-panel">
+              <div class="join-input-group">
+                <input type="text" id="roomCodeInput" maxlength="6" placeholder="Enter 6-digit Code" autocomplete="off" style="text-transform: uppercase;">
+                <button id="joinRoomBtn" class="btn btn-primary">Join</button>
+              </div>
+              <p id="joinErrorMsg" class="error-hint hidden"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: LOBBY -->
+      <section id="lobbyScreen" class="view-panel">
+        <div class="card lobby-card">
+          <div class="lobby-header">
+            <div class="lobby-code-box">
+              <span class="code-title">TEAM CODE</span>
+              <div class="code-display">
+                <span id="lobbyCodeText">------</span>
+                <button id="copyLobbyCodeBtn" class="btn btn-outline btn-sm">Copy Code</button>
+              </div>
+            </div>
+
+            <div class="lobby-count-badge">
+              <span id="playerCount">1</span> / 10 Players
+            </div>
+          </div>
+
+          <div class="lobby-players-container">
+            <div id="lobbyPlayersGrid" class="players-grid"></div>
+          </div>
+
+          <div class="lobby-footer">
+            <div id="hostControls" class="host-controls">
+              <!-- Target Points Setting (Host Decides) -->
+              <div class="target-points-setting">
+                <div class="target-setting-header">
+                  <span class="setting-title">🎯 Set Winning Target Points:</span>
+                  <span id="targetPointsPreview" class="target-points-preview">10 Points</span>
+                </div>
+                <div class="target-points-options">
+                  <button type="button" class="target-btn active" data-pts="10">10 Pts</button>
+                  <button type="button" class="target-btn" data-pts="5">5 Pts</button>
+                  <button type="button" class="target-btn" data-pts="15">15 Pts</button>
+                  <button type="button" class="target-btn" data-pts="20">20 Pts</button>
+                  <div class="custom-target-wrapper">
+                    <input type="number" id="customTargetInput" min="1" max="100" placeholder="Custom" class="custom-target-input">
+                  </div>
+                </div>
+              </div>
+
+              <button id="startGameBtn" class="btn btn-success btn-large pulse-glow">
+                <span>▶️</span> Start Game
+              </button>
+            </div>
+            <div id="playerWaitingNotice" class="player-waiting hidden">
+              <div class="spinner"></div>
+              <div class="waiting-text-group">
+                <span>Waiting for host to start game...</span>
+                <span class="waiting-target-badge">Target to win: <strong id="lobbyTargetDisplay">10 Points</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 3: GAME ARENA -->
+      <section id="gameScreen" class="view-panel">
+        
+        <div class="game-top-bar">
+          <div class="target-badge">
+            <span>Target: <strong id="gameTargetPoints">10 Pts</strong></span>
+          </div>
+
+          <div class="timer-container">
+            <div class="timer-circle" id="timerCircle">
+              <span id="timerText" class="timer-seconds">30</span>
+            </div>
+            <div class="timer-bar-bg">
+              <div id="timerProgressBar" class="timer-bar-fill" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <div class="round-badge">
+            <span id="categoryPill" class="category-pill">Category</span>
+          </div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="card question-card">
+          <h2 id="questionPrompt" class="question-title">Loading question...</h2>
+
+          <!-- Clean Audio Player with Spectrum Visualizer -->
+          <div id="audioPlayerZone" class="audio-player-zone">
+            <canvas id="visualizerCanvas" width="480" height="60" class="visualizer-canvas"></canvas>
+            <button id="playAudioBtn" class="btn btn-audio">
+              <span id="audioPlayIcon">🔊</span>
+              <span id="audioPlayLabel">Play Real Audio</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Answer Input & Keypad Card -->
+        <div class="card input-card">
+          <form id="answerForm" class="answer-form">
+            <div class="input-action-row">
+              <input type="text" id="answerInput" placeholder="Type your answer here..." autocomplete="off" autocapitalize="off" spellcheck="false">
+              <button type="submit" id="submitAnswerBtn" class="btn btn-primary submit-btn">
+                <span>SUBMIT</span> ⚡
+              </button>
+            </div>
+          </form>
+
+          <div id="feedbackBanner" class="feedback-banner hidden">
+            <span id="feedbackText">Wrong answer! Try again!</span>
+          </div>
+
+          <!-- On-Screen Virtual Touch Keypad -->
+          <div class="virtual-keypad">
+            <div class="keypad-row">
+              <button class="key-btn" data-key="Q">Q</button>
+              <button class="key-btn" data-key="W">W</button>
+              <button class="key-btn" data-key="E">E</button>
+              <button class="key-btn" data-key="R">R</button>
+              <button class="key-btn" data-key="T">T</button>
+              <button class="key-btn" data-key="Y">Y</button>
+              <button class="key-btn" data-key="U">U</button>
+              <button class="key-btn" data-key="I">I</button>
+              <button class="key-btn" data-key="O">O</button>
+              <button class="key-btn" data-key="P">P</button>
+            </div>
+            <div class="keypad-row">
+              <button class="key-btn" data-key="A">A</button>
+              <button class="key-btn" data-key="S">S</button>
+              <button class="key-btn" data-key="D">D</button>
+              <button class="key-btn" data-key="F">F</button>
+              <button class="key-btn" data-key="G">G</button>
+              <button class="key-btn" data-key="H">H</button>
+              <button class="key-btn" data-key="J">J</button>
+              <button class="key-btn" data-key="K">K</button>
+              <button class="key-btn" data-key="L">L</button>
+            </div>
+            <div class="keypad-row">
+              <button class="key-btn" data-key="Z">Z</button>
+              <button class="key-btn" data-key="X">X</button>
+              <button class="key-btn" data-key="C">C</button>
+              <button class="key-btn" data-key="V">V</button>
+              <button class="key-btn" data-key="B">B</button>
+              <button class="key-btn" data-key="N">N</button>
+              <button class="key-btn" data-key="M">M</button>
+              <button class="key-btn key-action" data-key="BACKSPACE">⌫</button>
+            </div>
+            <div class="keypad-row special-row">
+              <button class="key-btn key-space" data-key="SPACE">SPACE</button>
+              <button class="key-btn key-action" data-key="CLEAR">CLEAR</button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- VIEW 4: MATCH VICTORY -->
+      <section id="victoryScreen" class="view-panel">
+        <div class="card victory-card">
+          <div class="trophy-animation">🏆</div>
+          <h2 class="victory-title">MATCH WINNER!</h2>
+          <div id="winnerHero" class="winner-hero">
+            <span id="winnerAvatar" class="winner-avatar">🦁</span>
+            <h3 id="winnerName" class="winner-name">Player</h3>
+            <span id="winnerPointsBadge" class="winner-badge">10 POINTS WON!</span>
+          </div>
+
+          <div class="victory-actions">
+            <button id="victoryPointTableBtn" class="btn btn-outline">📊 Final Point Table</button>
+            <button id="playAgainBtn" class="btn btn-primary btn-large">Play Again</button>
+            <div id="victoryWaitingNotice" class="player-waiting hidden" style="margin-top: 15px;">
+              <div class="spinner"></div>
+              <span>Waiting for host to start new match...</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ROUND REVEAL MODAL (Clean & Minimal) -->
+    <div id="roundRevealModal" class="modal-overlay hidden">
+      <div class="modal-card reveal-card">
+        
+        <!-- Case 1: Someone won the point -->
+        <div id="revealWinnerSection" class="reveal-section">
+          <div class="winner-pill">
+            <span id="revealWinnerAvatar">🦁</span>
+            <span id="revealWinnerName">Player</span>
+            <span class="plus-point">+1 Point</span>
+          </div>
+        </div>
+
+        <!-- Correct Answer Display (Always shown) -->
+        <div class="correct-answer-box">
+          <span class="answer-label">CORRECT ANSWER</span>
+          <div id="revealCorrectAnswer" class="answer-highlight">---</div>
+        </div>
+
+        <div class="next-round-timer">
+          <span>Next in </span>
+          <strong id="nextCountdownSec">3</strong>s
+        </div>
+      </div>
+    </div>
+
+    <!-- POINT TABLE MODAL -->
+    <div id="pointTableModal" class="modal-overlay hidden">
+      <div class="modal-card point-table-card">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-icon">🏆</span>
+            <h3>Point Table</h3>
+          </div>
+          <button id="closePointTableBtn" class="close-modal-btn">✕</button>
+        </div>
+
+        <div id="pointTableList" class="point-table-list"></div>
+
+        <div class="modal-footer">
+          <button id="dismissPointTableBtn" class="btn btn-outline">Close</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/soundEngine.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

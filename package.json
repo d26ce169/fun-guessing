@@ -1,0 +1,28 @@
+{
+  "name": "fun-guessing",
+  "version": "1.0.0",
+  "description": "Fun Guessing - Real-Time Indian Pop Culture Multiplayer Party Game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "game",
+    "multiplayer",
+    "trivia",
+    "tmkoc",
+    "bollywood",
+    "cricket"
+  ],
+  "author": "Antigravity",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.8.4"
+  }
+}
