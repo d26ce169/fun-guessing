@@ -21,21 +21,22 @@
         <span class="logo-icon">✨</span>
         <div class="logo-text">
           <h1>FUN GUESSING</h1>
+          <span class="subtitle">Multiplayer Arena</span>
         </div>
       </div>
 
       <div class="header-actions">
         <!-- Room Code Pill (shown when in room) -->
-        <div id="headerRoomCode" class="room-code-badge hidden" title="Click to copy team code">
+        <div id="headerRoomCode" class="room-code-badge hidden" title="Click to copy invite link">
           <span class="badge-label">ROOM:</span>
           <span id="headerCodeText" class="badge-code">------</span>
-          <button id="copyHeaderCodeBtn" class="copy-icon-btn">📋</button>
+          <button id="copyHeaderCodeBtn" class="copy-icon-btn" aria-label="Copy Link">📋</button>
         </div>
 
         <!-- Point Table Button -->
         <button id="openPointTableBtn" class="point-table-btn" title="View Point Table">
           <span class="btn-icon">🏆</span>
-          <span class="btn-text">Point Table</span>
+          <span class="btn-text">Points</span>
           <span id="myScoreBadge" class="score-pill">0 pts</span>
         </button>
 
@@ -44,28 +45,41 @@
       </div>
     </header>
 
+    <!-- Floating Taunt Toast Notification -->
+    <div id="tauntToast" class="taunt-toast hidden">
+      <span id="tauntToastAvatar" class="taunt-avatar">🦁</span>
+      <div class="taunt-body">
+        <strong id="tauntToastSender">Player</strong>
+        <span id="tauntToastQuote">"Chai piyo, biscuit khao!"</span>
+      </div>
+    </div>
+
     <!-- MAIN VIEW CONTAINER -->
     <main class="main-content">
 
       <!-- VIEW 1: AUTH / LOBBY JOIN -->
       <section id="authScreen" class="view-panel active">
         <div class="card welcome-card">
-          <h2 class="hero-title">Fun Guessing</h2>
+          <div class="hero-header">
+            <span class="hero-badge">Party Game Edition</span>
+            <h2 class="hero-title">Fun Guessing</h2>
+            <p class="hero-subtitle">102k+ TMKOC, Bollywood, Cricket & Dialogue Trivia</p>
+          </div>
 
           <div class="form-section">
-            <label class="input-label" for="playerNameInput">Your Name</label>
+            <label class="input-label" for="playerNameInput">Your Player Name</label>
             <input type="text" id="playerNameInput" maxlength="14" placeholder="Enter your name" autofocus autocomplete="off">
 
-            <label class="input-label" style="margin-top: 14px;">Choose Avatar</label>
+            <label class="input-label" style="margin-top: 14px;">Choose Your Avatar</label>
             <div class="avatar-picker" id="avatarPicker">
-              <button class="avatar-option active" data-avatar="🦁">🦁</button>
-              <button class="avatar-option" data-avatar="👑">👑</button>
-              <button class="avatar-option" data-avatar="👓">👓</button>
-              <button class="avatar-option" data-avatar="🏏">🏏</button>
-              <button class="avatar-option" data-avatar="🔥">🔥</button>
-              <button class="avatar-option" data-avatar="🎬">🎬</button>
-              <button class="avatar-option" data-avatar="⚡">⚡</button>
-              <button class="avatar-option" data-avatar="🎯">🎯</button>
+              <button class="avatar-option active" data-avatar="🦁" type="button">🦁</button>
+              <button class="avatar-option" data-avatar="👑" type="button">👑</button>
+              <button class="avatar-option" data-avatar="👓" type="button">👓</button>
+              <button class="avatar-option" data-avatar="🏏" type="button">🏏</button>
+              <button class="avatar-option" data-avatar="🔥" type="button">🔥</button>
+              <button class="avatar-option" data-avatar="🎬" type="button">🎬</button>
+              <button class="avatar-option" data-avatar="⚡" type="button">⚡</button>
+              <button class="avatar-option" data-avatar="🎯" type="button">🎯</button>
             </div>
           </div>
 
@@ -97,15 +111,37 @@
         <div class="card lobby-card">
           <div class="lobby-header">
             <div class="lobby-code-box">
-              <span class="code-title">TEAM CODE</span>
+              <span class="code-title">ROOM INVITE CODE</span>
               <div class="code-display">
                 <span id="lobbyCodeText">------</span>
-                <button id="copyLobbyCodeBtn" class="btn btn-outline btn-sm">Copy Code</button>
+                <button id="copyLobbyCodeBtn" class="btn btn-outline btn-sm">Copy Link 🔗</button>
               </div>
             </div>
 
-            <div class="lobby-count-badge">
-              <span id="playerCount">1</span> / 10 Players
+            <div class="lobby-header-right">
+              <button id="lobbyTestSoundBtn" class="btn btn-outline btn-sm" title="Confirm device media volume is on">
+                <span>🔊</span> Test Sound
+              </button>
+              <div class="lobby-count-badge">
+                <span id="playerCount">1</span> / 10 Players
+              </div>
+            </div>
+          </div>
+
+          <!-- Team Selector (Active in Team Mode) -->
+          <div id="teamSelectorZone" class="team-selector-zone hidden">
+            <div class="team-selector-header">
+              <span>Choose Your Battle Team:</span>
+            </div>
+            <div class="team-choice-row">
+              <button id="chooseTeamJethaBtn" class="team-pill jetha active" data-team="jetha">
+                <span class="team-icon">🏢</span>
+                <span class="team-text">Team Jetha Ke Janbaaz</span>
+              </button>
+              <button id="chooseTeamBaburaoBtn" class="team-pill baburao" data-team="baburao">
+                <span class="team-icon">🕶️</span>
+                <span class="team-text">Team Baburao Ke Superstars</span>
+              </button>
             </div>
           </div>
 
@@ -113,15 +149,70 @@
             <div id="lobbyPlayersGrid" class="players-grid"></div>
           </div>
 
+          <!-- HOST SETTINGS PANEL -->
           <div class="lobby-footer">
             <div id="hostControls" class="host-controls">
-              <!-- Target Points Setting (Host Decides) -->
-              <div class="target-points-setting">
-                <div class="target-setting-header">
-                  <span class="setting-title">🎯 Set Winning Target Points:</span>
-                  <span id="targetPointsPreview" class="target-points-preview">10 Points</span>
+              
+              <!-- 1. Category Filter -->
+              <div class="setting-block">
+                <div class="setting-title-row">
+                  <span class="setting-title">📚 Topic / Category:</span>
+                  <span id="categoryPreview" class="setting-preview">All Topics (102k+)</span>
                 </div>
-                <div class="target-points-options">
+                <div class="chip-group" id="categoryChips">
+                  <button type="button" class="chip-btn active" data-category="all">🌐 All Topics</button>
+                  <button type="button" class="chip-btn" data-category="tmkoc">👓 TMKOC Only</button>
+                  <button type="button" class="chip-btn" data-category="bollywood">🎬 Bollywood Only</button>
+                  <button type="button" class="chip-btn" data-category="cricket">🏏 Cricket Only</button>
+                  <button type="button" class="chip-btn" data-category="audio_only">🎧 Audio Clues Only</button>
+                </div>
+              </div>
+
+              <!-- 2. Gameplay Mode: Type-First vs Buzzer Mode -->
+              <div class="setting-block">
+                <div class="setting-title-row">
+                  <span class="setting-title">🎮 Gameplay Mode:</span>
+                  <span id="modePreview" class="setting-preview">Type-First (Simultaneous)</span>
+                </div>
+                <div class="chip-group" id="modeChips">
+                  <button type="button" class="chip-btn active" data-mode="type_first">⌨️ Type-First Mode</button>
+                  <button type="button" class="chip-btn" data-mode="buzzer">🔔 Buzzer Mode (KBC Style)</button>
+                </div>
+              </div>
+
+              <!-- 3. Timer Speeds & Team Mode -->
+              <div class="setting-dual-row">
+                <!-- Timer Speed -->
+                <div class="setting-sub-block">
+                  <div class="setting-title-row">
+                    <span class="setting-title">⏱️ Timer Speed:</span>
+                  </div>
+                  <div class="chip-group" id="timerChips">
+                    <button type="button" class="chip-btn" data-time="15">⚡ 15s Blitz</button>
+                    <button type="button" class="chip-btn active" data-time="30">⏱️ 30s Standard</button>
+                    <button type="button" class="chip-btn" data-time="45">🧘 45s Relaxed</button>
+                  </div>
+                </div>
+
+                <!-- Match Format (Solo vs Team) -->
+                <div class="setting-sub-block">
+                  <div class="setting-title-row">
+                    <span class="setting-title">⚔️ Match Format:</span>
+                  </div>
+                  <div class="chip-group" id="teamChips">
+                    <button type="button" class="chip-btn active" data-team-mode="false">👤 Solo Free-for-All</button>
+                    <button type="button" class="chip-btn" data-team-mode="true">🏢 Team Battle</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4. Target Points -->
+              <div class="setting-block">
+                <div class="setting-title-row">
+                  <span class="setting-title">🎯 Winning Target Points:</span>
+                  <span id="targetPointsPreview" class="setting-preview">10 Points</span>
+                </div>
+                <div class="chip-group target-points-options">
                   <button type="button" class="target-btn active" data-pts="10">10 Pts</button>
                   <button type="button" class="target-btn" data-pts="5">5 Pts</button>
                   <button type="button" class="target-btn" data-pts="15">15 Pts</button>
@@ -133,14 +224,18 @@
               </div>
 
               <button id="startGameBtn" class="btn btn-success btn-large pulse-glow">
-                <span>▶️</span> Start Game
+                <span>▶️</span> Start Match
               </button>
             </div>
+
+            <!-- Player Waiting Notice (Non-Host) -->
             <div id="playerWaitingNotice" class="player-waiting hidden">
               <div class="spinner"></div>
               <div class="waiting-text-group">
-                <span>Waiting for host to start game...</span>
-                <span class="waiting-target-badge">Target to win: <strong id="lobbyTargetDisplay">10 Points</strong></span>
+                <span>Waiting for host to configure and start match...</span>
+                <span class="waiting-target-badge">
+                  Target: <strong id="lobbyTargetDisplay">10 Pts</strong> | Mode: <strong id="lobbyModeDisplay">Type-First</strong>
+                </span>
               </div>
             </div>
           </div>
@@ -150,6 +245,21 @@
       <!-- VIEW 3: GAME ARENA -->
       <section id="gameScreen" class="view-panel">
         
+        <!-- Team Battle Bar (When Team Mode is Active) -->
+        <div id="teamScoreBanner" class="team-score-banner hidden">
+          <div class="team-pill-score jetha">
+            <span class="team-score-icon">🏢</span>
+            <span class="team-score-name">Team Jetha</span>
+            <span id="teamJethaScore" class="team-points-val">0</span>
+          </div>
+          <div class="team-vs-badge">⚔️</div>
+          <div class="team-pill-score baburao">
+            <span id="teamBaburaoScore" class="team-points-val">0</span>
+            <span class="team-score-name">Team Baburao</span>
+            <span class="team-score-icon">🕶️</span>
+          </div>
+        </div>
+
         <div class="game-top-bar">
           <div class="target-badge">
             <span>Target: <strong id="gameTargetPoints">10 Pts</strong></span>
@@ -171,7 +281,18 @@
 
         <!-- Question Card -->
         <div class="card question-card">
+          <div class="question-header-row">
+            <span id="modeStatusBadge" class="mode-badge">Type-First</span>
+            <span id="hotStreakBadge" class="streak-badge hidden">🔥 2 Streak!</span>
+          </div>
+
           <h2 id="questionPrompt" class="question-title">Loading question...</h2>
+
+          <!-- Smart Letter Hint Box (Revealed at Half-time) -->
+          <div id="smartHintBox" class="smart-hint-box hidden">
+            <span class="hint-label">💡 SMART HINT:</span>
+            <span id="smartHintText" class="hint-letters">_ _ _ _ _</span>
+          </div>
 
           <!-- Clean Audio Player with Spectrum Visualizer -->
           <div id="audioPlayerZone" class="audio-player-zone">
@@ -183,8 +304,54 @@
           </div>
         </div>
 
+        <!-- BUZZER MODE ZONE (Giant Bell Button) -->
+        <div id="buzzerZone" class="buzzer-zone hidden">
+          <button id="bigBuzzBtn" class="big-buzz-btn" type="button">
+            <div class="buzz-inner">
+              <span class="buzz-icon">🔔</span>
+              <span class="buzz-title">BUZZ!</span>
+              <span class="buzz-sub">Tap to Claim Question</span>
+            </div>
+          </button>
+          <div id="buzzerStatusCard" class="buzzer-status-card hidden">
+            <div class="buzzer-avatar-row">
+              <span id="buzzerClaimantAvatar">🦁</span>
+              <div class="buzzer-text-info">
+                <span id="buzzerClaimantName">Player</span> buzzed in!
+                <span class="buzzer-subnote">7s countdown to answer or -1 pt penalty</span>
+              </div>
+              <div class="buzzer-timer-ring">
+                <span id="buzzerCountdownSec">7</span>s
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Answer Input & Keypad Card -->
         <div class="card input-card">
+          
+          <!-- Paisa Double & Feedback Row -->
+          <div class="utility-row">
+            <button id="paisaDoubleBtn" class="paisa-double-btn" type="button" title="Once per match: +2 on correct, -2 on wrong!">
+              <span class="paisa-token-icon">💰</span>
+              <span id="paisaDoubleLabel">Paisa Double (1 Token Left)</span>
+            </button>
+
+            <!-- Soundboard Taunt Trigger -->
+            <button id="openTauntModalBtn" class="taunt-trigger-btn" type="button" title="Open Meme Soundboard">
+              <span>🎭 Meme Taunts</span>
+            </button>
+          </div>
+
+          <!-- Typo & Feedback Banners -->
+          <div id="typoBanner" class="typo-banner hidden">
+            <span id="typoText">⚠️ Almost! Check your spelling: very close!</span>
+          </div>
+
+          <div id="feedbackBanner" class="feedback-banner hidden">
+            <span id="feedbackText">Wrong answer! Try again!</span>
+          </div>
+
           <form id="answerForm" class="answer-form">
             <div class="input-action-row">
               <input type="text" id="answerInput" placeholder="Type your answer here..." autocomplete="off" autocapitalize="off" spellcheck="false">
@@ -193,10 +360,6 @@
               </button>
             </div>
           </form>
-
-          <div id="feedbackBanner" class="feedback-banner hidden">
-            <span id="feedbackText">Wrong answer! Try again!</span>
-          </div>
 
           <!-- On-Screen Virtual Touch Keypad -->
           <div class="virtual-keypad">
@@ -240,17 +403,63 @@
           </div>
         </div>
 
+        <!-- Sleek Live Breaking-News Ticker Bar -->
+        <div class="live-ticker-container">
+          <div class="ticker-label">
+            <span class="live-dot"></span> LIVE TICKER
+          </div>
+          <div class="ticker-scroll-area">
+            <span id="tickerContent" class="ticker-message">⚡ Welcome to Fun Guessing Arena! First correct answer scores!</span>
+          </div>
+        </div>
+
       </section>
 
-      <!-- VIEW 4: MATCH VICTORY -->
+      <!-- VIEW 4: MATCH VICTORY & AWARDS -->
       <section id="victoryScreen" class="view-panel">
         <div class="card victory-card">
           <div class="trophy-animation">🏆</div>
-          <h2 class="victory-title">MATCH WINNER!</h2>
+          <h2 id="victoryHeaderTitle" class="victory-title">MATCH WINNER!</h2>
+          
           <div id="winnerHero" class="winner-hero">
             <span id="winnerAvatar" class="winner-avatar">🦁</span>
             <h3 id="winnerName" class="winner-name">Player</h3>
             <span id="winnerPointsBadge" class="winner-badge">10 POINTS WON!</span>
+          </div>
+
+          <!-- Post-Match Awards (Highlights) -->
+          <div class="awards-section">
+            <h4 class="awards-heading">🎖️ MATCH HIGHLIGHTS & AWARDS</h4>
+            <div id="awardsGrid" class="awards-grid">
+              <div class="award-card" id="awardMvp">
+                <span class="award-icon">👑</span>
+                <div class="award-info">
+                  <span class="award-title">Match MVP</span>
+                  <span class="award-winner" id="awardMvpName">---</span>
+                </div>
+              </div>
+              <div class="award-card" id="awardSpeed">
+                <span class="award-icon">⚡</span>
+                <div class="award-info">
+                  <span class="award-title">Speed Demon</span>
+                  <span class="award-winner" id="awardSpeedName">---</span>
+                </div>
+              </div>
+              <div class="award-card" id="awardSniper">
+                <span class="award-icon">🎯</span>
+                <div class="award-info">
+                  <span class="award-title">Sniper (Accuracy)</span>
+                  <span class="award-winner" id="awardSniperName">---</span>
+                </div>
+              </div>
+              <div class="award-card" id="awardStreak">
+                <span class="award-icon">🔥</span>
+                <div class="award-info">
+                  <span class="award-title">Streak Master</span>
+                  <span class="award-winner" id="awardStreakName">---</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="victory-actions">
@@ -275,7 +484,7 @@
           <div class="winner-pill">
             <span id="revealWinnerAvatar">🦁</span>
             <span id="revealWinnerName">Player</span>
-            <span class="plus-point">+1 Point</span>
+            <span id="revealPointDelta" class="plus-point">+1 Point</span>
           </div>
         </div>
 
@@ -286,8 +495,93 @@
         </div>
 
         <div class="next-round-timer">
-          <span>Next in </span>
+          <span>Next question in </span>
           <strong id="nextCountdownSec">3</strong>s
+        </div>
+      </div>
+    </div>
+
+    <!-- MEME TAUNT SOUNDBOARD MODAL -->
+    <div id="tauntModal" class="modal-overlay hidden">
+      <div class="modal-card taunt-modal-card">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-icon">🎭</span>
+            <h3>Meme Taunts Soundboard</h3>
+          </div>
+          <button id="closeTauntModalBtn" class="close-modal-btn">✕</button>
+        </div>
+
+        <p class="modal-subtitle">Tap a quote to broadcast it with real voice to all players!</p>
+
+        <div class="taunt-grid">
+          <button class="taunt-btn" data-taunt="jethalal_chai">
+            <span class="taunt-btn-icon">👓</span>
+            <div class="taunt-btn-text">
+              <strong>Jethalal</strong>
+              <span>"Chai piyo, biscuit khao!"</span>
+            </div>
+          </button>
+
+          <button class="taunt-btn" data-taunt="champaklal_jethiya">
+            <span class="taunt-btn-icon">👴</span>
+            <div class="taunt-btn-text">
+              <strong>Champaklal</strong>
+              <span>"Ae Jethiya!"</span>
+            </div>
+          </button>
+
+          <button class="taunt-btn" data-taunt="baburao_style">
+            <span class="taunt-btn-icon">🕶️</span>
+            <div class="taunt-btn-text">
+              <strong>Baburao</strong>
+              <span>"Arre baba bahut maja aayega!"</span>
+            </div>
+          </button>
+
+          <button class="taunt-btn" data-taunt="paisa_double">
+            <span class="taunt-btn-icon">💰</span>
+            <div class="taunt-btn-text">
+              <strong>Akshay</strong>
+              <span>"25 Din Mein Paisa Double!"</span>
+            </div>
+          </button>
+
+          <button class="taunt-btn" data-taunt="nana_control">
+            <span class="taunt-btn-icon">👑</span>
+            <div class="taunt-btn-text">
+              <strong>Nana Patekar</strong>
+              <span>"Control Uday Control!"</span>
+            </div>
+          </button>
+
+          <button class="taunt-btn" data-taunt="rajpal_tadap">
+            <span class="taunt-btn-icon">🎭</span>
+            <div class="taunt-btn-text">
+              <strong>Rajpal Yadav</strong>
+              <span>"Aisi tadap hi aisi hai!"</span>
+            </div>
+          </button>
+
+          <button class="taunt-btn" data-taunt="amitabh_crore">
+            <span class="taunt-btn-icon">🏆</span>
+            <div class="taunt-btn-text">
+              <strong>Amitabh</strong>
+              <span>"Saat Crore!!"</span>
+            </div>
+          </button>
+
+          <button class="taunt-btn" data-taunt="pushpa_jhukega">
+            <span class="taunt-btn-icon">🔥</span>
+            <div class="taunt-btn-text">
+              <strong>Pushpa</strong>
+              <span>"Main jhukega nahi!"</span>
+            </div>
+          </button>
+        </div>
+
+        <div class="modal-footer">
+          <button id="dismissTauntModalBtn" class="btn btn-outline">Close</button>
         </div>
       </div>
     </div>
@@ -301,6 +595,18 @@
             <h3>Point Table</h3>
           </div>
           <button id="closePointTableBtn" class="close-modal-btn">✕</button>
+        </div>
+
+        <!-- Team battle recap in modal -->
+        <div id="modalTeamScores" class="modal-team-scores hidden">
+          <div class="modal-team-badge jetha">
+            <span>🏢 Team Jetha: </span>
+            <strong id="modalJethaScore">0</strong>
+          </div>
+          <div class="modal-team-badge baburao">
+            <span>🕶️ Team Baburao: </span>
+            <strong id="modalBaburaoScore">0</strong>
+          </div>
         </div>
 
         <div id="pointTableList" class="point-table-list"></div>

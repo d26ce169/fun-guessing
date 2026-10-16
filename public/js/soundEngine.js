@@ -1,7 +1,7 @@
 /**
- * Fun Guessing - Sound Engine
- * ONLY plays the specific real audio clip needed for the question (e.g. dialogue, song, voice, TMKOC audio).
- * ZERO KBC background music or unwanted background audio.
+ * Fun Guessing - Clean Sound & Audio Engine
+ * Handles question audio clips, meme taunts, buzzer chimes, and lobby sound check.
+ * ZERO unwanted background loops.
  */
 
 class SoundEngine {
@@ -10,6 +10,7 @@ class SoundEngine {
     this.analyser = null;
     this.sourceNodes = new Map();
     this.currentAudioEl = null;
+    this.tauntAudioEl = null;
     this.isMuted = false;
     this.visualizerCanvas = null;
     this.visualizerCtx = null;
@@ -25,7 +26,7 @@ class SoundEngine {
       this.analyser.fftSize = 64;
       this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
     }
-    if (this.audioCtx.state === 'suspended') {
+    if (this.audioCtx && this.audioCtx.state === 'suspended') {
       this.audioCtx.resume();
     }
   }
@@ -46,7 +47,7 @@ class SoundEngine {
 
     ctx.clearRect(0, 0, width, height);
     ctx.lineWidth = 2;
-    ctx.strokeStyle = 'rgba(255, 180, 0, 0.4)';
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.35)';
     ctx.beginPath();
     ctx.moveTo(0, height / 2);
     ctx.lineTo(width, height / 2);
@@ -75,17 +76,17 @@ class SoundEngine {
       const bars = 28;
       const barWidth = width / bars;
       const gradient = ctx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, '#ff007f');
-      gradient.addColorStop(0.5, '#ffbb00');
-      gradient.addColorStop(1, '#00f2fe');
+      gradient.addColorStop(0, '#f59e0b');
+      gradient.addColorStop(0.5, '#3b82f6');
+      gradient.addColorStop(1, '#10b981');
 
       ctx.fillStyle = gradient;
 
       for (let i = 0; i < bars; i++) {
         let value = this.dataArray ? (this.dataArray[i % this.dataArray.length] / 255) : 0.4;
-        if (value < 0.08) value = Math.random() * 0.2 + 0.08;
+        if (value < 0.08) value = Math.random() * 0.18 + 0.08;
 
-        const barHeight = Math.max(4, value * (height * 0.82));
+        const barHeight = Math.max(4, value * (height * 0.85));
         const x = i * barWidth + 2;
         const y = (height - barHeight) / 2;
         ctx.fillRect(x, y, barWidth - 4, barHeight);
@@ -103,10 +104,7 @@ class SoundEngine {
     this.drawIdleVisualizer();
   }
 
-  // ==========================================
-  // PLAY ONLY QUESTION-SPECIFIC REAL AUDIO
-  // ==========================================
-
+  // Question Audio Clues
   playAudioFile(audioUrl, onComplete) {
     if (this.isMuted || !audioUrl) {
       if (onComplete) onComplete();
@@ -147,16 +145,45 @@ class SoundEngine {
     };
   }
 
+  // Meme Soundboard Taunt
+  playMemeTaunt(audioUrl, onComplete) {
+    if (this.isMuted || !audioUrl) {
+      if (onComplete) onComplete();
+      return;
+    }
+    this.init();
+
+    if (this.tauntAudioEl) {
+      this.tauntAudioEl.pause();
+      this.tauntAudioEl.currentTime = 0;
+    }
+
+    const audio = new Audio(audioUrl);
+    this.tauntAudioEl = audio;
+    audio.volume = 0.85;
+
+    audio.play().catch(() => {});
+    audio.onended = () => {
+      this.tauntAudioEl = null;
+      if (onComplete) onComplete();
+    };
+  }
+
   stopAllAudio() {
     if (this.currentAudioEl) {
       this.currentAudioEl.pause();
       this.currentAudioEl.currentTime = 0;
       this.currentAudioEl = null;
     }
+    if (this.tauntAudioEl) {
+      this.tauntAudioEl.pause();
+      this.tauntAudioEl.currentTime = 0;
+      this.tauntAudioEl = null;
+    }
     this.stopVisualizerAnimation();
   }
 
-  // Clean, subtle party game feedback (pure tones - NO KBC audio)
+  // Tone SFX (Synthesized Web Audio, no lag)
   playCorrect() {
     if (this.isMuted) return;
     this.init();
@@ -167,12 +194,12 @@ class SoundEngine {
         const gain = this.audioCtx.createGain();
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, now + idx * 0.1);
-        gain.gain.setValueAtTime(0.12, now + idx * 0.1);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.2);
+        gain.gain.setValueAtTime(0.14, now + idx * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.22);
         osc.connect(gain);
         gain.connect(this.audioCtx.destination);
         osc.start(now + idx * 0.1);
-        osc.stop(now + idx * 0.1 + 0.2);
+        osc.stop(now + idx * 0.1 + 0.22);
       });
     } catch (e) {}
   }
@@ -184,14 +211,73 @@ class SoundEngine {
       const now = this.audioCtx.currentTime;
       const osc = this.audioCtx.createOscillator();
       const gain = this.audioCtx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(180, now);
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(150, now);
+      osc.frequency.linearRampToValueAtTime(100, now + 0.25);
       gain.gain.setValueAtTime(0.12, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
       osc.connect(gain);
       gain.connect(this.audioCtx.destination);
       osc.start(now);
-      osc.stop(now + 0.2);
+      osc.stop(now + 0.25);
+    } catch (e) {}
+  }
+
+  playBuzzerHit() {
+    if (this.isMuted) return;
+    this.init();
+    try {
+      const now = this.audioCtx.currentTime;
+      const osc = this.audioCtx.createOscillator();
+      const gain = this.audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.setValueAtTime(880, now + 0.08);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+      osc.connect(gain);
+      gain.connect(this.audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.35);
+    } catch (e) {}
+  }
+
+  playBuzzerFail() {
+    if (this.isMuted) return;
+    this.init();
+    try {
+      const now = this.audioCtx.currentTime;
+      const osc = this.audioCtx.createOscillator();
+      const gain = this.audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(130, now);
+      osc.frequency.setValueAtTime(90, now + 0.15);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+      osc.connect(gain);
+      gain.connect(this.audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.4);
+    } catch (e) {}
+  }
+
+  playLobbyTest() {
+    if (this.isMuted) return;
+    this.init();
+    try {
+      const now = this.audioCtx.currentTime;
+      [523.25, 659.25, 783.99].forEach((freq, idx) => {
+        const osc = this.audioCtx.createOscillator();
+        const gain = this.audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+        gain.gain.setValueAtTime(0.15, now + idx * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.25);
+        osc.connect(gain);
+        gain.connect(this.audioCtx.destination);
+        osc.start(now + idx * 0.1);
+        osc.stop(now + idx * 0.1 + 0.25);
+      });
     } catch (e) {}
   }
 
@@ -205,7 +291,7 @@ class SoundEngine {
         const gain = this.audioCtx.createGain();
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(freq, now + idx * 0.12);
-        gain.gain.setValueAtTime(0.18, now + idx * 0.12);
+        gain.gain.setValueAtTime(0.2, now + idx * 0.12);
         gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.35);
         osc.connect(gain);
         gain.connect(this.audioCtx.destination);
@@ -215,9 +301,25 @@ class SoundEngine {
     } catch (e) {}
   }
 
+  playUrgentTick() {
+    if (this.isMuted) return;
+    this.init();
+    try {
+      const now = this.audioCtx.currentTime;
+      const osc = this.audioCtx.createOscillator();
+      const gain = this.audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(800, now);
+      gain.gain.setValueAtTime(0.05, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+      osc.connect(gain);
+      gain.connect(this.audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.05);
+    } catch (e) {}
+  }
+
   playTick() {}
-  playUrgentTick() {}
 }
 
-// Global instance
 window.soundEngine = new SoundEngine();

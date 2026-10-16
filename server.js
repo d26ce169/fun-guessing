@@ -43,7 +43,7 @@ function generateRoomCode() {
   return code;
 }
 
-// Helper: Sanitize player name against scripts/HTML injection
+// Helper: Sanitize player name
 function sanitizeName(name) {
   if (!name) return 'Player';
   return String(name)
@@ -62,6 +62,44 @@ function normalizeAnswer(str) {
     .trim();
 }
 
+// Helper: Levenshtein distance for Typo Protection ("Almost! Check spelling")
+function levenshteinDistance(a, b) {
+  if (!a || !b) return (a || '').length + (b || '').length;
+  const matrix = [];
+  for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+// Check if user answer is a close typo (distance 1 or 2)
+function checkTypoProximity(userInput, acceptableAnswers, correctAnswer) {
+  const cleanInput = normalizeAnswer(userInput);
+  if (!cleanInput || cleanInput.length < 3) return false;
+
+  const targetList = [correctAnswer, ...acceptableAnswers].map(a => normalizeAnswer(a));
+  for (const target of targetList) {
+    if (Math.abs(cleanInput.length - target.length) <= 2) {
+      const dist = levenshteinDistance(cleanInput, target);
+      if (dist === 1 || dist === 2) return true;
+    }
+  }
+  return false;
+}
+
 // Helper: Check if player's input matches any acceptable answer
 function checkAnswerMatch(userInput, acceptableAnswers, correctAnswer) {
   const cleanInput = normalizeAnswer(userInput);
@@ -77,6 +115,18 @@ function checkAnswerMatch(userInput, acceptableAnswers, correctAnswer) {
   return false;
 }
 
+// Helper: Generate Smart Letter Hint (reveals first letter of each word + underscores)
+function generateLetterHint(answer) {
+  if (!answer) return '';
+  const words = String(answer).trim().split(/\s+/);
+  return words.map(w => {
+    if (w.length <= 1) return w.toUpperCase();
+    const firstChar = w.charAt(0).toUpperCase();
+    const blanks = '_ '.repeat(w.length - 1).trim();
+    return `${firstChar} ${blanks}`;
+  }).join('   ');
+}
+
 // Helper: Get sanitized leaderboard for a room
 function getLeaderboard(room) {
   return Object.values(room.players)
@@ -85,9 +135,51 @@ function getLeaderboard(room) {
       name: p.name,
       avatar: p.avatar,
       score: p.score,
+      team: p.team || 'jetha',
+      streak: p.streak || 0,
+      paisaDoubleRemaining: p.paisaDoubleRemaining !== undefined ? p.paisaDoubleRemaining : 1,
+      paisaDoubleActive: !!p.paisaDoubleActive,
       isHost: p.id === room.hostSocketId
     }))
     .sort((a, b) => b.score - a.score);
+}
+
+// Helper: Compute End-of-Match Awards
+function computeMatchAwards(room) {
+  const players = Object.values(room.players);
+  if (players.length === 0) return {};
+
+  // 1. MVP: Highest Score
+  const mvp = [...players].sort((a, b) => b.score - a.score)[0];
+
+  // 2. Speed Demon: Fastest recorded buzz or answer time
+  const speedCandidates = players.filter(p => p.fastestBuzzTime && p.fastestBuzzTime < 900);
+  const speedDemon = speedCandidates.length > 0
+    ? [...speedCandidates].sort((a, b) => a.fastestBuzzTime - b.fastestBuzzTime)[0]
+    : mvp;
+
+  // 3. Sniper: Highest accuracy (least wrong answers with at least 1 correct)
+  const accuracyCandidates = players.filter(p => p.correctCount > 0);
+  const sniper = accuracyCandidates.length > 0
+    ? [...accuracyCandidates].sort((a, b) => {
+        const accA = a.correctCount / (a.correctCount + a.wrongCount);
+        const accB = b.correctCount / (b.correctCount + b.wrongCount);
+        return accB - accA;
+      })[0]
+    : mvp;
+
+  // 4. Streak King: Highest streak achieved
+  const streakCandidates = players.filter(p => (p.maxStreak || 0) > 0);
+  const streakKing = streakCandidates.length > 0
+    ? [...streakCandidates].sort((a, b) => (b.maxStreak || 0) - (a.maxStreak || 0))[0]
+    : mvp;
+
+  return {
+    mvp: mvp ? { id: mvp.id, name: mvp.name, avatar: mvp.avatar, score: mvp.score } : null,
+    speedDemon: speedDemon ? { id: speedDemon.id, name: speedDemon.name, avatar: speedDemon.avatar, time: speedDemon.fastestBuzzTime ? speedDemon.fastestBuzzTime.toFixed(1) + 's' : '⚡' } : null,
+    sniper: sniper ? { id: sniper.id, name: sniper.name, avatar: sniper.avatar, accuracy: `${Math.round((sniper.correctCount / (sniper.correctCount + sniper.wrongCount || 1)) * 100)}%` } : null,
+    streakKing: streakKing ? { id: streakKing.id, name: streakKing.name, avatar: streakKing.avatar, streak: streakKing.maxStreak || streakKing.streak || 1 } : null
+  };
 }
 
 // Socket.io Connection Logic
@@ -108,15 +200,33 @@ io.on('connection', socket => {
           name: safeName,
           avatar: avatar || '🦁',
           score: 0,
+          team: 'jetha',
+          streak: 0,
+          maxStreak: 0,
+          paisaDoubleRemaining: 1,
+          paisaDoubleActive: false,
+          fastestBuzzTime: 999,
+          correctCount: 0,
+          wrongCount: 0,
           lastSubmitTime: 0
         }
       },
       status: 'lobby',
       targetPoints: validTarget,
+      selectedCategory: 'all',      // 'all' | 'tmkoc' | 'bollywood' | 'cricket' | 'audio_only'
+      timerDuration: 30,            // 15 | 30 | 45
+      gameMode: 'type_first',       // 'type_first' | 'buzzer'
+      isTeamMode: false,            // Solo vs Team Battle
+      teamScores: { jetha: 0, baburao: 0 },
+      buzzerActivePlayerId: null,
+      buzzerCountdown: 7,
+      buzzerInterval: null,
+      buzzerLockedPlayers: new Set(),
       currentQuestion: null,
       usedQuestionIds: new Set(),
       questionCounter: 0,
       roundTimer: 30,
+      questionStartTime: 0,
       timerInterval: null,
       revealTimeout: null,
       roundWinner: null
@@ -125,21 +235,32 @@ io.on('connection', socket => {
     socket.join(roomCode);
     socket.roomCode = roomCode;
 
+    const room = rooms[roomCode];
     if (callback) {
       callback({
         success: true,
         roomCode,
         isHost: true,
-        targetPoints: rooms[roomCode].targetPoints,
-        players: getLeaderboard(rooms[roomCode])
+        targetPoints: room.targetPoints,
+        selectedCategory: room.selectedCategory,
+        timerDuration: room.timerDuration,
+        gameMode: room.gameMode,
+        isTeamMode: room.isTeamMode,
+        teamScores: room.teamScores,
+        players: getLeaderboard(room)
       });
     }
 
     io.to(roomCode).emit('room_update', {
       roomCode,
-      targetPoints: rooms[roomCode].targetPoints,
-      players: getLeaderboard(rooms[roomCode]),
-      status: rooms[roomCode].status
+      targetPoints: room.targetPoints,
+      selectedCategory: room.selectedCategory,
+      timerDuration: room.timerDuration,
+      gameMode: room.gameMode,
+      isTeamMode: room.isTeamMode,
+      teamScores: room.teamScores,
+      players: getLeaderboard(room),
+      status: room.status
     });
   });
 
@@ -162,11 +283,24 @@ io.on('connection', socket => {
 
     const safeName = sanitizeName(playerName);
 
+    // Auto-balance team assignment
+    const jethaCount = Object.values(room.players).filter(p => p.team === 'jetha').length;
+    const baburaoCount = Object.values(room.players).filter(p => p.team === 'baburao').length;
+    const assignedTeam = jethaCount <= baburaoCount ? 'jetha' : 'baburao';
+
     room.players[socket.id] = {
       id: socket.id,
       name: safeName,
       avatar: avatar || '🎯',
       score: 0,
+      team: assignedTeam,
+      streak: 0,
+      maxStreak: 0,
+      paisaDoubleRemaining: 1,
+      paisaDoubleActive: false,
+      fastestBuzzTime: 999,
+      correctCount: 0,
+      wrongCount: 0,
       lastSubmitTime: 0
     };
 
@@ -179,6 +313,11 @@ io.on('connection', socket => {
         roomCode: code,
         isHost: socket.id === room.hostSocketId,
         targetPoints: room.targetPoints || 10,
+        selectedCategory: room.selectedCategory,
+        timerDuration: room.timerDuration,
+        gameMode: room.gameMode,
+        isTeamMode: room.isTeamMode,
+        teamScores: room.teamScores,
         players: getLeaderboard(room)
       });
     }
@@ -186,40 +325,155 @@ io.on('connection', socket => {
     io.to(code).emit('room_update', {
       roomCode: code,
       targetPoints: room.targetPoints || 10,
+      selectedCategory: room.selectedCategory,
+      timerDuration: room.timerDuration,
+      gameMode: room.gameMode,
+      isTeamMode: room.isTeamMode,
+      teamScores: room.teamScores,
+      players: getLeaderboard(room),
+      status: room.status
+    });
+
+    // Broadcast welcome ticker
+    io.to(code).emit('ticker_message', {
+      text: `👋 ${safeName} joined the room!`,
+      type: 'info'
+    });
+  });
+
+  // Host configures Match Settings (Category, Timer Duration, Game Mode, Team Mode, Target Points)
+  socket.on('set_game_settings', ({ roomCode, targetPoints, selectedCategory, timerDuration, gameMode, isTeamMode }) => {
+    const room = rooms[roomCode];
+    if (!room || socket.id !== room.hostSocketId || room.status !== 'lobby') return;
+
+    if (targetPoints) {
+      const pts = parseInt(targetPoints, 10);
+      if (!isNaN(pts) && pts >= 1 && pts <= 100) room.targetPoints = pts;
+    }
+
+    if (selectedCategory && ['all', 'tmkoc', 'bollywood', 'cricket', 'audio_only'].includes(selectedCategory)) {
+      room.selectedCategory = selectedCategory;
+    }
+
+    if (timerDuration) {
+      const duration = parseInt(timerDuration, 10);
+      if ([15, 30, 45].includes(duration)) room.timerDuration = duration;
+    }
+
+    if (gameMode && ['type_first', 'buzzer'].includes(gameMode)) {
+      room.gameMode = gameMode;
+    }
+
+    if (typeof isTeamMode === 'boolean') {
+      room.isTeamMode = isTeamMode;
+    }
+
+    io.to(roomCode).emit('game_settings_updated', {
+      targetPoints: room.targetPoints,
+      selectedCategory: room.selectedCategory,
+      timerDuration: room.timerDuration,
+      gameMode: room.gameMode,
+      isTeamMode: room.isTeamMode,
+      teamScores: room.teamScores
+    });
+
+    io.to(roomCode).emit('room_update', {
+      roomCode,
+      targetPoints: room.targetPoints,
+      selectedCategory: room.selectedCategory,
+      timerDuration: room.timerDuration,
+      gameMode: room.gameMode,
+      isTeamMode: room.isTeamMode,
+      teamScores: room.teamScores,
       players: getLeaderboard(room),
       status: room.status
     });
   });
 
-  // Host configures winning target points (e.g. 5, 10, 15, 20...)
+  // Legacy event backward compatibility
   socket.on('set_target_points', ({ roomCode, targetPoints }) => {
     const room = rooms[roomCode];
     if (!room || socket.id !== room.hostSocketId || room.status !== 'lobby') return;
-
     const pts = parseInt(targetPoints, 10);
     if (!isNaN(pts) && pts >= 1 && pts <= 100) {
       room.targetPoints = pts;
-      io.to(roomCode).emit('target_points_updated', {
-        targetPoints: room.targetPoints
+      io.to(roomCode).emit('target_points_updated', { targetPoints: room.targetPoints });
+    }
+  });
+
+  // Player switches team in Team Mode
+  socket.on('join_team', ({ roomCode, team }) => {
+    const room = rooms[roomCode];
+    if (!room || room.status !== 'lobby') return;
+    const player = room.players[socket.id];
+    if (!player) return;
+
+    if (team === 'jetha' || team === 'baburao') {
+      player.team = team;
+      io.to(roomCode).emit('room_update', {
+        roomCode,
+        targetPoints: room.targetPoints,
+        selectedCategory: room.selectedCategory,
+        timerDuration: room.timerDuration,
+        gameMode: room.gameMode,
+        isTeamMode: room.isTeamMode,
+        teamScores: room.teamScores,
+        players: getLeaderboard(room),
+        status: room.status
       });
     }
   });
 
-  // 3. Host Starts Game (or Restarts Game after a winner reached target points)
+  // Host Moderation: Kick troll/AFK player
+  socket.on('kick_player', ({ roomCode, targetSocketId }) => {
+    const room = rooms[roomCode];
+    if (!room || socket.id !== room.hostSocketId || room.status !== 'lobby') return;
+    if (targetSocketId === room.hostSocketId) return; // Cannot kick host
+
+    const kickedPlayer = room.players[targetSocketId];
+    if (kickedPlayer) {
+      delete room.players[targetSocketId];
+
+      const targetSocket = io.sockets.sockets.get(targetSocketId);
+      if (targetSocket) {
+        targetSocket.leave(roomCode);
+        targetSocket.emit('kicked_from_room', { message: 'You have been removed from the lobby by the host.' });
+      }
+
+      io.to(roomCode).emit('room_update', {
+        roomCode,
+        targetPoints: room.targetPoints,
+        selectedCategory: room.selectedCategory,
+        timerDuration: room.timerDuration,
+        gameMode: room.gameMode,
+        isTeamMode: room.isTeamMode,
+        teamScores: room.teamScores,
+        players: getLeaderboard(room),
+        status: room.status
+      });
+
+      io.to(roomCode).emit('ticker_message', {
+        text: `👢 Host removed ${kickedPlayer.name} from the room.`,
+        type: 'warning'
+      });
+    }
+  });
+
+  // 3. Host Starts Game
   socket.on('start_game', ({ roomCode, targetPoints }) => {
     const room = rooms[roomCode];
     if (!room || socket.id !== room.hostSocketId) return;
 
     if (targetPoints) {
       const pts = parseInt(targetPoints, 10);
-      if (!isNaN(pts) && pts >= 1 && pts <= 100) {
-        room.targetPoints = pts;
-      }
+      if (!isNaN(pts) && pts >= 1 && pts <= 100) room.targetPoints = pts;
     }
 
     room.status = 'playing';
+    room.teamScores = { jetha: 0, baburao: 0 };
+    room.buzzerActivePlayerId = null;
+    room.buzzerLockedPlayers.clear();
 
-    // Clear any active timers/timeouts from previous match or round
     if (room.timerInterval) {
       clearInterval(room.timerInterval);
       room.timerInterval = null;
@@ -228,26 +482,172 @@ io.on('connection', socket => {
       clearTimeout(room.revealTimeout);
       room.revealTimeout = null;
     }
+    if (room.buzzerInterval) {
+      clearInterval(room.buzzerInterval);
+      room.buzzerInterval = null;
+    }
     room.roundWinner = null;
 
-    // Reset scores for fresh game
+    // Reset scores & streaks for fresh match, but keep 1 Paisa Double token
     Object.values(room.players).forEach(p => {
       p.score = 0;
+      p.streak = 0;
+      p.maxStreak = 0;
+      p.paisaDoubleRemaining = 1;
+      p.paisaDoubleActive = false;
+      p.fastestBuzzTime = 999;
+      p.correctCount = 0;
+      p.wrongCount = 0;
       p.lastSubmitTime = 0;
     });
 
-    // CRITICAL: room.usedQuestionIds is KEPT INTACT!
-    // Never repeat a question in the same room even when game is restarted.
-
     io.to(roomCode).emit('game_started', {
       targetPoints: room.targetPoints || 10,
+      selectedCategory: room.selectedCategory,
+      timerDuration: room.timerDuration,
+      gameMode: room.gameMode,
+      isTeamMode: room.isTeamMode,
+      teamScores: room.teamScores,
       leaderboard: getLeaderboard(room)
+    });
+
+    io.to(roomCode).emit('ticker_message', {
+      text: `🚀 Match started! Target: ${room.targetPoints} Points. Ready... Go!`,
+      type: 'highlight'
     });
 
     nextQuestion(roomCode);
   });
 
-  // 4. Submit Answer (Strict Rate-Limiting & Race-Safe Scoring)
+  // 4. BUZZER MODE: Player hits buzzer
+  socket.on('hit_buzzer', ({ roomCode }) => {
+    const room = rooms[roomCode];
+    if (!room || room.status !== 'playing' || room.gameMode !== 'buzzer' || !room.currentQuestion) return;
+    if (room.buzzerActivePlayerId) return; // Buzzer already claimed
+    if (room.buzzerLockedPlayers.has(socket.id)) return; // Player already failed this question
+
+    const player = room.players[socket.id];
+    if (!player) return;
+
+    room.buzzerActivePlayerId = socket.id;
+    room.buzzerCountdown = 7;
+
+    // Record buzz time
+    const buzzElapsed = (Date.now() - room.questionStartTime) / 1000;
+    if (buzzElapsed < player.fastestBuzzTime) {
+      player.fastestBuzzTime = buzzElapsed;
+    }
+
+    // Broadcast buzzer hit to all
+    io.to(roomCode).emit('buzzer_claimed', {
+      playerId: player.id,
+      playerName: player.name,
+      playerAvatar: player.avatar,
+      countdown: 7,
+      buzzElapsed: buzzElapsed.toFixed(2)
+    });
+
+    io.to(roomCode).emit('ticker_message', {
+      text: `⚡ ${player.name} buzzed in ${buzzElapsed.toFixed(1)}s! 7 seconds to answer!`,
+      type: 'warning'
+    });
+
+    // Start 7-second countdown for the buzzed player
+    if (room.buzzerInterval) clearInterval(room.buzzerInterval);
+
+    room.buzzerInterval = setInterval(() => {
+      room.buzzerCountdown -= 1;
+
+      io.to(roomCode).emit('buzzer_tick', {
+        countdown: room.buzzerCountdown,
+        playerId: player.id
+      });
+
+      if (room.buzzerCountdown <= 0) {
+        clearInterval(room.buzzerInterval);
+        room.buzzerInterval = null;
+
+        // Player ran out of 7s time without answering: -1 Point Penalty!
+        handleBuzzerFailure(roomCode, player, 'Time expired! (-1 pt)');
+      }
+    }, 1000);
+  });
+
+  // Helper: Handle Buzzer Failure (Wrong answer or 7s Timeout)
+  function handleBuzzerFailure(roomCode, player, reason) {
+    const room = rooms[roomCode];
+    if (!room) return;
+
+    const penalty = player.paisaDoubleActive ? 2 : 1;
+    player.paisaDoubleActive = false;
+    player.score = Math.max(0, player.score - penalty);
+    player.wrongCount += 1;
+    player.streak = 0;
+
+    if (room.isTeamMode && player.team) {
+      room.teamScores[player.team] = Math.max(0, (room.teamScores[player.team] || 0) - penalty);
+    }
+
+    room.buzzerLockedPlayers.add(player.id);
+    room.buzzerActivePlayerId = null;
+
+    io.to(roomCode).emit('buzzer_failed', {
+      playerId: player.id,
+      playerName: player.name,
+      penalty,
+      reason,
+      leaderboard: getLeaderboard(room),
+      teamScores: room.teamScores
+    });
+
+    io.to(roomCode).emit('ticker_message', {
+      text: `❌ ${player.name} missed the buzzer! (-${penalty} pt). Buzzer unlocked!`,
+      type: 'danger'
+    });
+
+    // If all players in the room are locked out, end round immediately
+    const totalPlayers = Object.keys(room.players).length;
+    if (room.buzzerLockedPlayers.size >= totalPlayers) {
+      if (room.timerInterval) {
+        clearInterval(room.timerInterval);
+        room.timerInterval = null;
+      }
+      endRound(roomCode, null);
+    }
+  }
+
+  // 5. PAISA DOUBLE TOKEN ACTIVATION (Once Per Match)
+  socket.on('activate_paisa_double', ({ roomCode }) => {
+    const room = rooms[roomCode];
+    if (!room || room.status !== 'playing' || !room.currentQuestion) return;
+
+    const player = room.players[socket.id];
+    if (!player) return;
+
+    if ((player.paisaDoubleRemaining || 0) <= 0) {
+      return socket.emit('answer_feedback', {
+        correct: false,
+        message: 'You already used your Paisa Double token this match!'
+      });
+    }
+
+    if (player.paisaDoubleActive) return;
+
+    player.paisaDoubleRemaining = 0;
+    player.paisaDoubleActive = true;
+
+    socket.emit('paisa_double_confirmed', {
+      success: true,
+      message: '💰 "25 Din Mein Paisa Double" Activated! Next answer: +2 or -2 Points!'
+    });
+
+    io.to(roomCode).emit('ticker_message', {
+      text: `💰 ${player.name} risked it all: 25 Din Mein Paisa Double is ACTIVE!`,
+      type: 'gold'
+    });
+  });
+
+  // 6. Submit Answer (Buzzer & Type-First Modes + Typo Protection)
   socket.on('submit_answer', ({ roomCode, answer }) => {
     const room = rooms[roomCode];
     if (!room || room.status !== 'playing' || !room.currentQuestion) return;
@@ -257,54 +657,181 @@ io.on('connection', socket => {
 
     // Rate-limit submissions to prevent bot spam
     const now = Date.now();
-    if (now - player.lastSubmitTime < 350) {
-      return;
-    }
+    if (now - player.lastSubmitTime < 350) return;
     player.lastSubmitTime = now;
+
+    // In Buzzer Mode: Only the player who won the buzzer can submit!
+    if (room.gameMode === 'buzzer') {
+      if (room.buzzerActivePlayerId !== socket.id) {
+        return socket.emit('answer_feedback', {
+          correct: false,
+          message: 'Hit the 🔔 BUZZ button first to answer!'
+        });
+      }
+    }
 
     const q = room.currentQuestion;
     const isCorrect = checkAnswerMatch(answer, q.acceptableAnswers, q.correctAnswer);
+
+    // Typo Protection Check: If not correct but very close (Levenshtein distance 1 or 2)
+    if (!isCorrect && checkTypoProximity(answer, q.acceptableAnswers, q.correctAnswer)) {
+      return socket.emit('typo_warning', {
+        message: '⚠️ Almost there! Check your spelling: very close!'
+      });
+    }
 
     if (isCorrect) {
       // First correct answer wins point
       if (room.roundWinner) return;
 
-      room.roundWinner = player;
-      player.score += 1;
-
-      // Stop 30s timer immediately
+      if (room.buzzerInterval) {
+        clearInterval(room.buzzerInterval);
+        room.buzzerInterval = null;
+      }
       if (room.timerInterval) {
         clearInterval(room.timerInterval);
         room.timerInterval = null;
       }
 
-      endRound(roomCode, player);
+      room.roundWinner = player;
+      const pointDelta = player.paisaDoubleActive ? 2 : 1;
+      player.paisaDoubleActive = false;
+      player.score += pointDelta;
+      player.correctCount += 1;
+      player.streak += 1;
+      if (player.streak > (player.maxStreak || 0)) {
+        player.maxStreak = player.streak;
+      }
+
+      if (room.isTeamMode && player.team) {
+        room.teamScores[player.team] = (room.teamScores[player.team] || 0) + pointDelta;
+      }
+
+      // Record fastest answer time
+      const answerTime = (Date.now() - room.questionStartTime) / 1000;
+      if (answerTime < player.fastestBuzzTime) {
+        player.fastestBuzzTime = answerTime;
+      }
+
+      // Check match milestone tickers
+      if (player.streak >= 2) {
+        io.to(roomCode).emit('ticker_message', {
+          text: `🔥 ${player.name} is on a ${player.streak}-Round Winning Streak!`,
+          type: 'highlight'
+        });
+      }
+
+      const target = room.targetPoints || 10;
+      if (player.score === target - 1) {
+        io.to(roomCode).emit('ticker_message', {
+          text: `🚨 MATCH POINT: ${player.name} needs only 1 point to win the match!`,
+          type: 'danger'
+        });
+      }
+
+      endRound(roomCode, player, pointDelta);
     } else {
-      socket.emit('answer_feedback', {
-        correct: false,
-        message: 'Wrong answer! Try again before timer runs out!'
+      // Wrong answer
+      player.wrongCount += 1;
+      player.streak = 0;
+
+      if (room.gameMode === 'buzzer') {
+        if (room.buzzerInterval) {
+          clearInterval(room.buzzerInterval);
+          room.buzzerInterval = null;
+        }
+        handleBuzzerFailure(roomCode, player, 'Incorrect answer! (-1 pt)');
+      } else {
+        // Type-First Mode wrong answer
+        if (player.paisaDoubleActive) {
+          player.paisaDoubleActive = false;
+          player.score = Math.max(0, player.score - 2);
+          if (room.isTeamMode && player.team) {
+            room.teamScores[player.team] = Math.max(0, (room.teamScores[player.team] || 0) - 2);
+          }
+          socket.emit('answer_feedback', {
+            correct: false,
+            message: '❌ Wrong! Paisa Double failed (-2 points penalty)!'
+          });
+          io.to(roomCode).emit('room_update', {
+            roomCode,
+            players: getLeaderboard(room),
+            teamScores: room.teamScores
+          });
+        } else {
+          socket.emit('answer_feedback', {
+            correct: false,
+            message: 'Wrong answer! Try again before timer runs out!'
+          });
+        }
+      }
+    }
+  });
+
+  // 7. MEME TAUNT SOUNDBOARD (Funny audio taunts)
+  const lastTauntTime = {};
+  socket.on('send_meme_taunt', ({ roomCode, tauntId }) => {
+    const room = rooms[roomCode];
+    if (!room) return;
+    const player = room.players[socket.id];
+    if (!player) return;
+
+    // Rate-limit taunts to 1 every 3.5 seconds
+    const now = Date.now();
+    if (lastTauntTime[socket.id] && now - lastTauntTime[socket.id] < 3500) return;
+    lastTauntTime[socket.id] = now;
+
+    const tauntMap = {
+      'jethalal_chai': { audio: '/audio/tmkoc_jethalal.mp3', label: 'Chai piyo, biscuit khao!' },
+      'champaklal_jethiya': { audio: '/audio/tmkoc_champaklal.mp3', label: 'Ae Jethiya!' },
+      'baburao_style': { audio: '/audio/hera_pheri_maja_aayega.mp3', label: 'Arre baba bahut maja aayega!' },
+      'paisa_double': { audio: '/audio/akshay_paisa_double.mp3', label: '25 Din Mein Paisa Double!' },
+      'nana_control': { audio: '/audio/nana_patekar_voice.mp3', label: 'Control Uday Control!' },
+      'rajpal_tadap': { audio: '/audio/rajpal_yadav_tadap.mp3', label: 'Aisi tadap hi aisi hai!' },
+      'amitabh_crore': { audio: '/audio/amitabh_7_crore.mp3', label: 'Saat Crore!!' },
+      'pushpa_jhukega': { audio: '/audio/pushpa_dialogue.mp3', label: 'Main jhukega nahi!' }
+    };
+
+    const taunt = tauntMap[tauntId];
+    if (taunt) {
+      io.to(roomCode).emit('meme_taunt_broadcast', {
+        playerId: player.id,
+        playerName: player.name,
+        playerAvatar: player.avatar,
+        audioUrl: taunt.audio,
+        label: taunt.label
       });
     }
   });
 
-  // 5. Explicit Point Table request
+  // 8. Explicit Point Table request
   socket.on('get_point_table', ({ roomCode }, callback) => {
     const room = rooms[roomCode];
     if (room && callback) {
       callback({
         success: true,
         targetPoints: room.targetPoints || 10,
+        selectedCategory: room.selectedCategory,
+        isTeamMode: room.isTeamMode,
+        teamScores: room.teamScores,
         leaderboard: getLeaderboard(room)
       });
     }
   });
 
-  // 6. Handle Disconnection
+  // 9. Handle Disconnection
   socket.on('disconnect', () => {
     const code = socket.roomCode;
     if (code && rooms[code]) {
       const room = rooms[code];
+      const player = room.players[socket.id];
+      const playerName = player ? player.name : 'A player';
+
       delete room.players[socket.id];
+      if (room.buzzerActivePlayerId === socket.id) {
+        room.buzzerActivePlayerId = null;
+        if (room.buzzerInterval) clearInterval(room.buzzerInterval);
+      }
 
       // Reassign host if host disconnected
       if (socket.id === room.hostSocketId) {
@@ -315,6 +842,7 @@ io.on('connection', socket => {
           // Cleanup empty room immediately
           if (room.timerInterval) clearInterval(room.timerInterval);
           if (room.revealTimeout) clearTimeout(room.revealTimeout);
+          if (room.buzzerInterval) clearInterval(room.buzzerInterval);
           delete rooms[code];
           return;
         }
@@ -322,26 +850,52 @@ io.on('connection', socket => {
 
       io.to(code).emit('room_update', {
         roomCode: code,
+        targetPoints: room.targetPoints,
+        selectedCategory: room.selectedCategory,
+        timerDuration: room.timerDuration,
+        gameMode: room.gameMode,
+        isTeamMode: room.isTeamMode,
+        teamScores: room.teamScores,
         players: getLeaderboard(room),
         status: room.status
+      });
+
+      io.to(code).emit('ticker_message', {
+        text: `🚪 ${playerName} left the match.`,
+        type: 'info'
       });
     }
   });
 });
 
-// Function: Select an unused question with balanced Audio/Text distribution
+// Function: Select an unused question according to room's selectedCategory
 function getRandomUnusedQuestion(room) {
-  // Only if every single question in the entire database has been used in this room
-  if (room.usedQuestionIds.size >= questionsBank.length) {
+  let pool = questionsBank;
+
+  // Host Category Filter
+  if (room.selectedCategory === 'tmkoc') {
+    pool = questionsBank.filter(q => q.category.includes('TMKOC'));
+  } else if (room.selectedCategory === 'bollywood') {
+    pool = questionsBank.filter(q => q.category.includes('Bollywood') || q.category.includes('Movie'));
+  } else if (room.selectedCategory === 'cricket') {
+    pool = questionsBank.filter(q => q.category.includes('Cricket'));
+  } else if (room.selectedCategory === 'audio_only') {
+    pool = audioQuestions;
+  }
+
+  // Safety fallback if pool is empty
+  if (!pool || pool.length === 0) pool = questionsBank;
+
+  // Check if room used all questions from this pool
+  const unusedFromPool = pool.filter(q => !room.usedQuestionIds.has(q.id));
+  if (unusedFromPool.length === 0) {
     room.usedQuestionIds.clear();
   }
 
   room.questionCounter = (room.questionCounter || 0) + 1;
 
-  // Real Audio Clue roughly every 3rd question if unused audio clips exist
-  const wantAudio = (room.questionCounter % 3 === 0);
-
-  if (wantAudio) {
+  // In 'all' mode: balance audio clue roughly every 3rd question if available
+  if (room.selectedCategory === 'all' && (room.questionCounter % 3 === 0)) {
     const unusedAudio = audioQuestions.filter(q => !room.usedQuestionIds.has(q.id));
     if (unusedAudio.length > 0) {
       const q = unusedAudio[Math.floor(Math.random() * unusedAudio.length)];
@@ -350,30 +904,14 @@ function getRandomUnusedQuestion(room) {
     }
   }
 
-  // Fast random sampling from text questions
-  let attempts = 0;
-  while (attempts < 500) {
-    const candidate = textQuestions[Math.floor(Math.random() * textQuestions.length)];
-    if (!room.usedQuestionIds.has(candidate.id)) {
-      room.usedQuestionIds.add(candidate.id);
-      return candidate;
-    }
-    attempts++;
-  }
+  // Pick random candidate from unused
+  const candidates = pool.filter(q => !room.usedQuestionIds.has(q.id));
+  const candidate = candidates.length > 0
+    ? candidates[Math.floor(Math.random() * candidates.length)]
+    : pool[Math.floor(Math.random() * pool.length)];
 
-  // Fallback: direct filter if set got dense
-  const unused = textQuestions.filter(q => !room.usedQuestionIds.has(q.id));
-  if (unused.length > 0) {
-    const q = unused[Math.floor(Math.random() * unused.length)];
-    room.usedQuestionIds.add(q.id);
-    return q;
-  }
-
-  // Extreme fallback if all questions played
-  room.usedQuestionIds.clear();
-  const q = questionsBank[Math.floor(Math.random() * questionsBank.length)];
-  room.usedQuestionIds.add(q.id);
-  return q;
+  room.usedQuestionIds.add(candidate.id);
+  return candidate;
 }
 
 // Function: Advance to next question (Safe payload, no answers leaked)
@@ -383,18 +921,33 @@ function nextQuestion(roomCode) {
 
   const target = room.targetPoints || 10;
 
-  // Check if any player already reached the target points
-  const matchWinner = Object.values(room.players).find(p => p.score >= target);
-  if (matchWinner) {
-    declareMatchWinner(roomCode, matchWinner);
-    return;
+  // Check Team Mode or Solo Mode victory
+  if (room.isTeamMode) {
+    if ((room.teamScores.jetha || 0) >= target) {
+      return declareTeamWinner(roomCode, 'jetha');
+    }
+    if ((room.teamScores.baburao || 0) >= target) {
+      return declareTeamWinner(roomCode, 'baburao');
+    }
+  } else {
+    const matchWinner = Object.values(room.players).find(p => p.score >= target);
+    if (matchWinner) {
+      return declareMatchWinner(roomCode, matchWinner);
+    }
   }
 
   const q = getRandomUnusedQuestion(room);
   room.currentQuestion = q;
   room.roundWinner = null;
-  room.roundTimer = 30;
+  room.roundTimer = room.timerDuration || 30;
+  room.questionStartTime = Date.now();
+  room.buzzerActivePlayerId = null;
+  room.buzzerLockedPlayers.clear();
   room.status = 'playing';
+
+  // Calculate half-time for letter hint reveal
+  const halfTime = Math.floor(room.roundTimer / 2);
+  let hintRevealed = false;
 
   // Secure payload: NEVER send correctAnswer or acceptableAnswers during active round
   io.to(roomCode).emit('new_question', {
@@ -402,31 +955,49 @@ function nextQuestion(roomCode) {
     category: q.category,
     question: q.question,
     audioFile: q.audioFile,
-    roundTimer: 30,
+    roundTimer: room.roundTimer,
     targetPoints: target,
+    gameMode: room.gameMode,
+    isTeamMode: room.isTeamMode,
+    teamScores: room.teamScores,
     leaderboard: getLeaderboard(room)
   });
 
-  // 30-Second Countdown
   if (room.timerInterval) clearInterval(room.timerInterval);
+  if (room.buzzerInterval) clearInterval(room.buzzerInterval);
 
   room.timerInterval = setInterval(() => {
     room.roundTimer -= 1;
 
     io.to(roomCode).emit('timer_tick', {
-      timeLeft: room.roundTimer
+      timeLeft: room.roundTimer,
+      totalDuration: room.timerDuration || 30
     });
+
+    // Smart Letter Hint at Half-Time
+    if (!hintRevealed && room.roundTimer <= halfTime) {
+      hintRevealed = true;
+      const maskedHint = generateLetterHint(q.correctAnswer);
+      io.to(roomCode).emit('reveal_hint', {
+        hint: maskedHint
+      });
+      io.to(roomCode).emit('ticker_message', {
+        text: `💡 Letter hint revealed! Check screen!`,
+        type: 'info'
+      });
+    }
 
     if (room.roundTimer <= 0) {
       clearInterval(room.timerInterval);
       room.timerInterval = null;
+      if (room.buzzerInterval) clearInterval(room.buzzerInterval);
       endRound(roomCode, null);
     }
   }, 1000);
 }
 
 // Function: End round (strictly minimal reveal, no clutter)
-function endRound(roomCode, winnerPlayer) {
+function endRound(roomCode, winnerPlayer, pointDelta = 1) {
   const room = rooms[roomCode];
   if (!room) return;
 
@@ -434,20 +1005,46 @@ function endRound(roomCode, winnerPlayer) {
   const q = room.currentQuestion;
   const target = room.targetPoints || 10;
 
+  if (room.timerInterval) {
+    clearInterval(room.timerInterval);
+    room.timerInterval = null;
+  }
+  if (room.buzzerInterval) {
+    clearInterval(room.buzzerInterval);
+    room.buzzerInterval = null;
+  }
+
   // Minimal secure reveal: Winner (if any) and Correct Answer only
   io.to(roomCode).emit('round_reveal', {
     winner: winnerPlayer
-      ? { id: winnerPlayer.id, name: winnerPlayer.name, avatar: winnerPlayer.avatar }
+      ? {
+          id: winnerPlayer.id,
+          name: winnerPlayer.name,
+          avatar: winnerPlayer.avatar,
+          team: winnerPlayer.team,
+          pointsEarned: pointDelta,
+          streak: winnerPlayer.streak
+        }
       : null,
     correctAnswer: q.correctAnswer,
     targetPoints: target,
+    isTeamMode: room.isTeamMode,
+    teamScores: room.teamScores,
     leaderboard: getLeaderboard(room)
   });
 
-  if (winnerPlayer && winnerPlayer.score >= target) {
-    room.revealTimeout = setTimeout(() => {
-      declareMatchWinner(roomCode, winnerPlayer);
-    }, 3200);
+  // Check victory condition
+  if (room.isTeamMode) {
+    if ((room.teamScores.jetha || 0) >= target) {
+      room.revealTimeout = setTimeout(() => declareTeamWinner(roomCode, 'jetha'), 3200);
+      return;
+    }
+    if ((room.teamScores.baburao || 0) >= target) {
+      room.revealTimeout = setTimeout(() => declareTeamWinner(roomCode, 'baburao'), 3200);
+      return;
+    }
+  } else if (winnerPlayer && winnerPlayer.score >= target) {
+    room.revealTimeout = setTimeout(() => declareMatchWinner(roomCode, winnerPlayer), 3200);
     return;
   }
 
@@ -457,32 +1054,69 @@ function endRound(roomCode, winnerPlayer) {
   }, 4000);
 }
 
-// Function: Declare Match Winner
+// Function: Declare Solo Match Winner
 function declareMatchWinner(roomCode, winner) {
   const room = rooms[roomCode];
   if (!room) return;
 
   room.status = 'game_over';
 
-  // Stop any active countdown timer or pending reveals
-  if (room.timerInterval) {
-    clearInterval(room.timerInterval);
-    room.timerInterval = null;
-  }
-  if (room.revealTimeout) {
-    clearTimeout(room.revealTimeout);
-    room.revealTimeout = null;
-  }
+  if (room.timerInterval) clearInterval(room.timerInterval);
+  if (room.revealTimeout) clearTimeout(room.revealTimeout);
+  if (room.buzzerInterval) clearInterval(room.buzzerInterval);
+
+  const awards = computeMatchAwards(room);
 
   io.to(roomCode).emit('game_over', {
     winner: {
       id: winner.id,
       name: winner.name,
       avatar: winner.avatar,
-      score: winner.score
+      score: winner.score,
+      team: winner.team
     },
+    isTeamMode: false,
     targetPoints: room.targetPoints || 10,
+    awards,
     leaderboard: getLeaderboard(room)
+  });
+
+  io.to(roomCode).emit('ticker_message', {
+    text: `👑 MATCH OVER: ${winner.name} won the match with ${winner.score} points!`,
+    type: 'gold'
+  });
+}
+
+// Function: Declare Team Battle Winner
+function declareTeamWinner(roomCode, winningTeamKey) {
+  const room = rooms[roomCode];
+  if (!room) return;
+
+  room.status = 'game_over';
+
+  if (room.timerInterval) clearInterval(room.timerInterval);
+  if (room.revealTimeout) clearTimeout(room.revealTimeout);
+  if (room.buzzerInterval) clearInterval(room.buzzerInterval);
+
+  const teamName = winningTeamKey === 'jetha'
+    ? 'Team Jetha Ke Janbaaz 🏢'
+    : 'Team Baburao Ke Superstars 🕶️';
+
+  const awards = computeMatchAwards(room);
+
+  io.to(roomCode).emit('game_over', {
+    isTeamMode: true,
+    winningTeam: winningTeamKey,
+    winningTeamName: teamName,
+    teamScores: room.teamScores,
+    targetPoints: room.targetPoints || 10,
+    awards,
+    leaderboard: getLeaderboard(room)
+  });
+
+  io.to(roomCode).emit('ticker_message', {
+    text: `🏆 CHAMPIONS: ${teamName} WON THE TEAM BATTLE!`,
+    type: 'gold'
   });
 }
 
