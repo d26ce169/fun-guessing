@@ -218,7 +218,11 @@ io.on('connection', socket => {
       buzzerInterval: null,
       buzzerLockedPlayers: new Set(),
       currentQuestion: null,
+      deck: [],
+      deckCategory: null,
       usedQuestionIds: new Set(),
+      usedQuestionCores: new Set(),
+      usedAnswers: new Set(),
       questionCounter: 0,
       roundTimer: 30,
       questionStartTime: 0,
@@ -347,7 +351,11 @@ io.on('connection', socket => {
     }
 
     if (selectedCategory && ['all', 'tmkoc', 'bollywood', 'cricket', 'audio_only'].includes(selectedCategory)) {
-      room.selectedCategory = selectedCategory;
+      if (room.selectedCategory !== selectedCategory) {
+        room.selectedCategory = selectedCategory;
+        room.deck = [];
+        room.deckCategory = selectedCategory;
+      }
     }
 
     if (timerDuration) {
@@ -928,8 +936,33 @@ io.on('connection', socket => {
   });
 });
 
-// Function: Select an unused question according to room's selectedCategory
-function getRandomUnusedQuestion(room) {
+// Normalize question core for duplicate detection
+function normalizeQuestionCore(text) {
+  if (!text) return '';
+  return text
+    .toLowerCase()
+    .replace(/^(challenge round|super fan round|ultimate trivia|memory check|quick quiz|speed round|expert fan quiz|rapid fire|championship quiz|brain teaser|bollywood trivia|tmkoc trivia|cricket trivia|fun quiz)[^:]*:\s*/i, '')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+// Normalize answer for diversity check within a match
+function normalizeAnswerCore(ans) {
+  if (!ans) return '';
+  return ans.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+// Fisher-Yates array shuffle
+function shuffleArray(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// Build or refill a room's question deck
+function buildRoomDeck(room) {
   let pool = questionsBank;
 
   if (room.selectedCategory === 'tmkoc') {
@@ -944,30 +977,74 @@ function getRandomUnusedQuestion(room) {
 
   if (!pool || pool.length === 0) pool = questionsBank;
 
-  const unusedFromPool = pool.filter(q => !room.usedQuestionIds.has(q.id));
-  if (unusedFromPool.length === 0) {
+  // Filter out questions already used in this room's session
+  let available = pool.filter(q => 
+    !room.usedQuestionIds.has(q.id) &&
+    !room.usedQuestionCores.has(normalizeQuestionCore(q.question))
+  );
+
+  // If pool has been fully exhausted across many matches, reset history
+  if (available.length === 0) {
     room.usedQuestionIds.clear();
+    room.usedQuestionCores.clear();
+    available = [...pool];
+  }
+
+  room.deck = shuffleArray(available);
+  room.deckCategory = room.selectedCategory;
+}
+
+// Select an unused question with Multi-Layer Deduplication (Deck + ID + Text Core + Answer Diversity)
+function getRandomUnusedQuestion(room) {
+  if (!room.usedQuestionIds) room.usedQuestionIds = new Set();
+  if (!room.usedQuestionCores) room.usedQuestionCores = new Set();
+  if (!room.usedAnswers) room.usedAnswers = new Set();
+
+  if (!room.deck || room.deck.length === 0 || room.deckCategory !== room.selectedCategory) {
+    buildRoomDeck(room);
   }
 
   room.questionCounter = (room.questionCounter || 0) + 1;
 
   // In 'all' mode: balance real audio clue roughly every 3rd question
   if (room.selectedCategory === 'all' && (room.questionCounter % 3 === 0)) {
-    const unusedAudio = audioQuestions.filter(q => !room.usedQuestionIds.has(q.id));
+    const unusedAudio = audioQuestions.filter(q => 
+      !room.usedQuestionIds.has(q.id) &&
+      !room.usedQuestionCores.has(normalizeQuestionCore(q.question)) &&
+      !room.usedAnswers.has(normalizeAnswerCore(q.correctAnswer))
+    );
     if (unusedAudio.length > 0) {
       const q = unusedAudio[Math.floor(Math.random() * unusedAudio.length)];
       room.usedQuestionIds.add(q.id);
+      room.usedQuestionCores.add(normalizeQuestionCore(q.question));
+      room.usedAnswers.add(normalizeAnswerCore(q.correctAnswer));
       return q;
     }
   }
 
-  const candidates = pool.filter(q => !room.usedQuestionIds.has(q.id));
-  const candidate = candidates.length > 0
-    ? candidates[Math.floor(Math.random() * candidates.length)]
-    : pool[Math.floor(Math.random() * pool.length)];
+  // Draw card by card from the top of the room's shuffled deck
+  while (room.deck.length > 0) {
+    const candidate = room.deck.pop();
+    const core = normalizeQuestionCore(candidate.question);
+    const ans = normalizeAnswerCore(candidate.correctAnswer);
 
-  room.usedQuestionIds.add(candidate.id);
-  return candidate;
+    // Skip if already used in this session or if the answer was already used in this match
+    if (room.usedQuestionIds.has(candidate.id)) continue;
+    if (room.usedQuestionCores.has(core)) continue;
+    if (room.usedAnswers.has(ans)) continue; // Guarantees answer diversity in the match!
+
+    room.usedQuestionIds.add(candidate.id);
+    room.usedQuestionCores.add(core);
+    room.usedAnswers.add(ans);
+    return candidate;
+  }
+
+  // Fallback: If deck runs out of answer-unique questions, loosen answer filter
+  buildRoomDeck(room);
+  const fallback = room.deck.pop() || questionsBank[0];
+  room.usedQuestionIds.add(fallback.id);
+  room.usedQuestionCores.add(normalizeQuestionCore(fallback.question));
+  return fallback;
 }
 
 // Function: Advance to next question (Safe payload, no answers leaked)
