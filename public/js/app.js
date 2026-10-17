@@ -47,6 +47,9 @@ const copyHeaderCodeBtn = document.getElementById('copyHeaderCodeBtn');
 const openPointTableBtn = document.getElementById('openPointTableBtn');
 const myScoreBadge = document.getElementById('myScoreBadge');
 const soundToggleBtn = document.getElementById('soundToggleBtn');
+const exitGameBtn = document.getElementById('exitGameBtn');
+const lobbyExitBtn = document.getElementById('lobbyExitBtn');
+const victoryExitBtn = document.getElementById('victoryExitBtn');
 const tauntToast = document.getElementById('tauntToast');
 const tauntToastAvatar = document.getElementById('tauntToastAvatar');
 const tauntToastSender = document.getElementById('tauntToastSender');
@@ -254,11 +257,62 @@ function switchScreen(screenName) {
 
   if (screenName === 'auth') {
     headerRoomCode.classList.add('hidden');
+    if (exitGameBtn) exitGameBtn.classList.add('hidden');
   } else {
     headerRoomCode.classList.remove('hidden');
     headerCodeText.textContent = state.roomCode;
+    if (exitGameBtn) exitGameBtn.classList.remove('hidden');
   }
 }
+
+// ==========================================
+// EXIT ROOM / LEAVE MATCH
+// ==========================================
+
+function confirmAndExitRoom() {
+  const isPlaying = state.status === 'game';
+  const confirmMsg = isPlaying
+    ? 'Are you sure you want to exit the match?\nYour score and current progress will be lost.'
+    : 'Are you sure you want to leave this room?';
+
+  if (!confirm(confirmMsg)) return;
+
+  window.soundEngine.stopAllAudio();
+  if (state.roomCode) {
+    socket.emit('leave_room', { roomCode: state.roomCode });
+  }
+
+  // Reset local state
+  state.roomCode = null;
+  state.isHost = false;
+  state.myScore = 0;
+  state.myStreak = 0;
+  state.paisaDoubleRemaining = 1;
+  state.paisaDoubleActive = false;
+  state.currentQuestion = null;
+  state.isBuzzerClaimant = false;
+  state.isBuzzerLockedOut = false;
+
+  // Clear room invite URL query
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  // Hide any open modals
+  if (roundRevealModal) roundRevealModal.classList.add('hidden');
+  if (pointTableModal) pointTableModal.classList.add('hidden');
+  if (tauntModal) tauntModal.classList.add('hidden');
+
+  switchScreen('auth');
+
+  if (tickerContent) {
+    tickerContent.textContent = '👋 You exited the room. Ready for another game!';
+  }
+}
+
+if (exitGameBtn) exitGameBtn.addEventListener('click', confirmAndExitRoom);
+if (lobbyExitBtn) lobbyExitBtn.addEventListener('click', confirmAndExitRoom);
+if (victoryExitBtn) victoryExitBtn.addEventListener('click', confirmAndExitRoom);
 
 // ==========================================
 // HOST SETTINGS SYNC

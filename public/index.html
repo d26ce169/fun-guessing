@@ -42,6 +42,12 @@
 
         <!-- Sound Toggle -->
         <button id="soundToggleBtn" class="icon-toggle-btn" title="Mute/Unmute Audio">🔊</button>
+
+        <!-- Exit Match Button -->
+        <button id="exitGameBtn" class="exit-btn hidden" title="Exit Room">
+          <span class="btn-icon">🚪</span>
+          <span class="btn-text">Exit</span>
+        </button>
       </div>
     </header>
 
@@ -121,6 +127,9 @@
             <div class="lobby-header-right">
               <button id="lobbyTestSoundBtn" class="btn btn-outline btn-sm" title="Confirm device media volume is on">
                 <span>🔊</span> Test Sound
+              </button>
+              <button id="lobbyExitBtn" class="btn btn-outline btn-sm btn-danger-subtle" title="Leave Lobby">
+                <span>🚪</span> Exit
               </button>
               <div class="lobby-count-badge">
                 <span id="playerCount">1</span> / 10 Players
@@ -484,6 +493,7 @@
           <div class="victory-actions">
             <button id="victoryPointTableBtn" class="btn btn-outline">📊 Final Point Table</button>
             <button id="playAgainBtn" class="btn btn-primary btn-large">Play Again</button>
+            <button id="victoryExitBtn" class="btn btn-outline btn-danger-subtle">🚪 Exit to Home</button>
             <div id="victoryWaitingNotice" class="player-waiting hidden" style="margin-top: 15px;">
               <div class="spinner"></div>
               <span>Waiting for host to start new match...</span>

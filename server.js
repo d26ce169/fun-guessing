@@ -825,7 +825,63 @@ io.on('connection', socket => {
     }
   });
 
-  // 9. Handle Disconnection
+  // 9. Handle Explicit Leave Room / Exit
+  socket.on('leave_room', ({ roomCode }, callback) => {
+    const code = roomCode || socket.roomCode;
+    if (code && rooms[code]) {
+      const room = rooms[code];
+      const player = room.players[socket.id];
+      const playerName = player ? player.name : 'A player';
+
+      delete room.players[socket.id];
+      socket.leave(code);
+      socket.roomCode = null;
+
+      if (room.buzzerActivePlayerId === socket.id) {
+        room.buzzerActivePlayerId = null;
+        if (room.buzzerInterval) {
+          clearInterval(room.buzzerInterval);
+          room.buzzerInterval = null;
+        }
+      }
+      room.buzzerLockedPlayers.delete(socket.id);
+
+      if (socket.id === room.hostSocketId) {
+        const remainingIds = Object.keys(room.players);
+        if (remainingIds.length > 0) {
+          room.hostSocketId = remainingIds[0];
+        } else {
+          if (room.timerInterval) clearInterval(room.timerInterval);
+          if (room.revealTimeout) clearTimeout(room.revealTimeout);
+          if (room.buzzerInterval) clearInterval(room.buzzerInterval);
+          delete rooms[code];
+          if (callback) callback({ success: true });
+          return;
+        }
+      }
+
+      io.to(code).emit('room_update', {
+        roomCode: code,
+        targetPoints: room.targetPoints,
+        selectedCategory: room.selectedCategory,
+        timerDuration: room.timerDuration,
+        gameMode: room.gameMode,
+        isTeamMode: room.isTeamMode,
+        teamScores: room.teamScores,
+        players: getLeaderboard(room),
+        status: room.status
+      });
+
+      io.to(code).emit('ticker_message', {
+        text: `🚪 ${playerName} exited the room.`,
+        type: 'info'
+      });
+    }
+
+    if (callback) callback({ success: true });
+  });
+
+  // 10. Handle Disconnection
   socket.on('disconnect', () => {
     const code = socket.roomCode;
     if (code && rooms[code]) {
