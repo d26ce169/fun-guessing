@@ -63,7 +63,7 @@
           <div class="hero-header">
             <span class="hero-badge">Party Game Edition</span>
             <h2 class="hero-title">Fun Guessing</h2>
-            <p class="hero-subtitle">102k+ TMKOC, Bollywood, Cricket & Dialogue Trivia</p>
+            <p class="hero-subtitle">100,000+ TMKOC, Bollywood, Cricket & Dialogue Trivia</p>
           </div>
 
           <div class="form-section">
@@ -157,7 +157,7 @@
               <div class="setting-block">
                 <div class="setting-title-row">
                   <span class="setting-title">📚 Topic / Category:</span>
-                  <span id="categoryPreview" class="setting-preview">All Topics (102k+)</span>
+                  <span id="categoryPreview" class="setting-preview">All Topics (100k+)</span>
                 </div>
                 <div class="chip-group" id="categoryChips">
                   <button type="button" class="chip-btn active" data-category="all">🌐 All Topics</button>
@@ -176,7 +176,7 @@
                 </div>
                 <div class="chip-group" id="modeChips">
                   <button type="button" class="chip-btn active" data-mode="type_first">⌨️ Type-First Mode</button>
-                  <button type="button" class="chip-btn" data-mode="buzzer">🔔 Buzzer Mode (KBC Style)</button>
+                  <button type="button" class="chip-btn" data-mode="buzzer">🔔 Buzzer Mode (10s Window)</button>
                 </div>
               </div>
 
@@ -304,13 +304,13 @@
           </div>
         </div>
 
-        <!-- BUZZER MODE ZONE (Giant Bell Button) -->
+        <!-- BUZZER MODE ZONE (Giant Bell Button with 10s Window) -->
         <div id="buzzerZone" class="buzzer-zone hidden">
           <button id="bigBuzzBtn" class="big-buzz-btn" type="button">
             <div class="buzz-inner">
               <span class="buzz-icon">🔔</span>
               <span class="buzz-title">BUZZ!</span>
-              <span class="buzz-sub">Tap to Claim Question</span>
+              <span class="buzz-sub">Tap to Claim (10s to answer)</span>
             </div>
           </button>
           <div id="buzzerStatusCard" class="buzzer-status-card hidden">
@@ -318,28 +318,57 @@
               <span id="buzzerClaimantAvatar">🦁</span>
               <div class="buzzer-text-info">
                 <span id="buzzerClaimantName">Player</span> buzzed in!
-                <span class="buzzer-subnote">7s countdown to answer or -1 pt penalty</span>
+                <span class="buzzer-subnote">10s countdown to answer or -1 pt penalty</span>
               </div>
               <div class="buzzer-timer-ring">
-                <span id="buzzerCountdownSec">7</span>s
+                <span id="buzzerCountdownSec">10</span>s
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- IN-GAME MEME SOUNDBOARD & TAUNTS BAR (Always in game!) -->
+        <div class="in-game-taunt-bar">
+          <div class="taunt-bar-header">
+            <span class="taunt-bar-title">🎭 MEME TAUNTS:</span>
+            <button id="openTauntModalBtn" class="taunt-more-btn" type="button" title="View all meme sounds">➕ More Sounds</button>
+          </div>
+          <div class="taunt-pills-scroll">
+            <button class="in-game-taunt-pill" data-taunt="jethalal_chai" type="button">
+              <span>👓</span> Chai Piyo
+            </button>
+            <button class="in-game-taunt-pill" data-taunt="champaklal_jethiya" type="button">
+              <span>👴</span> Ae Jethiya!
+            </button>
+            <button class="in-game-taunt-pill" data-taunt="baburao_style" type="button">
+              <span>🕶️</span> Maja Aayega!
+            </button>
+            <button class="in-game-taunt-pill" data-taunt="paisa_double" type="button">
+              <span>💰</span> Paisa Double!
+            </button>
+            <button class="in-game-taunt-pill" data-taunt="nana_control" type="button">
+              <span>👑</span> Control Uday!
+            </button>
+            <button class="in-game-taunt-pill" data-taunt="rajpal_tadap" type="button">
+              <span>🎭</span> Aisi Tadap!
+            </button>
+            <button class="in-game-taunt-pill" data-taunt="amitabh_crore" type="button">
+              <span>🏆</span> Saat Crore!!
+            </button>
+            <button class="in-game-taunt-pill" data-taunt="pushpa_jhukega" type="button">
+              <span>🔥</span> Jhukega Nahi!
+            </button>
           </div>
         </div>
 
         <!-- Answer Input & Keypad Card -->
         <div class="card input-card">
           
-          <!-- Paisa Double & Feedback Row -->
+          <!-- Paisa Double Row -->
           <div class="utility-row">
             <button id="paisaDoubleBtn" class="paisa-double-btn" type="button" title="Once per match: +2 on correct, -2 on wrong!">
               <span class="paisa-token-icon">💰</span>
               <span id="paisaDoubleLabel">Paisa Double (1 Token Left)</span>
-            </button>
-
-            <!-- Soundboard Taunt Trigger -->
-            <button id="openTauntModalBtn" class="taunt-trigger-btn" type="button" title="Open Meme Soundboard">
-              <span>🎭 Meme Taunts</span>
             </button>
           </div>
 
@@ -400,16 +429,6 @@
               <button class="key-btn key-space" data-key="SPACE">SPACE</button>
               <button class="key-btn key-action" data-key="CLEAR">CLEAR</button>
             </div>
-          </div>
-        </div>
-
-        <!-- Sleek Live Breaking-News Ticker Bar -->
-        <div class="live-ticker-container">
-          <div class="ticker-label">
-            <span class="live-dot"></span> LIVE TICKER
-          </div>
-          <div class="ticker-scroll-area">
-            <span id="tickerContent" class="ticker-message">⚡ Welcome to Fun Guessing Arena! First correct answer scores!</span>
           </div>
         </div>
 
@@ -475,7 +494,7 @@
 
     </main>
 
-    <!-- ROUND REVEAL MODAL (Clean & Minimal) -->
+    <!-- ROUND REVEAL MODAL (5s Duration + Live Ticker visible!) -->
     <div id="roundRevealModal" class="modal-overlay hidden">
       <div class="modal-card reveal-card">
         
@@ -494,14 +513,20 @@
           <div id="revealCorrectAnswer" class="answer-highlight">---</div>
         </div>
 
+        <!-- Live Ticker Inside Reveal so it is 100% visible to everyone during the 5s transition! -->
+        <div class="reveal-ticker-box">
+          <span class="live-dot"></span>
+          <span id="revealTickerText">⚡ Next question arriving in 5 seconds...</span>
+        </div>
+
         <div class="next-round-timer">
           <span>Next question in </span>
-          <strong id="nextCountdownSec">3</strong>s
+          <strong id="nextCountdownSec">5</strong>s
         </div>
       </div>
     </div>
 
-    <!-- MEME TAUNT SOUNDBOARD MODAL -->
+    <!-- MEME TAUNT SOUNDBOARD MODAL (Full Grid) -->
     <div id="tauntModal" class="modal-overlay hidden">
       <div class="modal-card taunt-modal-card">
         <div class="modal-header">
@@ -512,7 +537,7 @@
           <button id="closeTauntModalBtn" class="close-modal-btn">✕</button>
         </div>
 
-        <p class="modal-subtitle">Tap a quote to broadcast it with real voice to all players!</p>
+        <p class="modal-subtitle">Tap any iconic quote to broadcast it with real voice to all players!</p>
 
         <div class="taunt-grid">
           <button class="taunt-btn" data-taunt="jethalal_chai">
@@ -542,7 +567,7 @@
           <button class="taunt-btn" data-taunt="paisa_double">
             <span class="taunt-btn-icon">💰</span>
             <div class="taunt-btn-text">
-              <strong>Akshay</strong>
+              <strong>Akshay Kumar</strong>
               <span>"25 Din Mein Paisa Double!"</span>
             </div>
           </button>
@@ -566,7 +591,7 @@
           <button class="taunt-btn" data-taunt="amitabh_crore">
             <span class="taunt-btn-icon">🏆</span>
             <div class="taunt-btn-text">
-              <strong>Amitabh</strong>
+              <strong>Amitabh Bachchan</strong>
               <span>"Saat Crore!!"</span>
             </div>
           </button>
@@ -576,6 +601,38 @@
             <div class="taunt-btn-text">
               <strong>Pushpa</strong>
               <span>"Main jhukega nahi!"</span>
+            </div>
+          </button>
+
+          <button class="taunt-btn" data-taunt="bhide_secretary">
+            <span class="taunt-btn-icon">📋</span>
+            <div class="taunt-btn-text">
+              <strong>Bhide</strong>
+              <span>"Ekmev Secretary!"</span>
+            </div>
+          </button>
+
+          <button class="taunt-btn" data-taunt="popatlal_cancel">
+            <span class="taunt-btn-icon">☔</span>
+            <div class="taunt-btn-text">
+              <strong>Popatlal</strong>
+              <span>"Cancel Kardo!"</span>
+            </div>
+          </button>
+
+          <button class="taunt-btn" data-taunt="daya_garba">
+            <span class="taunt-btn-icon">💃</span>
+            <div class="taunt-btn-text">
+              <strong>Dayaben</strong>
+              <span>"Hey Maa Mataji!"</span>
+            </div>
+          </button>
+
+          <button class="taunt-btn" data-taunt="khatam_tata">
+            <span class="taunt-btn-icon">👋</span>
+            <div class="taunt-btn-text">
+              <strong>Rahul Gandhi</strong>
+              <span>"Khatam... Tata... Goodbye!"</span>
             </div>
           </button>
         </div>
@@ -614,6 +671,16 @@
         <div class="modal-footer">
           <button id="dismissPointTableBtn" class="btn btn-outline">Close</button>
         </div>
+      </div>
+    </div>
+
+    <!-- PERSISTENT LIVE BREAKING-NEWS TICKER (Always visible to everyone!) -->
+    <div id="persistentTickerBar" class="live-ticker-container persistent-ticker">
+      <div class="ticker-label">
+        <span class="live-dot"></span> LIVE TICKER
+      </div>
+      <div class="ticker-scroll-area">
+        <span id="tickerContent" class="ticker-message">⚡ Welcome to Fun Guessing Arena! First correct answer scores!</span>
       </div>
     </div>
 

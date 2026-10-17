@@ -528,9 +528,23 @@ function updateLobbyUI() {
   }
 }
 
-// ==========================================
-// GAMEPLAY: QUESTION & TIMER
-// ==========================================
+// Match Started or Restarted: Revive Paisa Double Token (1 use per match)
+socket.on('game_started', data => {
+  state.paisaDoubleRemaining = 1;
+  state.paisaDoubleActive = false;
+  if (paisaDoubleBtn) {
+    paisaDoubleBtn.classList.remove('active', 'disabled');
+    paisaDoubleBtn.disabled = false;
+  }
+  if (paisaDoubleLabel) {
+    paisaDoubleLabel.textContent = '💰 Paisa Double (1 Token Left)';
+  }
+  if (data && data.targetPoints) updateTargetPointsUI(data.targetPoints);
+  if (data && data.leaderboard) {
+    state.players = data.leaderboard;
+    renderLeaderboardUpdates();
+  }
+});
 
 socket.on('new_question', q => {
   state.currentQuestion = q;
@@ -540,6 +554,25 @@ socket.on('new_question', q => {
   state.teamScores = q.teamScores || { jetha: 0, baburao: 0 };
   state.isBuzzerClaimant = false;
   state.isBuzzerLockedOut = false;
+
+  // Sync Paisa Double button state
+  if (paisaDoubleBtn && paisaDoubleLabel) {
+    if (state.paisaDoubleActive) {
+      paisaDoubleBtn.classList.add('active');
+      paisaDoubleBtn.classList.remove('disabled');
+      paisaDoubleBtn.disabled = false;
+      paisaDoubleLabel.textContent = '💰 Paisa Double ACTIVE (+2 / -2 pts)';
+    } else if (state.paisaDoubleRemaining > 0) {
+      paisaDoubleBtn.classList.remove('active', 'disabled');
+      paisaDoubleBtn.disabled = false;
+      paisaDoubleLabel.textContent = '💰 Paisa Double (1 Token Left)';
+    } else {
+      paisaDoubleBtn.classList.add('disabled');
+      paisaDoubleBtn.classList.remove('active');
+      paisaDoubleBtn.disabled = true;
+      paisaDoubleLabel.textContent = '💰 Paisa Double (Used)';
+    }
+  }
 
   if (q.targetPoints) updateTargetPointsUI(q.targetPoints);
 
@@ -742,22 +775,35 @@ socket.on('paisa_double_confirmed', data => {
 // MEME SOUNDBOARD & TAUNTS
 // ==========================================
 
-openTauntModalBtn.addEventListener('click', () => {
-  tauntModal.classList.remove('hidden');
-});
+if (openTauntModalBtn) {
+  openTauntModalBtn.addEventListener('click', () => {
+    if (tauntModal) tauntModal.classList.remove('hidden');
+  });
+}
 
-closeTauntModalBtn.addEventListener('click', () => tauntModal.classList.add('hidden'));
-dismissTauntModalBtn.addEventListener('click', () => tauntModal.classList.add('hidden'));
+if (closeTauntModalBtn) {
+  closeTauntModalBtn.addEventListener('click', () => {
+    if (tauntModal) tauntModal.classList.add('hidden');
+  });
+}
 
-document.querySelectorAll('.taunt-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
+if (dismissTauntModalBtn) {
+  dismissTauntModalBtn.addEventListener('click', () => {
+    if (tauntModal) tauntModal.classList.add('hidden');
+  });
+}
+
+document.querySelectorAll('.in-game-taunt-pill, .taunt-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
     const tauntId = btn.dataset.taunt;
+    if (!tauntId) return;
     window.soundEngine.init();
     socket.emit('send_meme_taunt', {
       roomCode: state.roomCode,
       tauntId
     });
-    tauntModal.classList.add('hidden');
+    if (tauntModal) tauntModal.classList.add('hidden');
   });
 });
 
@@ -784,6 +830,10 @@ socket.on('meme_taunt_broadcast', data => {
 socket.on('ticker_message', ({ text }) => {
   if (tickerContent && text) {
     tickerContent.textContent = text;
+  }
+  const revealTickerText = document.getElementById('revealTickerText');
+  if (revealTickerText && text) {
+    revealTickerText.textContent = text;
   }
 });
 
@@ -897,9 +947,15 @@ socket.on('round_reveal', data => {
   }
 
   revealCorrectAnswer.textContent = data.correctAnswer;
+
+  const revealTickerText = document.getElementById('revealTickerText');
+  if (revealTickerText && tickerContent && tickerContent.textContent) {
+    revealTickerText.textContent = tickerContent.textContent;
+  }
+
   roundRevealModal.classList.remove('hidden');
 
-  let nextCount = 3;
+  let nextCount = 5;
   nextCountdownSec.textContent = nextCount;
   const interval = setInterval(() => {
     nextCount -= 1;

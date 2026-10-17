@@ -1,0 +1,2513 @@
+[
+  {
+    "id": "audio_q_0001",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "Listen to the audio! Which famous TMKOC character is speaking?",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Jethalal Gada",
+    "acceptableAnswers": [
+      "jethalal",
+      "jetha",
+      "jethalal gada",
+      "jethabhai",
+      "jetha bhai"
+    ]
+  },
+  {
+    "id": "audio_q_0002",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "Identify the Gokuldham resident speaking in this audio clip!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Jethalal Gada",
+    "acceptableAnswers": [
+      "jethalal",
+      "jetha",
+      "jethalal gada",
+      "jethabhai",
+      "jetha bhai"
+    ]
+  },
+  {
+    "id": "audio_q_0003",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Clue: Name the Gada Electronics owner speaking here!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Jethalal Gada",
+    "acceptableAnswers": [
+      "jethalal",
+      "jetha",
+      "jethalal gada",
+      "jethabhai",
+      "jetha bhai"
+    ]
+  },
+  {
+    "id": "audio_q_0004",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "Listen to the audio! Which Gokuldham elder is shouting here?",
+    "audioFile": "/audio/tmkoc_champaklal.mp3",
+    "correctAnswer": "Champaklal (Bapuji)",
+    "acceptableAnswers": [
+      "champaklal",
+      "bapuji",
+      "champak chacha",
+      "champaklal gada",
+      "dadaji",
+      "champak"
+    ]
+  },
+  {
+    "id": "audio_q_0005",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "Audio Clue: Guess the angry father of Jethalal speaking in this clip!",
+    "audioFile": "/audio/tmkoc_champaklal.mp3",
+    "correctAnswer": "Champaklal (Bapuji)",
+    "acceptableAnswers": [
+      "champaklal",
+      "bapuji",
+      "champak chacha",
+      "champaklal gada",
+      "dadaji",
+      "champak"
+    ]
+  },
+  {
+    "id": "audio_q_0006",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio: Who is delivering this lecture to Jethiya?",
+    "audioFile": "/audio/tmkoc_champaklal.mp3",
+    "correctAnswer": "Champaklal (Bapuji)",
+    "acceptableAnswers": [
+      "champaklal",
+      "bapuji",
+      "champak chacha",
+      "champaklal gada",
+      "dadaji",
+      "champak"
+    ]
+  },
+  {
+    "id": "audio_q_0007",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "Listen to the audio! Which Gokuldham scientist is introducing himself?",
+    "audioFile": "/audio/tmkoc_iyer.mp3",
+    "correctAnswer": "Krishnan Subramaniam Iyer",
+    "acceptableAnswers": [
+      "iyer",
+      "krishnan iyer",
+      "krishnan subramaniam iyer",
+      "subramaniam iyer"
+    ]
+  },
+  {
+    "id": "audio_q_0008",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio: Who is speaking with \"Vanakkam\" in this clip?",
+    "audioFile": "/audio/tmkoc_iyer.mp3",
+    "correctAnswer": "Krishnan Subramaniam Iyer",
+    "acceptableAnswers": [
+      "iyer",
+      "krishnan iyer",
+      "krishnan subramaniam iyer",
+      "subramaniam iyer"
+    ]
+  },
+  {
+    "id": "audio_q_0009",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "Audio Clue: Name Babita Ji's husband speaking in this audio clip!",
+    "audioFile": "/audio/tmkoc_iyer.mp3",
+    "correctAnswer": "Krishnan Subramaniam Iyer",
+    "acceptableAnswers": [
+      "iyer",
+      "krishnan iyer",
+      "krishnan subramaniam iyer",
+      "subramaniam iyer"
+    ]
+  },
+  {
+    "id": "audio_q_0010",
+    "category": "🎵 TMKOC Audio Theme",
+    "question": "Listen to this background music! Which comedy serial theme is this?",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Taarak Mehta Ka Ooltah Chashmah (TMKOC)",
+    "acceptableAnswers": [
+      "tmkoc",
+      "tarak mehta",
+      "taarak mehta",
+      "taarak mehta ka ooltah chashmah",
+      "tarak mehta ka ulta chasma"
+    ]
+  },
+  {
+    "id": "audio_q_0011",
+    "category": "🎵 TMKOC Audio Theme",
+    "question": "TMKOC Theme Clue: Name the famous Hindi sitcom associated with this music!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Taarak Mehta Ka Ooltah Chashmah (TMKOC)",
+    "acceptableAnswers": [
+      "tmkoc",
+      "tarak mehta",
+      "taarak mehta",
+      "taarak mehta ka ooltah chashmah",
+      "tarak mehta ka ulta chasma"
+    ]
+  },
+  {
+    "id": "audio_q_0012",
+    "category": "🎵 TMKOC Audio Theme",
+    "question": "Identify the legendary comedy show from this iconic title tune!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Taarak Mehta Ka Ooltah Chashmah (TMKOC)",
+    "acceptableAnswers": [
+      "tmkoc",
+      "tarak mehta",
+      "taarak mehta",
+      "taarak mehta ka ooltah chashmah",
+      "tarak mehta ka ulta chasma"
+    ]
+  },
+  {
+    "id": "audio_q_0013",
+    "category": "🎵 TMKOC Audio Theme",
+    "question": "Listen to this Garba dhol beat! Which TMKOC character dances non-stop to this?",
+    "audioFile": "/audio/tmkoc_garba_dhol.mp3",
+    "correctAnswer": "Dayaben (Garba)",
+    "acceptableAnswers": [
+      "daya",
+      "dayaben",
+      "daya bhabhi",
+      "garba",
+      "daya gada"
+    ]
+  },
+  {
+    "id": "audio_q_0014",
+    "category": "🎵 TMKOC Audio Theme",
+    "question": "TMKOC Sound: Which character breaks into Garba whenever this dhol beat plays?",
+    "audioFile": "/audio/tmkoc_garba_dhol.mp3",
+    "correctAnswer": "Dayaben (Garba)",
+    "acceptableAnswers": [
+      "daya",
+      "dayaben",
+      "daya bhabhi",
+      "garba",
+      "daya gada"
+    ]
+  },
+  {
+    "id": "audio_q_0015",
+    "category": "🎵 TMKOC Audio Theme",
+    "question": "Name the Gokuldham Garba Queen associated with this rhythmic beat!",
+    "audioFile": "/audio/tmkoc_garba_dhol.mp3",
+    "correctAnswer": "Dayaben (Garba)",
+    "acceptableAnswers": [
+      "daya",
+      "dayaben",
+      "daya bhabhi",
+      "garba",
+      "daya gada"
+    ]
+  },
+  {
+    "id": "audio_q_0016",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "Listen to this festival wish clip! Which TMKOC character is greeting?",
+    "audioFile": "/audio/tmkoc_jethalal_diwali.mp3",
+    "correctAnswer": "Jethalal Gada",
+    "acceptableAnswers": [
+      "jethalal",
+      "jetha",
+      "jethalal gada",
+      "jethabhai"
+    ]
+  },
+  {
+    "id": "audio_q_0017",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "Audio Clue: Who is wishing Happy Diwali in this voice clip?",
+    "audioFile": "/audio/tmkoc_jethalal_diwali.mp3",
+    "correctAnswer": "Jethalal Gada",
+    "acceptableAnswers": [
+      "jethalal",
+      "jetha",
+      "jethalal gada",
+      "jethabhai"
+    ]
+  },
+  {
+    "id": "audio_q_0018",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "Identify the voice of this Gokuldham character wishing everyone!",
+    "audioFile": "/audio/tmkoc_jethalal_diwali.mp3",
+    "correctAnswer": "Jethalal Gada",
+    "acceptableAnswers": [
+      "jethalal",
+      "jetha",
+      "jethalal gada",
+      "jethabhai"
+    ]
+  },
+  {
+    "id": "audio_q_0019",
+    "category": "🎵 TMKOC Audio Theme",
+    "question": "Listen to this sound effect! Which famous TV serial plays this stinger during troubles?",
+    "audioFile": "/audio/tmkoc_game_over.mp3",
+    "correctAnswer": "Taarak Mehta Ka Ooltah Chashmah",
+    "acceptableAnswers": [
+      "tmkoc",
+      "taarak mehta",
+      "tarak mehta"
+    ]
+  },
+  {
+    "id": "audio_q_0020",
+    "category": "🎵 TMKOC Audio Theme",
+    "question": "Which comedy show features this dramatic failure sound in Gokuldham?",
+    "audioFile": "/audio/tmkoc_game_over.mp3",
+    "correctAnswer": "Taarak Mehta Ka Ooltah Chashmah",
+    "acceptableAnswers": [
+      "tmkoc",
+      "taarak mehta",
+      "tarak mehta"
+    ]
+  },
+  {
+    "id": "audio_q_0021",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the dialogue audio! Name the actor who promises 25 din mein paisa double!",
+    "audioFile": "/audio/akshay_paisa_double.mp3",
+    "correctAnswer": "Akshay Kumar (Phir Hera Pheri)",
+    "acceptableAnswers": [
+      "akshay kumar",
+      "akshay",
+      "raju",
+      "phir hera pheri",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0022",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Comedy Audio: Which character from Phir Hera Pheri is pitching this scheme?",
+    "audioFile": "/audio/akshay_paisa_double.mp3",
+    "correctAnswer": "Akshay Kumar (Phir Hera Pheri)",
+    "acceptableAnswers": [
+      "akshay kumar",
+      "akshay",
+      "raju",
+      "phir hera pheri",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0023",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this iconic comedic tune! Which comedy film franchise is this theme from?",
+    "audioFile": "/audio/hera_pheri_theme.mp3",
+    "correctAnswer": "Phir Hera Pheri",
+    "acceptableAnswers": [
+      "phir hera pheri",
+      "hera pheri",
+      "babu rao",
+      "baburao",
+      "akshay kumar"
+    ]
+  },
+  {
+    "id": "audio_q_0024",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Theme Clue: Name the comedy movie featuring Baburao, Raju, and Shyam!",
+    "audioFile": "/audio/hera_pheri_theme.mp3",
+    "correctAnswer": "Phir Hera Pheri",
+    "acceptableAnswers": [
+      "phir hera pheri",
+      "hera pheri",
+      "babu rao",
+      "baburao",
+      "akshay kumar"
+    ]
+  },
+  {
+    "id": "audio_q_0025",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the dialogue! \"Abhi maja aayega na bhidu\" - which movie is this from?",
+    "audioFile": "/audio/hera_pheri_maja_aayega.mp3",
+    "correctAnswer": "Phir Hera Pheri",
+    "acceptableAnswers": [
+      "phir hera pheri",
+      "hera pheri",
+      "akshay kumar",
+      "raju"
+    ]
+  },
+  {
+    "id": "audio_q_0026",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Comedy Clue: Name the comedy movie featuring this classic line!",
+    "audioFile": "/audio/hera_pheri_maja_aayega.mp3",
+    "correctAnswer": "Phir Hera Pheri",
+    "acceptableAnswers": [
+      "phir hera pheri",
+      "hera pheri",
+      "akshay kumar",
+      "raju"
+    ]
+  },
+  {
+    "id": "audio_q_0027",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this loud energetic shout! Which iconic comedy character is shouting?",
+    "audioFile": "/audio/babu_bhaiya_shout.mp3",
+    "correctAnswer": "Baburao Ganpatrao Apte (Hera Pheri)",
+    "acceptableAnswers": [
+      "baburao",
+      "babu bhaiya",
+      "paresh rawal",
+      "hera pheri",
+      "baburao apte"
+    ]
+  },
+  {
+    "id": "audio_q_0028",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Name Baburao Ganpatrao Apte shouting in this famous comedy audio!",
+    "audioFile": "/audio/babu_bhaiya_shout.mp3",
+    "correctAnswer": "Baburao Ganpatrao Apte (Hera Pheri)",
+    "acceptableAnswers": [
+      "baburao",
+      "babu bhaiya",
+      "paresh rawal",
+      "hera pheri",
+      "baburao apte"
+    ]
+  },
+  {
+    "id": "audio_q_0029",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this dialogue! \"Yeh Baburao ka style hai\" - Name the character or actor!",
+    "audioFile": "/audio/baburao_style.mp3",
+    "correctAnswer": "Baburao (Paresh Rawal)",
+    "acceptableAnswers": [
+      "baburao",
+      "babu bhaiya",
+      "paresh rawal",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0030",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Who is the legendary Star Garage owner speaking in this comedy dialogue?",
+    "audioFile": "/audio/baburao_style.mp3",
+    "correctAnswer": "Baburao (Paresh Rawal)",
+    "acceptableAnswers": [
+      "baburao",
+      "babu bhaiya",
+      "paresh rawal",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0031",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the shout! Name the actor shouting \"Miracle Miracle\"!",
+    "audioFile": "/audio/akshay_miracle.mp3",
+    "correctAnswer": "Akshay Kumar (Welcome)",
+    "acceptableAnswers": [
+      "akshay kumar",
+      "akshay",
+      "welcome",
+      "rajiv"
+    ]
+  },
+  {
+    "id": "audio_q_0032",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Welcome Movie Audio: Which character is shouting in this audio clip?",
+    "audioFile": "/audio/akshay_miracle.mp3",
+    "correctAnswer": "Akshay Kumar (Welcome)",
+    "acceptableAnswers": [
+      "akshay kumar",
+      "akshay",
+      "welcome",
+      "rajiv"
+    ]
+  },
+  {
+    "id": "audio_q_0033",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this background music! Which underworld comedy character enters to this score?",
+    "audioFile": "/audio/welcome_uday_entry.mp3",
+    "correctAnswer": "Uday Shetty (Welcome)",
+    "acceptableAnswers": [
+      "uday shetty",
+      "nana patekar",
+      "welcome",
+      "uday"
+    ]
+  },
+  {
+    "id": "audio_q_0034",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Welcome Theme Clue: Name the character played by Nana Patekar who enters to this BGM!",
+    "audioFile": "/audio/welcome_uday_entry.mp3",
+    "correctAnswer": "Uday Shetty (Welcome)",
+    "acceptableAnswers": [
+      "uday shetty",
+      "nana patekar",
+      "welcome",
+      "uday"
+    ]
+  },
+  {
+    "id": "audio_q_0035",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this hilarious laugh! Which painter gangster from Welcome is laughing?",
+    "audioFile": "/audio/majnu_bhai_laugh.mp3",
+    "correctAnswer": "Majnu Bhai (Anil Kapoor)",
+    "acceptableAnswers": [
+      "majnu bhai",
+      "anil kapoor",
+      "majnu",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0036",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Welcome Audio Clue: Name Anil Kapoor's character who paints horses in Welcome!",
+    "audioFile": "/audio/majnu_bhai_laugh.mp3",
+    "correctAnswer": "Majnu Bhai (Anil Kapoor)",
+    "acceptableAnswers": [
+      "majnu bhai",
+      "anil kapoor",
+      "majnu",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0037",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this dialogue! Guess the actor or character speaking in Welcome!",
+    "audioFile": "/audio/welcome_majnubhai.mp3",
+    "correctAnswer": "Majnu Bhai (Welcome)",
+    "acceptableAnswers": [
+      "majnu bhai",
+      "anil kapoor",
+      "majnu",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0038",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Name the famous character played by Anil Kapoor in this movie clip!",
+    "audioFile": "/audio/welcome_majnubhai.mp3",
+    "correctAnswer": "Majnu Bhai (Welcome)",
+    "acceptableAnswers": [
+      "majnu bhai",
+      "anil kapoor",
+      "majnu",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0039",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this dialogue! Name the gangster speaking in Welcome!",
+    "audioFile": "/audio/uday_shetty_philosophy.mp3",
+    "correctAnswer": "Uday Shetty (Nana Patekar)",
+    "acceptableAnswers": [
+      "uday shetty",
+      "nana patekar",
+      "welcome",
+      "uday"
+    ]
+  },
+  {
+    "id": "audio_q_0040",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Who delivers this lecture on Control in the comedy movie Welcome?",
+    "audioFile": "/audio/uday_shetty_philosophy.mp3",
+    "correctAnswer": "Uday Shetty (Nana Patekar)",
+    "acceptableAnswers": [
+      "uday shetty",
+      "nana patekar",
+      "welcome",
+      "uday"
+    ]
+  },
+  {
+    "id": "audio_q_0041",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this iconic wicked laugh! Name the Bollywood veteran actor!",
+    "audioFile": "/audio/nana_patekar_laugh.mp3",
+    "correctAnswer": "Nana Patekar",
+    "acceptableAnswers": [
+      "nana patekar",
+      "nana",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0042",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Identify the actor laughing in this classic Bollywood audio clip!",
+    "audioFile": "/audio/nana_patekar_laugh.mp3",
+    "correctAnswer": "Nana Patekar",
+    "acceptableAnswers": [
+      "nana patekar",
+      "nana",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0043",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this dialogue! \"Control Uday Control\" - Name the actor!",
+    "audioFile": "/audio/nana_patekar_voice.mp3",
+    "correctAnswer": "Nana Patekar",
+    "acceptableAnswers": [
+      "nana patekar",
+      "nana",
+      "uday shetty",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0044",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Audio Clue: Who is trying to control his anger in this Welcome dialogue?",
+    "audioFile": "/audio/nana_patekar_voice.mp3",
+    "correctAnswer": "Nana Patekar",
+    "acceptableAnswers": [
+      "nana patekar",
+      "nana",
+      "uday shetty",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0045",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this iconic dialogue! \"Raha nahi jaata, tadap hi aisi hai\" - Name the actor!",
+    "audioFile": "/audio/rajpal_yadav_tadap.mp3",
+    "correctAnswer": "Rajpal Yadav",
+    "acceptableAnswers": [
+      "rajpal yadav",
+      "rajpal",
+      "bandya",
+      "chup chup ke"
+    ]
+  },
+  {
+    "id": "audio_q_0046",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Comedy Clue: Guess the comedian delivering this famous meme dialogue!",
+    "audioFile": "/audio/rajpal_yadav_tadap.mp3",
+    "correctAnswer": "Rajpal Yadav",
+    "acceptableAnswers": [
+      "rajpal yadav",
+      "rajpal",
+      "bandya",
+      "chup chup ke"
+    ]
+  },
+  {
+    "id": "audio_q_0047",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this hilarious reaction shout! Which comedian actor makes this sound?",
+    "audioFile": "/audio/rajpal_shock_meme.mp3",
+    "correctAnswer": "Rajpal Yadav",
+    "acceptableAnswers": [
+      "rajpal yadav",
+      "rajpal",
+      "chup chup ke"
+    ]
+  },
+  {
+    "id": "audio_q_0048",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Name the Chup Chup Ke comedian in this famous shock sound!",
+    "audioFile": "/audio/rajpal_shock_meme.mp3",
+    "correctAnswer": "Rajpal Yadav",
+    "acceptableAnswers": [
+      "rajpal yadav",
+      "rajpal",
+      "chup chup ke"
+    ]
+  },
+  {
+    "id": "audio_q_0049",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this sound! Which mute character in Golmaal communicates like this?",
+    "audioFile": "/audio/golmaal_lucky_sound.mp3",
+    "correctAnswer": "Lucky (Tusshar Kapoor)",
+    "acceptableAnswers": [
+      "lucky",
+      "tusshar kapoor",
+      "tusshar",
+      "golmaal lucky",
+      "golmaal"
+    ]
+  },
+  {
+    "id": "audio_q_0050",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Golmaal Audio Clue: Name the character or actor making this hilarious sound!",
+    "audioFile": "/audio/golmaal_lucky_sound.mp3",
+    "correctAnswer": "Lucky (Tusshar Kapoor)",
+    "acceptableAnswers": [
+      "lucky",
+      "tusshar kapoor",
+      "tusshar",
+      "golmaal lucky",
+      "golmaal"
+    ]
+  },
+  {
+    "id": "audio_q_0051",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this catchy song hook! Which blockbuster 2009 movie is this from?",
+    "audioFile": "/audio/song_all_is_well.mp3",
+    "correctAnswer": "3 Idiots",
+    "acceptableAnswers": [
+      "3 idiots",
+      "three idiots",
+      "aamir khan",
+      "all izz well"
+    ]
+  },
+  {
+    "id": "audio_q_0052",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Theme Clue: Name the Aamir Khan movie featuring \"All Izz Well\"!",
+    "audioFile": "/audio/song_all_is_well.mp3",
+    "correctAnswer": "3 Idiots",
+    "acceptableAnswers": [
+      "3 idiots",
+      "three idiots",
+      "aamir khan",
+      "all izz well"
+    ]
+  },
+  {
+    "id": "audio_q_0053",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this audio clip! Which ICE engineering student from 3 Idiots is featured?",
+    "audioFile": "/audio/rancho_3_idiots.mp3",
+    "correctAnswer": "Rancho (Ranchhoddas Chanchad)",
+    "acceptableAnswers": [
+      "rancho",
+      "aamir khan",
+      "phunsukh wangdu",
+      "3 idiots"
+    ]
+  },
+  {
+    "id": "audio_q_0054",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Audio Clue: Name Aamir Khan's character in 3 Idiots!",
+    "audioFile": "/audio/rancho_3_idiots.mp3",
+    "correctAnswer": "Rancho (Ranchhoddas Chanchad)",
+    "acceptableAnswers": [
+      "rancho",
+      "aamir khan",
+      "phunsukh wangdu",
+      "3 idiots"
+    ]
+  },
+  {
+    "id": "audio_q_0055",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Listen to the dialogue! \"Kitne aadmi the?\" - Name the villain or film!",
+    "audioFile": "/audio/sholay_gabbar.mp3",
+    "correctAnswer": "Gabbar Singh (Sholay)",
+    "acceptableAnswers": [
+      "gabbar",
+      "gabbar singh",
+      "sholay",
+      "amjad khan"
+    ]
+  },
+  {
+    "id": "audio_q_0056",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Sholay Audio Clue: Name the terrifying dacoit speaking here!",
+    "audioFile": "/audio/sholay_gabbar.mp3",
+    "correctAnswer": "Gabbar Singh (Sholay)",
+    "acceptableAnswers": [
+      "gabbar",
+      "gabbar singh",
+      "sholay",
+      "amjad khan"
+    ]
+  },
+  {
+    "id": "audio_q_0057",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Listen to the dialogue! \"Jo darr gaya samjho marr gaya\" - Name the character!",
+    "audioFile": "/audio/sholay_jo_dar_gaya.mp3",
+    "correctAnswer": "Gabbar Singh (Sholay)",
+    "acceptableAnswers": [
+      "gabbar",
+      "gabbar singh",
+      "sholay",
+      "amjad khan"
+    ]
+  },
+  {
+    "id": "audio_q_0058",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Audio Clue: Name the legendary villain speaking this line from Sholay!",
+    "audioFile": "/audio/sholay_jo_dar_gaya.mp3",
+    "correctAnswer": "Gabbar Singh (Sholay)",
+    "acceptableAnswers": [
+      "gabbar",
+      "gabbar singh",
+      "sholay",
+      "amjad khan"
+    ]
+  },
+  {
+    "id": "audio_q_0059",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Listen to this tense film score and dialogue! Which all-time classic 1975 film is this?",
+    "audioFile": "/audio/gabbar_suspense.mp3",
+    "correctAnswer": "Sholay",
+    "acceptableAnswers": [
+      "sholay",
+      "gabbar singh",
+      "gabbar"
+    ]
+  },
+  {
+    "id": "audio_q_0060",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Identify the classic Amitabh and Dharmendra movie from this audio!",
+    "audioFile": "/audio/gabbar_suspense.mp3",
+    "correctAnswer": "Sholay",
+    "acceptableAnswers": [
+      "sholay",
+      "gabbar singh",
+      "gabbar"
+    ]
+  },
+  {
+    "id": "audio_q_0061",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Listen to the dialogue! \"Jhukega nahi saala\" - Name the movie or actor!",
+    "audioFile": "/audio/pushpa_dialogue.mp3",
+    "correctAnswer": "Pushpa (Allu Arjun)",
+    "acceptableAnswers": [
+      "pushpa",
+      "allu arjun",
+      "pushpa raj"
+    ]
+  },
+  {
+    "id": "audio_q_0062",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Action Clue: Name Allu Arjun's blockbuster sandalwood smuggler character!",
+    "audioFile": "/audio/pushpa_dialogue.mp3",
+    "correctAnswer": "Pushpa (Allu Arjun)",
+    "acceptableAnswers": [
+      "pushpa",
+      "allu arjun",
+      "pushpa raj"
+    ]
+  },
+  {
+    "id": "audio_q_0063",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Listen to this powerful mass theme! Which South-Indian pan-India movie is this?",
+    "audioFile": "/audio/kgf_rocky_theme.mp3",
+    "correctAnswer": "KGF (Rocky Bhai / Yash)",
+    "acceptableAnswers": [
+      "kgf",
+      "rocky bhai",
+      "yash",
+      "kgf 2",
+      "kgf chapter 2"
+    ]
+  },
+  {
+    "id": "audio_q_0064",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "KGF Clue: Name the monster played by Yash in this blockbuster!",
+    "audioFile": "/audio/kgf_rocky_theme.mp3",
+    "correctAnswer": "KGF (Rocky Bhai / Yash)",
+    "acceptableAnswers": [
+      "kgf",
+      "rocky bhai",
+      "yash",
+      "kgf 2",
+      "kgf chapter 2"
+    ]
+  },
+  {
+    "id": "audio_q_0065",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Listen to this royal Telugu-Hindi theme music! Which Rajamouli magnum opus is this?",
+    "audioFile": "/audio/bahubali_theme.mp3",
+    "correctAnswer": "Baahubali (Prabhas)",
+    "acceptableAnswers": [
+      "bahubali",
+      "baahubali",
+      "prabhas",
+      "rajamouli"
+    ]
+  },
+  {
+    "id": "audio_q_0066",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Bahubali Clue: Name Prabhas's historic warrior character!",
+    "audioFile": "/audio/bahubali_theme.mp3",
+    "correctAnswer": "Baahubali (Prabhas)",
+    "acceptableAnswers": [
+      "bahubali",
+      "baahubali",
+      "prabhas",
+      "rajamouli"
+    ]
+  },
+  {
+    "id": "audio_q_0067",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Listen to this roaring police theme! Which cop movie starring Ajay Devgn is this?",
+    "audioFile": "/audio/singham_theme.mp3",
+    "correctAnswer": "Singham (Ajay Devgn)",
+    "acceptableAnswers": [
+      "singham",
+      "ajay devgn",
+      "bajirao singham"
+    ]
+  },
+  {
+    "id": "audio_q_0068",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Singham Clue: Name the fearless Bajirao cop played by Ajay Devgn!",
+    "audioFile": "/audio/singham_theme.mp3",
+    "correctAnswer": "Singham (Ajay Devgn)",
+    "acceptableAnswers": [
+      "singham",
+      "ajay devgn",
+      "bajirao singham"
+    ]
+  },
+  {
+    "id": "audio_q_0069",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Listen to the baritone voice! \"Main Amitabh Bachchan bol raha hoon\" - Name the legend!",
+    "audioFile": "/audio/amitabh_main_amitabh.mp3",
+    "correctAnswer": "Amitabh Bachchan",
+    "acceptableAnswers": [
+      "amitabh bachchan",
+      "amitabh",
+      "big b",
+      "amitji",
+      "amitabh ji"
+    ]
+  },
+  {
+    "id": "audio_q_0070",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Celebrity Voice: Who is introducing himself in this iconic audio clip?",
+    "audioFile": "/audio/amitabh_main_amitabh.mp3",
+    "correctAnswer": "Amitabh Bachchan",
+    "acceptableAnswers": [
+      "amitabh bachchan",
+      "amitabh",
+      "big b",
+      "amitji",
+      "amitabh ji"
+    ]
+  },
+  {
+    "id": "audio_q_0071",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Listen to the grand shout! \"Saat Crore!!\" - Name the host or show!",
+    "audioFile": "/audio/amitabh_7_crore.mp3",
+    "correctAnswer": "Amitabh Bachchan (KBC)",
+    "acceptableAnswers": [
+      "amitabh bachchan",
+      "amitabh",
+      "kbc",
+      "kaun banega crorepati"
+    ]
+  },
+  {
+    "id": "audio_q_0072",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "KBC Clue: Which quiz show host shouts \"7 Crore\" in this viral sound?",
+    "audioFile": "/audio/amitabh_7_crore.mp3",
+    "correctAnswer": "Amitabh Bachchan (KBC)",
+    "acceptableAnswers": [
+      "amitabh bachchan",
+      "amitabh",
+      "kbc",
+      "kaun banega crorepati"
+    ]
+  },
+  {
+    "id": "audio_q_0073",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Listen to this intense clock tick sound! Which Indian TV game show is this from?",
+    "audioFile": "/audio/kbc_question.mp3",
+    "correctAnswer": "Kaun Banega Crorepati (KBC)",
+    "acceptableAnswers": [
+      "kbc",
+      "kaun banega crorepati",
+      "amitabh bachchan"
+    ]
+  },
+  {
+    "id": "audio_q_0074",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Name the Sony TV quiz show hosted by Amitabh Bachchan featuring this clock!",
+    "audioFile": "/audio/kbc_question.mp3",
+    "correctAnswer": "Kaun Banega Crorepati (KBC)",
+    "acceptableAnswers": [
+      "kbc",
+      "kaun banega crorepati",
+      "amitabh bachchan"
+    ]
+  },
+  {
+    "id": "audio_q_0075",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Listen to this grand opening theme! Which famous Indian TV game show is starting?",
+    "audioFile": "/audio/kbc_intro.mp3",
+    "correctAnswer": "Kaun Banega Crorepati (KBC)",
+    "acceptableAnswers": [
+      "kbc",
+      "kaun banega crorepati",
+      "amitabh bachchan"
+    ]
+  },
+  {
+    "id": "audio_q_0076",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Name the legendary knowledge show with this iconic theme!",
+    "audioFile": "/audio/kbc_intro.mp3",
+    "correctAnswer": "Kaun Banega Crorepati (KBC)",
+    "acceptableAnswers": [
+      "kbc",
+      "kaun banega crorepati",
+      "amitabh bachchan"
+    ]
+  },
+  {
+    "id": "audio_q_0077",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Listen to the King of Romance speaking! Guess the superstar actor!",
+    "audioFile": "/audio/srk_voice.mp3",
+    "correctAnswer": "Shah Rukh Khan (SRK)",
+    "acceptableAnswers": [
+      "shah rukh khan",
+      "shahrukh khan",
+      "srk",
+      "king khan"
+    ]
+  },
+  {
+    "id": "audio_q_0078",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Bollywood Royalty: Who is speaking in this charismatic audio clip?",
+    "audioFile": "/audio/srk_voice.mp3",
+    "correctAnswer": "Shah Rukh Khan (SRK)",
+    "acceptableAnswers": [
+      "shah rukh khan",
+      "shahrukh khan",
+      "srk",
+      "king khan"
+    ]
+  },
+  {
+    "id": "audio_q_0079",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Listen to this chilling villainous laugh! Which actor laughed like this in Don?",
+    "audioFile": "/audio/srk_don_laugh.mp3",
+    "correctAnswer": "Shah Rukh Khan (Don)",
+    "acceptableAnswers": [
+      "shah rukh khan",
+      "srk",
+      "don",
+      "king khan"
+    ]
+  },
+  {
+    "id": "audio_q_0080",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Identify Shah Rukh Khan's iconic villain laugh in this movie clip!",
+    "audioFile": "/audio/srk_don_laugh.mp3",
+    "correctAnswer": "Shah Rukh Khan (Don)",
+    "acceptableAnswers": [
+      "shah rukh khan",
+      "srk",
+      "don",
+      "king khan"
+    ]
+  },
+  {
+    "id": "audio_q_0081",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Listen to this viral political soundbite! Name the Prime Minister of India speaking!",
+    "audioFile": "/audio/modi_ji_wah.mp3",
+    "correctAnswer": "Narendra Modi",
+    "acceptableAnswers": [
+      "narendra modi",
+      "modi",
+      "modiji",
+      "pm modi"
+    ]
+  },
+  {
+    "id": "audio_q_0082",
+    "category": "🎙️ Indian Celebrity Voice",
+    "question": "Audio Clue: Identify the Indian leader speaking in this viral clip!",
+    "audioFile": "/audio/modi_ji_wah.mp3",
+    "correctAnswer": "Narendra Modi",
+    "acceptableAnswers": [
+      "narendra modi",
+      "modi",
+      "modiji",
+      "pm modi"
+    ]
+  },
+  {
+    "id": "audio_q_0083",
+    "category": "🎵 Bollywood Song & Lyrics",
+    "question": "Listen to the music! Name this legendary AR Rahman song filmed on a train roof!",
+    "audioFile": "/audio/song_chaiyya_chaiyya.mp3",
+    "correctAnswer": "Chaiyya Chaiyya (Dil Se)",
+    "acceptableAnswers": [
+      "chaiyya chaiyya",
+      "dil se",
+      "ar rahman",
+      "shah rukh khan",
+      "srk"
+    ]
+  },
+  {
+    "id": "audio_q_0084",
+    "category": "🎵 Bollywood Song & Lyrics",
+    "question": "Song Clue: Name the famous train dance song starring Shah Rukh Khan and Malaika!",
+    "audioFile": "/audio/song_chaiyya_chaiyya.mp3",
+    "correctAnswer": "Chaiyya Chaiyya (Dil Se)",
+    "acceptableAnswers": [
+      "chaiyya chaiyya",
+      "dil se",
+      "ar rahman",
+      "shah rukh khan",
+      "srk"
+    ]
+  },
+  {
+    "id": "audio_q_0085",
+    "category": "🎵 Bollywood Song & Lyrics",
+    "question": "Listen to the melody! Name the 2013 blockbuster romantic anthem sung by Arijit Singh!",
+    "audioFile": "/audio/song_tum_hi_ho.mp3",
+    "correctAnswer": "Tum Hi Ho (Aashiqui 2)",
+    "acceptableAnswers": [
+      "tum hi ho",
+      "aashiqui 2",
+      "arijit singh",
+      "arijit"
+    ]
+  },
+  {
+    "id": "audio_q_0086",
+    "category": "🎵 Bollywood Song & Lyrics",
+    "question": "Song Clue: Name this iconic track from Aashiqui 2!",
+    "audioFile": "/audio/song_tum_hi_ho.mp3",
+    "correctAnswer": "Tum Hi Ho (Aashiqui 2)",
+    "acceptableAnswers": [
+      "tum hi ho",
+      "aashiqui 2",
+      "arijit singh",
+      "arijit"
+    ]
+  },
+  {
+    "id": "audio_q_0087",
+    "category": "🎵 Bollywood Song & Lyrics",
+    "question": "Listen to this spooky dance music! Name the Akshay Kumar horror-comedy film!",
+    "audioFile": "/audio/song_bhool_bhulaiyaa.mp3",
+    "correctAnswer": "Bhool Bhulaiyaa",
+    "acceptableAnswers": [
+      "bhool bhulaiyaa",
+      "akshay kumar",
+      "manjulika"
+    ]
+  },
+  {
+    "id": "audio_q_0088",
+    "category": "🎵 Bollywood Song & Lyrics",
+    "question": "Which psychological comedy movie features this iconic title track?",
+    "audioFile": "/audio/song_bhool_bhulaiyaa.mp3",
+    "correctAnswer": "Bhool Bhulaiyaa",
+    "acceptableAnswers": [
+      "bhool bhulaiyaa",
+      "akshay kumar",
+      "manjulika"
+    ]
+  },
+  {
+    "id": "audio_q_0089",
+    "category": "🏏 Cricket Anthem Audio",
+    "question": "Listen to the stadium roar! Name the legendary Indian cricket captain being cheered!",
+    "audioFile": "/audio/cricket_dhoni_thala.mp3",
+    "correctAnswer": "MS Dhoni (Thala)",
+    "acceptableAnswers": [
+      "dhoni",
+      "ms dhoni",
+      "mahendra singh dhoni",
+      "thala",
+      "csk"
+    ]
+  },
+  {
+    "id": "audio_q_0090",
+    "category": "🏏 Cricket Anthem Audio",
+    "question": "Cricket Clue: Name the CSK captain famously known as \"Thala\"!",
+    "audioFile": "/audio/cricket_dhoni_thala.mp3",
+    "correctAnswer": "MS Dhoni (Thala)",
+    "acceptableAnswers": [
+      "dhoni",
+      "ms dhoni",
+      "mahendra singh dhoni",
+      "thala",
+      "csk"
+    ]
+  },
+  {
+    "id": "audio_q_0091",
+    "category": "🏏 Cricket Anthem Audio",
+    "question": "Listen to this famous song! Which Indian cricket legend is heavily memed with this tune?",
+    "audioFile": "/audio/cricket_bole_jo_koyal.mp3",
+    "correctAnswer": "MS Dhoni",
+    "acceptableAnswers": [
+      "dhoni",
+      "ms dhoni",
+      "mahendra singh dhoni",
+      "thala"
+    ]
+  },
+  {
+    "id": "audio_q_0092",
+    "category": "🏏 Cricket Anthem Audio",
+    "question": "Cricket Meme Clue: Which world cup winning captain has this unofficial meme song?",
+    "audioFile": "/audio/cricket_bole_jo_koyal.mp3",
+    "correctAnswer": "MS Dhoni",
+    "acceptableAnswers": [
+      "dhoni",
+      "ms dhoni",
+      "mahendra singh dhoni",
+      "thala"
+    ]
+  },
+  {
+    "id": "audio_q_0093",
+    "category": "🏏 Cricket Stadium Audio",
+    "question": "Listen to the loud stadium trumpet horn! Which T20 cricket league plays this at every boundary?",
+    "audioFile": "/audio/cricket_ipl_horn.mp3",
+    "correctAnswer": "IPL (Indian Premier League)",
+    "acceptableAnswers": [
+      "ipl",
+      "indian premier league",
+      "t20"
+    ]
+  },
+  {
+    "id": "audio_q_0094",
+    "category": "🏏 Cricket Stadium Audio",
+    "question": "Name the world's richest cricket league with this iconic stadium trumpet!",
+    "audioFile": "/audio/cricket_ipl_horn.mp3",
+    "correctAnswer": "IPL (Indian Premier League)",
+    "acceptableAnswers": [
+      "ipl",
+      "indian premier league",
+      "t20"
+    ]
+  },
+  {
+    "id": "audio_q_0095",
+    "category": "🏏 Cricket Sound Audio",
+    "question": "Listen to this crisp woody sound effect! What sport equipment is making this contact?",
+    "audioFile": "/audio/cricket_bat_shot.mp3",
+    "correctAnswer": "Cricket Bat (Shot)",
+    "acceptableAnswers": [
+      "cricket bat",
+      "cricket",
+      "bat",
+      "cricket shot"
+    ]
+  },
+  {
+    "id": "audio_q_0096",
+    "category": "🏏 Cricket Sound Audio",
+    "question": "Identify the sport sound in this short audio clip!",
+    "audioFile": "/audio/cricket_bat_shot.mp3",
+    "correctAnswer": "Cricket Bat (Shot)",
+    "acceptableAnswers": [
+      "cricket bat",
+      "cricket",
+      "bat",
+      "cricket shot"
+    ]
+  },
+  {
+    "id": "audio_q_0097",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to this viral dialogue! \"Khatam... Tata... Goodbye... Gaya!\" - Name the politician/speaker!",
+    "audioFile": "/audio/khatam_tata_goodbye.mp3",
+    "correctAnswer": "Rahul Gandhi",
+    "acceptableAnswers": [
+      "rahul gandhi",
+      "rahul",
+      "khatam tata"
+    ]
+  },
+  {
+    "id": "audio_q_0098",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Identify the famous Indian speech that became one of India's biggest memes!",
+    "audioFile": "/audio/khatam_tata_goodbye.mp3",
+    "correctAnswer": "Rahul Gandhi",
+    "acceptableAnswers": [
+      "rahul gandhi",
+      "rahul",
+      "khatam tata"
+    ]
+  },
+  {
+    "id": "audio_q_0099",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the voice! \"Sochna padta hai re!\" - Name the viral Indian meme personality!",
+    "audioFile": "/audio/hindustani_bhau_sochna.mp3",
+    "correctAnswer": "Hindustani Bhau",
+    "acceptableAnswers": [
+      "hindustani bhau",
+      "bhau",
+      "vikas phatak"
+    ]
+  },
+  {
+    "id": "audio_q_0100",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Who is speaking in a car in this famous Indian meme clip?",
+    "audioFile": "/audio/hindustani_bhau_sochna.mp3",
+    "correctAnswer": "Hindustani Bhau",
+    "acceptableAnswers": [
+      "hindustani bhau",
+      "bhau",
+      "vikas phatak"
+    ]
+  },
+  {
+    "id": "audio_q_0101",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! \"Toh kaise hain aap log?\" - Name the famous Indian YouTuber!",
+    "audioFile": "/audio/carryminati_dialogue.mp3",
+    "correctAnswer": "CarryMinati (Ajey Nagar)",
+    "acceptableAnswers": [
+      "carryminati",
+      "carry",
+      "ajey nagar"
+    ]
+  },
+  {
+    "id": "audio_q_0102",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Identify India's biggest individual roast creator speaking in this clip!",
+    "audioFile": "/audio/carryminati_dialogue.mp3",
+    "correctAnswer": "CarryMinati (Ajey Nagar)",
+    "acceptableAnswers": [
+      "carryminati",
+      "carry",
+      "ajey nagar"
+    ]
+  },
+  {
+    "id": "audio_q_0103",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Listen to this intense dialogue! Which Uttar Pradesh crime thriller web series is this?",
+    "audioFile": "/audio/mirzapur_dekhe_ho.mp3",
+    "correctAnswer": "Mirzapur",
+    "acceptableAnswers": [
+      "mirzapur",
+      "kaleen bhaiya",
+      "guddu pandit"
+    ]
+  },
+  {
+    "id": "audio_q_0104",
+    "category": "🎬 Iconic Movie Audio",
+    "question": "Name the famous Amazon Prime series featuring Kaleen Bhaiya and Guddu Pandit!",
+    "audioFile": "/audio/mirzapur_dekhe_ho.mp3",
+    "correctAnswer": "Mirzapur",
+    "acceptableAnswers": [
+      "mirzapur",
+      "kaleen bhaiya",
+      "guddu pandit"
+    ]
+  },
+  {
+    "id": "audio_q_0105",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Chai piyo, biscuit khao\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Jethalal Gada",
+    "acceptableAnswers": [
+      "jethalal",
+      "jethabhai",
+      "jetha",
+      "jethalal gada"
+    ]
+  },
+  {
+    "id": "audio_q_0106",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Babita ji namaste\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Jethalal Gada",
+    "acceptableAnswers": [
+      "jethalal",
+      "jethabhai",
+      "jetha",
+      "jethalal gada"
+    ]
+  },
+  {
+    "id": "audio_q_0107",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Bapuji nahane gaye hain\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Jethalal Gada",
+    "acceptableAnswers": [
+      "jethalal",
+      "jethabhai",
+      "jetha",
+      "jethalal gada"
+    ]
+  },
+  {
+    "id": "audio_q_0108",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Daya pagal ho gayi hai kya\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Jethalal Gada",
+    "acceptableAnswers": [
+      "jethalal",
+      "jethabhai",
+      "jetha",
+      "jethalal gada"
+    ]
+  },
+  {
+    "id": "audio_q_0109",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Ae Sundarlal\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Jethalal Gada",
+    "acceptableAnswers": [
+      "jethalal",
+      "jethabhai",
+      "jetha",
+      "jethalal gada"
+    ]
+  },
+  {
+    "id": "audio_q_0110",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Ae Jethiya!\"!",
+    "audioFile": "/audio/tmkoc_champaklal.mp3",
+    "correctAnswer": "Champaklal Gada (Bapuji)",
+    "acceptableAnswers": [
+      "champaklal",
+      "bapuji",
+      "champak chacha",
+      "dadaji"
+    ]
+  },
+  {
+    "id": "audio_q_0111",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Chup kar pagal\"!",
+    "audioFile": "/audio/tmkoc_champaklal.mp3",
+    "correctAnswer": "Champaklal Gada (Bapuji)",
+    "acceptableAnswers": [
+      "champaklal",
+      "bapuji",
+      "champak chacha",
+      "dadaji"
+    ]
+  },
+  {
+    "id": "audio_q_0112",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Daya beta tu theek bolti hai\"!",
+    "audioFile": "/audio/tmkoc_champaklal.mp3",
+    "correctAnswer": "Champaklal Gada (Bapuji)",
+    "acceptableAnswers": [
+      "champaklal",
+      "bapuji",
+      "champak chacha",
+      "dadaji"
+    ]
+  },
+  {
+    "id": "audio_q_0113",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Besharat, badtameez!\"!",
+    "audioFile": "/audio/tmkoc_champaklal.mp3",
+    "correctAnswer": "Champaklal Gada (Bapuji)",
+    "acceptableAnswers": [
+      "champaklal",
+      "bapuji",
+      "champak chacha",
+      "dadaji"
+    ]
+  },
+  {
+    "id": "audio_q_0114",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Tapu ke papa\"!",
+    "audioFile": "/audio/tmkoc_champaklal.mp3",
+    "correctAnswer": "Champaklal Gada (Bapuji)",
+    "acceptableAnswers": [
+      "champaklal",
+      "bapuji",
+      "champak chacha",
+      "dadaji"
+    ]
+  },
+  {
+    "id": "audio_q_0115",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Main Aatmaram Tukaram Bhide, Ekmev Secretary\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Aatmaram Tukaram Bhide",
+    "acceptableAnswers": [
+      "bhide",
+      "aatmaram bhide",
+      "aatmaram tukaram bhide",
+      "secretary"
+    ]
+  },
+  {
+    "id": "audio_q_0116",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Gokuldham ka ekmev secretary\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Aatmaram Tukaram Bhide",
+    "acceptableAnswers": [
+      "bhide",
+      "aatmaram bhide",
+      "aatmaram tukaram bhide",
+      "secretary"
+    ]
+  },
+  {
+    "id": "audio_q_0117",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Tapu sena ko suspend karunga\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Aatmaram Tukaram Bhide",
+    "acceptableAnswers": [
+      "bhide",
+      "aatmaram bhide",
+      "aatmaram tukaram bhide",
+      "secretary"
+    ]
+  },
+  {
+    "id": "audio_q_0118",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Madhavi achaar papad\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Aatmaram Tukaram Bhide",
+    "acceptableAnswers": [
+      "bhide",
+      "aatmaram bhide",
+      "aatmaram tukaram bhide",
+      "secretary"
+    ]
+  },
+  {
+    "id": "audio_q_0119",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Hamaare zamaane mein\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Aatmaram Tukaram Bhide",
+    "acceptableAnswers": [
+      "bhide",
+      "aatmaram bhide",
+      "aatmaram tukaram bhide",
+      "secretary"
+    ]
+  },
+  {
+    "id": "audio_q_0120",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Hey Maa Mataji!\"!",
+    "audioFile": "/audio/tmkoc_garba_dhol.mp3",
+    "correctAnswer": "Dayaben Gada",
+    "acceptableAnswers": [
+      "daya",
+      "dayaben",
+      "daya bhabhi",
+      "daya gada"
+    ]
+  },
+  {
+    "id": "audio_q_0121",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Tapu ke papa suno na\"!",
+    "audioFile": "/audio/tmkoc_garba_dhol.mp3",
+    "correctAnswer": "Dayaben Gada",
+    "acceptableAnswers": [
+      "daya",
+      "dayaben",
+      "daya bhabhi",
+      "daya gada"
+    ]
+  },
+  {
+    "id": "audio_q_0122",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Garba shuru kiya jaye\"!",
+    "audioFile": "/audio/tmkoc_garba_dhol.mp3",
+    "correctAnswer": "Dayaben Gada",
+    "acceptableAnswers": [
+      "daya",
+      "dayaben",
+      "daya bhabhi",
+      "daya gada"
+    ]
+  },
+  {
+    "id": "audio_q_0123",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Sundar veera aaya hai\"!",
+    "audioFile": "/audio/tmkoc_garba_dhol.mp3",
+    "correctAnswer": "Dayaben Gada",
+    "acceptableAnswers": [
+      "daya",
+      "dayaben",
+      "daya bhabhi",
+      "daya gada"
+    ]
+  },
+  {
+    "id": "audio_q_0124",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Maa ka phone aaya hai\"!",
+    "audioFile": "/audio/tmkoc_garba_dhol.mp3",
+    "correctAnswer": "Dayaben Gada",
+    "acceptableAnswers": [
+      "daya",
+      "dayaben",
+      "daya bhabhi",
+      "daya gada"
+    ]
+  },
+  {
+    "id": "audio_q_0125",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Cancel kardo!\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Popatlal Pandey",
+    "acceptableAnswers": [
+      "popatlal",
+      "patrakar popatlal",
+      "popat"
+    ]
+  },
+  {
+    "id": "audio_q_0126",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Main Patrakar Popatlal\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Popatlal Pandey",
+    "acceptableAnswers": [
+      "popatlal",
+      "patrakar popatlal",
+      "popat"
+    ]
+  },
+  {
+    "id": "audio_q_0127",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Meri shaadi kab hogi\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Popatlal Pandey",
+    "acceptableAnswers": [
+      "popatlal",
+      "patrakar popatlal",
+      "popat"
+    ]
+  },
+  {
+    "id": "audio_q_0128",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Duniya hila doonga\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Popatlal Pandey",
+    "acceptableAnswers": [
+      "popatlal",
+      "patrakar popatlal",
+      "popat"
+    ]
+  },
+  {
+    "id": "audio_q_0129",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Toofan Express patrakar\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Popatlal Pandey",
+    "acceptableAnswers": [
+      "popatlal",
+      "patrakar popatlal",
+      "popat"
+    ]
+  },
+  {
+    "id": "audio_q_0130",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Babita ji chaliye\"!",
+    "audioFile": "/audio/tmkoc_iyer.mp3",
+    "correctAnswer": "Krishnan Iyer",
+    "acceptableAnswers": [
+      "iyer",
+      "krishnan iyer",
+      "krishnan subramaniam iyer"
+    ]
+  },
+  {
+    "id": "audio_q_0131",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Main scientist Krishnan Iyer\"!",
+    "audioFile": "/audio/tmkoc_iyer.mp3",
+    "correctAnswer": "Krishnan Iyer",
+    "acceptableAnswers": [
+      "iyer",
+      "krishnan iyer",
+      "krishnan subramaniam iyer"
+    ]
+  },
+  {
+    "id": "audio_q_0132",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Jethalal tum phir shuru ho gaye\"!",
+    "audioFile": "/audio/tmkoc_iyer.mp3",
+    "correctAnswer": "Krishnan Iyer",
+    "acceptableAnswers": [
+      "iyer",
+      "krishnan iyer",
+      "krishnan subramaniam iyer"
+    ]
+  },
+  {
+    "id": "audio_q_0133",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Chennai se hu main\"!",
+    "audioFile": "/audio/tmkoc_iyer.mp3",
+    "correctAnswer": "Krishnan Iyer",
+    "acceptableAnswers": [
+      "iyer",
+      "krishnan iyer",
+      "krishnan subramaniam iyer"
+    ]
+  },
+  {
+    "id": "audio_q_0134",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Vanakkam\"!",
+    "audioFile": "/audio/tmkoc_iyer.mp3",
+    "correctAnswer": "Krishnan Iyer",
+    "acceptableAnswers": [
+      "iyer",
+      "krishnan iyer",
+      "krishnan subramaniam iyer"
+    ]
+  },
+  {
+    "id": "audio_q_0135",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Jaise jiski soch\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Bagheshwar (Bagha)",
+    "acceptableAnswers": [
+      "bagha",
+      "bagheshwar",
+      "bagha boy"
+    ]
+  },
+  {
+    "id": "audio_q_0136",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Sethji yeh karke dekhein?\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Bagheshwar (Bagha)",
+    "acceptableAnswers": [
+      "bagha",
+      "bagheshwar",
+      "bagha boy"
+    ]
+  },
+  {
+    "id": "audio_q_0137",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Bawri ji se baat karu?\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Bagheshwar (Bagha)",
+    "acceptableAnswers": [
+      "bagha",
+      "bagheshwar",
+      "bagha boy"
+    ]
+  },
+  {
+    "id": "audio_q_0138",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Nattu kaka sahi bol rahe hain\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Bagheshwar (Bagha)",
+    "acceptableAnswers": [
+      "bagha",
+      "bagheshwar",
+      "bagha boy"
+    ]
+  },
+  {
+    "id": "audio_q_0139",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Hamari pagar badha do sethji\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Nattu Kaka",
+    "acceptableAnswers": [
+      "nattu kaka",
+      "nattu",
+      "natwarlal"
+    ]
+  },
+  {
+    "id": "audio_q_0140",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Aapne kuch kaha sethji?\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Nattu Kaka",
+    "acceptableAnswers": [
+      "nattu kaka",
+      "nattu",
+      "natwarlal"
+    ]
+  },
+  {
+    "id": "audio_q_0141",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Gada Electronics ka senior manager\"!",
+    "audioFile": "/audio/tmkoc_jethalal.mp3",
+    "correctAnswer": "Nattu Kaka",
+    "acceptableAnswers": [
+      "nattu kaka",
+      "nattu",
+      "natwarlal"
+    ]
+  },
+  {
+    "id": "audio_q_0142",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Jethalal mere param mitra\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Taarak Mehta",
+    "acceptableAnswers": [
+      "taarak mehta",
+      "tarak mehta",
+      "taarak",
+      "mehtus"
+    ]
+  },
+  {
+    "id": "audio_q_0143",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Anjali ka diet food\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Taarak Mehta",
+    "acceptableAnswers": [
+      "taarak mehta",
+      "tarak mehta",
+      "taarak",
+      "mehtus"
+    ]
+  },
+  {
+    "id": "audio_q_0144",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Karela juice pina padega\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Taarak Mehta",
+    "acceptableAnswers": [
+      "taarak mehta",
+      "tarak mehta",
+      "taarak",
+      "mehtus"
+    ]
+  },
+  {
+    "id": "audio_q_0145",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Gokuldham ka writer\"!",
+    "audioFile": "/audio/tmkoc_theme.mp3",
+    "correctAnswer": "Taarak Mehta",
+    "acceptableAnswers": [
+      "taarak mehta",
+      "tarak mehta",
+      "taarak",
+      "mehtus"
+    ]
+  },
+  {
+    "id": "audio_q_0146",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Good morning Jetha ji\"!",
+    "audioFile": "/audio/tmkoc_iyer.mp3",
+    "correctAnswer": "Babita Ji",
+    "acceptableAnswers": [
+      "babita",
+      "babita ji",
+      "babitaji"
+    ]
+  },
+  {
+    "id": "audio_q_0147",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Hi Jetha ji kaise hain aap\"!",
+    "audioFile": "/audio/tmkoc_iyer.mp3",
+    "correctAnswer": "Babita Ji",
+    "acceptableAnswers": [
+      "babita",
+      "babita ji",
+      "babitaji"
+    ]
+  },
+  {
+    "id": "audio_q_0148",
+    "category": "👓 TMKOC Audio Voice",
+    "question": "TMKOC Audio Dialogue: Identify the Gokuldham character who famously says \"Iyer chaliye dinner pe chalte hain\"!",
+    "audioFile": "/audio/tmkoc_iyer.mp3",
+    "correctAnswer": "Babita Ji",
+    "acceptableAnswers": [
+      "babita",
+      "babita ji",
+      "babitaji"
+    ]
+  },
+  {
+    "id": "audio_q_0149",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Hera Pheri delivers the dialogue: \"Uthale re baba!\"?",
+    "audioFile": "/audio/hera_pheri_theme.mp3",
+    "correctAnswer": "Baburao Ganpatrao Apte (Hera Pheri)",
+    "acceptableAnswers": [
+      "baburao",
+      "babu bhaiya",
+      "paresh rawal",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0150",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Hera Pheri delivers the dialogue: \"Khopdi tod saale ka!\"?",
+    "audioFile": "/audio/hera_pheri_theme.mp3",
+    "correctAnswer": "Baburao Ganpatrao Apte (Hera Pheri)",
+    "acceptableAnswers": [
+      "baburao",
+      "babu bhaiya",
+      "paresh rawal",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0151",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Hera Pheri delivers the dialogue: \"Mere do do baap re baba\"?",
+    "audioFile": "/audio/hera_pheri_theme.mp3",
+    "correctAnswer": "Baburao Ganpatrao Apte (Hera Pheri)",
+    "acceptableAnswers": [
+      "baburao",
+      "babu bhaiya",
+      "paresh rawal",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0152",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Hera Pheri delivers the dialogue: \"Deva re deva!\"?",
+    "audioFile": "/audio/hera_pheri_theme.mp3",
+    "correctAnswer": "Baburao Ganpatrao Apte (Hera Pheri)",
+    "acceptableAnswers": [
+      "baburao",
+      "babu bhaiya",
+      "paresh rawal",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0153",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Hera Pheri delivers the dialogue: \"Aye Raju khopdi phod!\"?",
+    "audioFile": "/audio/hera_pheri_theme.mp3",
+    "correctAnswer": "Baburao Ganpatrao Apte (Hera Pheri)",
+    "acceptableAnswers": [
+      "baburao",
+      "babu bhaiya",
+      "paresh rawal",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0154",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Phir Hera Pheri delivers the dialogue: \"25 din mein paisa double scheme\"?",
+    "audioFile": "/audio/akshay_paisa_double.mp3",
+    "correctAnswer": "Raju (Phir Hera Pheri)",
+    "acceptableAnswers": [
+      "akshay kumar",
+      "raju",
+      "phir hera pheri",
+      "akshay"
+    ]
+  },
+  {
+    "id": "audio_q_0155",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Phir Hera Pheri delivers the dialogue: \"Zor zor se bolke logon ko scheme bata de\"?",
+    "audioFile": "/audio/akshay_paisa_double.mp3",
+    "correctAnswer": "Raju (Phir Hera Pheri)",
+    "acceptableAnswers": [
+      "akshay kumar",
+      "raju",
+      "phir hera pheri",
+      "akshay"
+    ]
+  },
+  {
+    "id": "audio_q_0156",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Phir Hera Pheri delivers the dialogue: \"Golgappa khayega bhidu?\"?",
+    "audioFile": "/audio/akshay_paisa_double.mp3",
+    "correctAnswer": "Raju (Phir Hera Pheri)",
+    "acceptableAnswers": [
+      "akshay kumar",
+      "raju",
+      "phir hera pheri",
+      "akshay"
+    ]
+  },
+  {
+    "id": "audio_q_0157",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Phir Hera Pheri delivers the dialogue: \"Abhi maja aayega na bhidu\"?",
+    "audioFile": "/audio/akshay_paisa_double.mp3",
+    "correctAnswer": "Raju (Phir Hera Pheri)",
+    "acceptableAnswers": [
+      "akshay kumar",
+      "raju",
+      "phir hera pheri",
+      "akshay"
+    ]
+  },
+  {
+    "id": "audio_q_0158",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Hera Pheri delivers the dialogue: \"Baburao phone uthao!\"?",
+    "audioFile": "/audio/hera_pheri_theme.mp3",
+    "correctAnswer": "Ghanshyam (Shyam) (Hera Pheri)",
+    "acceptableAnswers": [
+      "shyam",
+      "suniel shetty",
+      "sunil shetty",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0159",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Hera Pheri delivers the dialogue: \"Yeh kabaddi chal rahi hai kya?\"?",
+    "audioFile": "/audio/hera_pheri_theme.mp3",
+    "correctAnswer": "Ghanshyam (Shyam) (Hera Pheri)",
+    "acceptableAnswers": [
+      "shyam",
+      "suniel shetty",
+      "sunil shetty",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0160",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Hera Pheri delivers the dialogue: \"Kabira speaking\"?",
+    "audioFile": "/audio/hera_pheri_theme.mp3",
+    "correctAnswer": "Ghanshyam (Shyam) (Hera Pheri)",
+    "acceptableAnswers": [
+      "shyam",
+      "suniel shetty",
+      "sunil shetty",
+      "hera pheri"
+    ]
+  },
+  {
+    "id": "audio_q_0161",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Welcome delivers the dialogue: \"Yeh live painting hai!\"?",
+    "audioFile": "/audio/welcome_uday_entry.mp3",
+    "correctAnswer": "Majnu Bhai (Welcome)",
+    "acceptableAnswers": [
+      "majnu bhai",
+      "anil kapoor",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0162",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Welcome delivers the dialogue: \"Meri painting ko koi nahi khareedta?\"?",
+    "audioFile": "/audio/welcome_uday_entry.mp3",
+    "correctAnswer": "Majnu Bhai (Welcome)",
+    "acceptableAnswers": [
+      "majnu bhai",
+      "anil kapoor",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0163",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Welcome delivers the dialogue: \"Bhaisaab yeh kis line mein aa gaye aap?\"?",
+    "audioFile": "/audio/welcome_uday_entry.mp3",
+    "correctAnswer": "Majnu Bhai (Welcome)",
+    "acceptableAnswers": [
+      "majnu bhai",
+      "anil kapoor",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0164",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Welcome delivers the dialogue: \"Control Uday control!\"?",
+    "audioFile": "/audio/welcome_uday_entry.mp3",
+    "correctAnswer": "Uday Shetty (Welcome)",
+    "acceptableAnswers": [
+      "uday shetty",
+      "nana patekar",
+      "welcome",
+      "uday"
+    ]
+  },
+  {
+    "id": "audio_q_0165",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Welcome delivers the dialogue: \"Subah se na ek aaloo bika hai, na aadha kaanda\"?",
+    "audioFile": "/audio/welcome_uday_entry.mp3",
+    "correctAnswer": "Uday Shetty (Welcome)",
+    "acceptableAnswers": [
+      "uday shetty",
+      "nana patekar",
+      "welcome",
+      "uday"
+    ]
+  },
+  {
+    "id": "audio_q_0166",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Welcome delivers the dialogue: \"Meri ek taang nakli hai\"?",
+    "audioFile": "/audio/welcome_uday_entry.mp3",
+    "correctAnswer": "Uday Shetty (Welcome)",
+    "acceptableAnswers": [
+      "uday shetty",
+      "nana patekar",
+      "welcome",
+      "uday"
+    ]
+  },
+  {
+    "id": "audio_q_0167",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Welcome delivers the dialogue: \"Meri behen ka ladka hai yeh!\"?",
+    "audioFile": "/audio/welcome_uday_entry.mp3",
+    "correctAnswer": "Dr. Ghungroo (Welcome)",
+    "acceptableAnswers": [
+      "dr ghungroo",
+      "ghungroo",
+      "paresh rawal",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0168",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Welcome delivers the dialogue: \"Aag lag gayi gaddi mein!\"?",
+    "audioFile": "/audio/welcome_uday_entry.mp3",
+    "correctAnswer": "Dr. Ghungroo (Welcome)",
+    "acceptableAnswers": [
+      "dr ghungroo",
+      "ghungroo",
+      "paresh rawal",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0169",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Welcome delivers the dialogue: \"Bhagwan ka diya sab kuch hai\"?",
+    "audioFile": "/audio/welcome_uday_entry.mp3",
+    "correctAnswer": "Dr. Ghungroo (Welcome)",
+    "acceptableAnswers": [
+      "dr ghungroo",
+      "ghungroo",
+      "paresh rawal",
+      "welcome"
+    ]
+  },
+  {
+    "id": "audio_q_0170",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Chup Chup Ke delivers the dialogue: \"Hum koi mandir ka ghanta hai?\"?",
+    "audioFile": "/audio/rajpal_yadav_tadap.mp3",
+    "correctAnswer": "Bandya (Chup Chup Ke)",
+    "acceptableAnswers": [
+      "bandya",
+      "rajpal yadav",
+      "chup chup ke",
+      "rajpal"
+    ]
+  },
+  {
+    "id": "audio_q_0171",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Chup Chup Ke delivers the dialogue: \"Mujhe sab aata hai, main sab kar lunga\"?",
+    "audioFile": "/audio/rajpal_yadav_tadap.mp3",
+    "correctAnswer": "Bandya (Chup Chup Ke)",
+    "acceptableAnswers": [
+      "bandya",
+      "rajpal yadav",
+      "chup chup ke",
+      "rajpal"
+    ]
+  },
+  {
+    "id": "audio_q_0172",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Chup Chup Ke delivers the dialogue: \"Aisi tadap hi aisi hai\"?",
+    "audioFile": "/audio/rajpal_yadav_tadap.mp3",
+    "correctAnswer": "Bandya (Chup Chup Ke)",
+    "acceptableAnswers": [
+      "bandya",
+      "rajpal yadav",
+      "chup chup ke",
+      "rajpal"
+    ]
+  },
+  {
+    "id": "audio_q_0173",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Munna Bhai M.B.B.S. delivers the dialogue: \"Bhai ne bola karne ka toh karne ka!\"?",
+    "audioFile": "/audio/song_all_is_well.mp3",
+    "correctAnswer": "Circuit (Munna Bhai M.B.B.S.)",
+    "acceptableAnswers": [
+      "circuit",
+      "arshad warsi",
+      "munna bhai"
+    ]
+  },
+  {
+    "id": "audio_q_0174",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Munna Bhai M.B.B.S. delivers the dialogue: \"Apun ke bhai jaisa koi nahi hai\"?",
+    "audioFile": "/audio/song_all_is_well.mp3",
+    "correctAnswer": "Circuit (Munna Bhai M.B.B.S.)",
+    "acceptableAnswers": [
+      "circuit",
+      "arshad warsi",
+      "munna bhai"
+    ]
+  },
+  {
+    "id": "audio_q_0175",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Munna Bhai M.B.B.S. delivers the dialogue: \"Jaadu ki jhappi de daal!\"?",
+    "audioFile": "/audio/song_all_is_well.mp3",
+    "correctAnswer": "Circuit (Munna Bhai M.B.B.S.)",
+    "acceptableAnswers": [
+      "circuit",
+      "arshad warsi",
+      "munna bhai"
+    ]
+  },
+  {
+    "id": "audio_q_0176",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Munna Bhai M.B.B.S. delivers the dialogue: \"Carrom ramwanu, juice pivanu, majja ni life!\"?",
+    "audioFile": "/audio/song_all_is_well.mp3",
+    "correctAnswer": "Munna Bhai (Munna Bhai M.B.B.S.)",
+    "acceptableAnswers": [
+      "munna bhai",
+      "sanjay dutt",
+      "munna"
+    ]
+  },
+  {
+    "id": "audio_q_0177",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Munna Bhai M.B.B.S. delivers the dialogue: \"Tension lene ka nahi, dene ka!\"?",
+    "audioFile": "/audio/song_all_is_well.mp3",
+    "correctAnswer": "Munna Bhai (Munna Bhai M.B.B.S.)",
+    "acceptableAnswers": [
+      "munna bhai",
+      "sanjay dutt",
+      "munna"
+    ]
+  },
+  {
+    "id": "audio_q_0178",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Munna Bhai M.B.B.S. delivers the dialogue: \"Mamoo banaya re!\"?",
+    "audioFile": "/audio/song_all_is_well.mp3",
+    "correctAnswer": "Munna Bhai (Munna Bhai M.B.B.S.)",
+    "acceptableAnswers": [
+      "munna bhai",
+      "sanjay dutt",
+      "munna"
+    ]
+  },
+  {
+    "id": "audio_q_0179",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from 3 Idiots delivers the dialogue: \"Chamatkar pe chamatkar!\"?",
+    "audioFile": "/audio/song_all_is_well.mp3",
+    "correctAnswer": "Chatur Ramalingam (Silencer) (3 Idiots)",
+    "acceptableAnswers": [
+      "chatur",
+      "silencer",
+      "omi vaidya",
+      "3 idiots"
+    ]
+  },
+  {
+    "id": "audio_q_0180",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from 3 Idiots delivers the dialogue: \"Aaja 5 september ko dekh lenge\"?",
+    "audioFile": "/audio/song_all_is_well.mp3",
+    "correctAnswer": "Chatur Ramalingam (Silencer) (3 Idiots)",
+    "acceptableAnswers": [
+      "chatur",
+      "silencer",
+      "omi vaidya",
+      "3 idiots"
+    ]
+  },
+  {
+    "id": "audio_q_0181",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from 3 Idiots delivers the dialogue: \"Main top karunga!\"?",
+    "audioFile": "/audio/song_all_is_well.mp3",
+    "correctAnswer": "Chatur Ramalingam (Silencer) (3 Idiots)",
+    "acceptableAnswers": [
+      "chatur",
+      "silencer",
+      "omi vaidya",
+      "3 idiots"
+    ]
+  },
+  {
+    "id": "audio_q_0182",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Sholay delivers the dialogue: \"Kitne aadmi the?\"?",
+    "audioFile": "/audio/sholay_gabbar.mp3",
+    "correctAnswer": "Gabbar Singh (Sholay)",
+    "acceptableAnswers": [
+      "gabbar singh",
+      "gabbar",
+      "sholay",
+      "amjad khan"
+    ]
+  },
+  {
+    "id": "audio_q_0183",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Sholay delivers the dialogue: \"Arrey o Sambha!\"?",
+    "audioFile": "/audio/sholay_gabbar.mp3",
+    "correctAnswer": "Gabbar Singh (Sholay)",
+    "acceptableAnswers": [
+      "gabbar singh",
+      "gabbar",
+      "sholay",
+      "amjad khan"
+    ]
+  },
+  {
+    "id": "audio_q_0184",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Sholay delivers the dialogue: \"Tera kya hoga Kaalia?\"?",
+    "audioFile": "/audio/sholay_gabbar.mp3",
+    "correctAnswer": "Gabbar Singh (Sholay)",
+    "acceptableAnswers": [
+      "gabbar singh",
+      "gabbar",
+      "sholay",
+      "amjad khan"
+    ]
+  },
+  {
+    "id": "audio_q_0185",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Sholay delivers the dialogue: \"Yeh haath humko de de Thakur!\"?",
+    "audioFile": "/audio/sholay_gabbar.mp3",
+    "correctAnswer": "Gabbar Singh (Sholay)",
+    "acceptableAnswers": [
+      "gabbar singh",
+      "gabbar",
+      "sholay",
+      "amjad khan"
+    ]
+  },
+  {
+    "id": "audio_q_0186",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Don delivers the dialogue: \"Don ko pakadna mushkil hi nahi, namumkin hai!\"?",
+    "audioFile": "/audio/srk_don_laugh.mp3",
+    "correctAnswer": "Don (Don)",
+    "acceptableAnswers": [
+      "don",
+      "shah rukh khan",
+      "srk"
+    ]
+  },
+  {
+    "id": "audio_q_0187",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Don delivers the dialogue: \"Mujhe logon ka dar pasand hai\"?",
+    "audioFile": "/audio/srk_don_laugh.mp3",
+    "correctAnswer": "Don (Don)",
+    "acceptableAnswers": [
+      "don",
+      "shah rukh khan",
+      "srk"
+    ]
+  },
+  {
+    "id": "audio_q_0188",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Don delivers the dialogue: \"Wild cats I like!\"?",
+    "audioFile": "/audio/srk_don_laugh.mp3",
+    "correctAnswer": "Don (Don)",
+    "acceptableAnswers": [
+      "don",
+      "shah rukh khan",
+      "srk"
+    ]
+  },
+  {
+    "id": "audio_q_0189",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Pushpa delivers the dialogue: \"Pushpa naam sunke flower samjhe kya? Fire hai main!\"?",
+    "audioFile": "/audio/pushpa_dialogue.mp3",
+    "correctAnswer": "Pushpa Raj (Pushpa)",
+    "acceptableAnswers": [
+      "pushpa",
+      "allu arjun",
+      "pushpa raj"
+    ]
+  },
+  {
+    "id": "audio_q_0190",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Pushpa delivers the dialogue: \"Jhukega nahi saala!\"?",
+    "audioFile": "/audio/pushpa_dialogue.mp3",
+    "correctAnswer": "Pushpa Raj (Pushpa)",
+    "acceptableAnswers": [
+      "pushpa",
+      "allu arjun",
+      "pushpa raj"
+    ]
+  },
+  {
+    "id": "audio_q_0191",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from K.G.F delivers the dialogue: \"Violence... Violence... Violence! I don't like it, I avoid. But violence likes me!\"?",
+    "audioFile": "/audio/kgf_rocky_theme.mp3",
+    "correctAnswer": "Rocky Bhai (K.G.F)",
+    "acceptableAnswers": [
+      "rocky bhai",
+      "yash",
+      "kgf"
+    ]
+  },
+  {
+    "id": "audio_q_0192",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from K.G.F delivers the dialogue: \"Salam Rocky Bhai!\"?",
+    "audioFile": "/audio/kgf_rocky_theme.mp3",
+    "correctAnswer": "Rocky Bhai (K.G.F)",
+    "acceptableAnswers": [
+      "rocky bhai",
+      "yash",
+      "kgf"
+    ]
+  },
+  {
+    "id": "audio_q_0193",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Singham delivers the dialogue: \"Aata majhi satakli!\"?",
+    "audioFile": "/audio/singham_theme.mp3",
+    "correctAnswer": "Bajirao Singham (Singham)",
+    "acceptableAnswers": [
+      "singham",
+      "ajay devgn",
+      "bajirao singham"
+    ]
+  },
+  {
+    "id": "audio_q_0194",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Singham delivers the dialogue: \"Jismein hai dum, to fakht Bajirao Singham!\"?",
+    "audioFile": "/audio/singham_theme.mp3",
+    "correctAnswer": "Bajirao Singham (Singham)",
+    "acceptableAnswers": [
+      "singham",
+      "ajay devgn",
+      "bajirao singham"
+    ]
+  },
+  {
+    "id": "audio_q_0195",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Dabangg delivers the dialogue: \"Swagat nahi karoge hamara?\"?",
+    "audioFile": "/audio/singham_theme.mp3",
+    "correctAnswer": "Chulbul Pandey (Dabangg)",
+    "acceptableAnswers": [
+      "chulbul pandey",
+      "salman khan",
+      "dabangg"
+    ]
+  },
+  {
+    "id": "audio_q_0196",
+    "category": "🎬 Bollywood Comedy Audio",
+    "question": "Listen to the audio! Which character from Dabangg delivers the dialogue: \"Hum yahan ke Robinhood hain!\"?",
+    "audioFile": "/audio/singham_theme.mp3",
+    "correctAnswer": "Chulbul Pandey (Dabangg)",
+    "acceptableAnswers": [
+      "chulbul pandey",
+      "salman khan",
+      "dabangg"
+    ]
+  }
+]

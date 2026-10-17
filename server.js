@@ -5,8 +5,8 @@ const path = require('path');
 const cors = require('cors');
 
 const questionsBank = require('./data/questions');
-const audioQuestions = questionsBank.filter(q => q.audioFile !== null);
-const textQuestions = questionsBank.filter(q => q.audioFile === null);
+const audioQuestions = questionsBank.filter(q => Boolean(q.audioFile));
+const textQuestions = questionsBank.filter(q => !q.audioFile);
 console.log(`📚 Loaded ${questionsBank.length} questions (${audioQuestions.length} real audio clips, ${textQuestions.length} text trivia).`);
 
 const app = express();
@@ -149,16 +149,12 @@ function computeMatchAwards(room) {
   const players = Object.values(room.players);
   if (players.length === 0) return {};
 
-  // 1. MVP: Highest Score
   const mvp = [...players].sort((a, b) => b.score - a.score)[0];
-
-  // 2. Speed Demon: Fastest recorded buzz or answer time
   const speedCandidates = players.filter(p => p.fastestBuzzTime && p.fastestBuzzTime < 900);
   const speedDemon = speedCandidates.length > 0
     ? [...speedCandidates].sort((a, b) => a.fastestBuzzTime - b.fastestBuzzTime)[0]
     : mvp;
 
-  // 3. Sniper: Highest accuracy (least wrong answers with at least 1 correct)
   const accuracyCandidates = players.filter(p => p.correctCount > 0);
   const sniper = accuracyCandidates.length > 0
     ? [...accuracyCandidates].sort((a, b) => {
@@ -168,7 +164,6 @@ function computeMatchAwards(room) {
       })[0]
     : mvp;
 
-  // 4. Streak King: Highest streak achieved
   const streakCandidates = players.filter(p => (p.maxStreak || 0) > 0);
   const streakKing = streakCandidates.length > 0
     ? [...streakCandidates].sort((a, b) => (b.maxStreak || 0) - (a.maxStreak || 0))[0]
@@ -185,7 +180,7 @@ function computeMatchAwards(room) {
 // Socket.io Connection Logic
 io.on('connection', socket => {
   // 1. Host Creates Room
-  socket.on('create_room', ({ playerName, avatar, targetPoints }, callback) => {
+  socket.on('create_room', ({ playerName, avatar, targetPoints, selectedCategory, timerDuration, gameMode, isTeamMode }, callback) => {
     const safeName = sanitizeName(playerName);
     const roomCode = generateRoomCode();
     const initialTarget = parseInt(targetPoints, 10);
@@ -203,7 +198,7 @@ io.on('connection', socket => {
           team: 'jetha',
           streak: 0,
           maxStreak: 0,
-          paisaDoubleRemaining: 1,
+          paisaDoubleRemaining: 1, // 1 Token per game
           paisaDoubleActive: false,
           fastestBuzzTime: 999,
           correctCount: 0,
@@ -213,13 +208,13 @@ io.on('connection', socket => {
       },
       status: 'lobby',
       targetPoints: validTarget,
-      selectedCategory: 'all',      // 'all' | 'tmkoc' | 'bollywood' | 'cricket' | 'audio_only'
-      timerDuration: 30,            // 15 | 30 | 45
-      gameMode: 'type_first',       // 'type_first' | 'buzzer'
-      isTeamMode: false,            // Solo vs Team Battle
+      selectedCategory: (selectedCategory && ['all', 'tmkoc', 'bollywood', 'cricket', 'audio_only'].includes(selectedCategory)) ? selectedCategory : 'all',
+      timerDuration: ([15, 30, 45].includes(parseInt(timerDuration, 10))) ? parseInt(timerDuration, 10) : 30,
+      gameMode: (gameMode && ['type_first', 'buzzer'].includes(gameMode)) ? gameMode : 'type_first',
+      isTeamMode: Boolean(isTeamMode),
       teamScores: { jetha: 0, baburao: 0 },
       buzzerActivePlayerId: null,
-      buzzerCountdown: 7,
+      buzzerCountdown: 10,          // 10 Seconds dedicated buzzer window
       buzzerInterval: null,
       buzzerLockedPlayers: new Set(),
       currentQuestion: null,
@@ -296,7 +291,7 @@ io.on('connection', socket => {
       team: assignedTeam,
       streak: 0,
       maxStreak: 0,
-      paisaDoubleRemaining: 1,
+      paisaDoubleRemaining: 1, // 1 Token per game
       paisaDoubleActive: false,
       fastestBuzzTime: 999,
       correctCount: 0,
@@ -341,7 +336,7 @@ io.on('connection', socket => {
     });
   });
 
-  // Host configures Match Settings (Category, Timer Duration, Game Mode, Team Mode, Target Points)
+  // Host configures Match Settings
   socket.on('set_game_settings', ({ roomCode, targetPoints, selectedCategory, timerDuration, gameMode, isTeamMode }) => {
     const room = rooms[roomCode];
     if (!room || socket.id !== room.hostSocketId || room.status !== 'lobby') return;
@@ -428,7 +423,7 @@ io.on('connection', socket => {
   socket.on('kick_player', ({ roomCode, targetSocketId }) => {
     const room = rooms[roomCode];
     if (!room || socket.id !== room.hostSocketId || room.status !== 'lobby') return;
-    if (targetSocketId === room.hostSocketId) return; // Cannot kick host
+    if (targetSocketId === room.hostSocketId) return;
 
     const kickedPlayer = room.players[targetSocketId];
     if (kickedPlayer) {
@@ -459,7 +454,7 @@ io.on('connection', socket => {
     }
   });
 
-  // 3. Host Starts Game
+  // 3. Host Starts Game (or restarts a fresh game)
   socket.on('start_game', ({ roomCode, targetPoints }) => {
     const room = rooms[roomCode];
     if (!room || socket.id !== room.hostSocketId) return;
@@ -488,12 +483,12 @@ io.on('connection', socket => {
     }
     room.roundWinner = null;
 
-    // Reset scores & streaks for fresh match, but keep 1 Paisa Double token
+    // Reset scores & streaks for fresh match, and REVIVE "Paisa Double" token (1 per game)
     Object.values(room.players).forEach(p => {
       p.score = 0;
       p.streak = 0;
       p.maxStreak = 0;
-      p.paisaDoubleRemaining = 1;
+      p.paisaDoubleRemaining = 1; // REVIVED for the new game!
       p.paisaDoubleActive = false;
       p.fastestBuzzTime = 999;
       p.correctCount = 0;
@@ -519,7 +514,7 @@ io.on('connection', socket => {
     nextQuestion(roomCode);
   });
 
-  // 4. BUZZER MODE: Player hits buzzer
+  // 4. BUZZER MODE: Player hits buzzer (Dedicated 10s Window)
   socket.on('hit_buzzer', ({ roomCode }) => {
     const room = rooms[roomCode];
     if (!room || room.status !== 'playing' || room.gameMode !== 'buzzer' || !room.currentQuestion) return;
@@ -530,7 +525,7 @@ io.on('connection', socket => {
     if (!player) return;
 
     room.buzzerActivePlayerId = socket.id;
-    room.buzzerCountdown = 7;
+    room.buzzerCountdown = 10; // Exactly 10 seconds dedicated window!
 
     // Record buzz time
     const buzzElapsed = (Date.now() - room.questionStartTime) / 1000;
@@ -543,16 +538,16 @@ io.on('connection', socket => {
       playerId: player.id,
       playerName: player.name,
       playerAvatar: player.avatar,
-      countdown: 7,
+      countdown: 10,
       buzzElapsed: buzzElapsed.toFixed(2)
     });
 
     io.to(roomCode).emit('ticker_message', {
-      text: `⚡ ${player.name} buzzed in ${buzzElapsed.toFixed(1)}s! 7 seconds to answer!`,
+      text: `⚡ ${player.name} buzzed in ${buzzElapsed.toFixed(1)}s! 10 seconds to answer!`,
       type: 'warning'
     });
 
-    // Start 7-second countdown for the buzzed player
+    // Start 10-second countdown for the buzzed player
     if (room.buzzerInterval) clearInterval(room.buzzerInterval);
 
     room.buzzerInterval = setInterval(() => {
@@ -567,13 +562,13 @@ io.on('connection', socket => {
         clearInterval(room.buzzerInterval);
         room.buzzerInterval = null;
 
-        // Player ran out of 7s time without answering: -1 Point Penalty!
-        handleBuzzerFailure(roomCode, player, 'Time expired! (-1 pt)');
+        // Player ran out of 10s time without answering: -1 Point Penalty!
+        handleBuzzerFailure(roomCode, player, '10s Timeout! (-1 pt)');
       }
     }, 1000);
   });
 
-  // Helper: Handle Buzzer Failure (Wrong answer or 7s Timeout)
+  // Helper: Handle Buzzer Failure (Wrong answer or 10s Timeout)
   function handleBuzzerFailure(roomCode, player, reason) {
     const room = rooms[roomCode];
     if (!room) return;
@@ -601,7 +596,7 @@ io.on('connection', socket => {
     });
 
     io.to(roomCode).emit('ticker_message', {
-      text: `❌ ${player.name} missed the buzzer! (-${penalty} pt). Buzzer unlocked!`,
+      text: `❌ ${player.name} missed the buzzer! (-${penalty} pt). Buzzer unlocked for others!`,
       type: 'danger'
     });
 
@@ -616,7 +611,7 @@ io.on('connection', socket => {
     }
   }
 
-  // 5. PAISA DOUBLE TOKEN ACTIVATION (Once Per Match)
+  // 5. PAISA DOUBLE TOKEN ACTIVATION (Once Per Match, Revived on Restart)
   socket.on('activate_paisa_double', ({ roomCode }) => {
     const room = rooms[roomCode];
     if (!room || room.status !== 'playing' || !room.currentQuestion) return;
@@ -633,7 +628,7 @@ io.on('connection', socket => {
 
     if (player.paisaDoubleActive) return;
 
-    player.paisaDoubleRemaining = 0;
+    player.paisaDoubleRemaining = 0; // Consumed for this game
     player.paisaDoubleActive = true;
 
     socket.emit('paisa_double_confirmed', {
@@ -642,7 +637,7 @@ io.on('connection', socket => {
     });
 
     io.to(roomCode).emit('ticker_message', {
-      text: `💰 ${player.name} risked it all: 25 Din Mein Paisa Double is ACTIVE!`,
+      text: `💰 ${player.name} risked it all: 25 Din Mein Paisa Double is ACTIVE! (+2 / -2 pts)`,
       type: 'gold'
     });
   });
@@ -707,7 +702,6 @@ io.on('connection', socket => {
         room.teamScores[player.team] = (room.teamScores[player.team] || 0) + pointDelta;
       }
 
-      // Record fastest answer time
       const answerTime = (Date.now() - room.questionStartTime) / 1000;
       if (answerTime < player.fastestBuzzTime) {
         player.fastestBuzzTime = answerTime;
@@ -768,7 +762,7 @@ io.on('connection', socket => {
     }
   });
 
-  // 7. MEME TAUNT SOUNDBOARD (Funny audio taunts)
+  // 7. MEME TAUNT SOUNDBOARD (Rich verified Indian quotes)
   const lastTauntTime = {};
   socket.on('send_meme_taunt', ({ roomCode, tauntId }) => {
     const room = rooms[roomCode];
@@ -776,9 +770,9 @@ io.on('connection', socket => {
     const player = room.players[socket.id];
     if (!player) return;
 
-    // Rate-limit taunts to 1 every 3.5 seconds
+    // Rate-limit taunts to 1 every 2.5 seconds
     const now = Date.now();
-    if (lastTauntTime[socket.id] && now - lastTauntTime[socket.id] < 3500) return;
+    if (lastTauntTime[socket.id] && now - lastTauntTime[socket.id] < 2500) return;
     lastTauntTime[socket.id] = now;
 
     const tauntMap = {
@@ -789,7 +783,13 @@ io.on('connection', socket => {
       'nana_control': { audio: '/audio/nana_patekar_voice.mp3', label: 'Control Uday Control!' },
       'rajpal_tadap': { audio: '/audio/rajpal_yadav_tadap.mp3', label: 'Aisi tadap hi aisi hai!' },
       'amitabh_crore': { audio: '/audio/amitabh_7_crore.mp3', label: 'Saat Crore!!' },
-      'pushpa_jhukega': { audio: '/audio/pushpa_dialogue.mp3', label: 'Main jhukega nahi!' }
+      'pushpa_jhukega': { audio: '/audio/pushpa_dialogue.mp3', label: 'Main jhukega nahi!' },
+      'bhide_secretary': { audio: '/audio/bhide_ekmev_secretary.mp3', label: 'Ekmev Secretary!' },
+      'popatlal_cancel': { audio: '/audio/popatlal_cancel.mp3', label: 'Cancel Kardo!' },
+      'daya_garba': { audio: '/audio/dayaben_hey_maa.mp3', label: 'Hey Maa Mataji!' },
+      'khatam_tata': { audio: '/audio/khatam_tata_goodbye.mp3', label: 'Khatam... Tata... Goodbye!' },
+      'bhau_sochna': { audio: '/audio/hindustani_bhau_sochna.mp3', label: 'Sochna padta hai re!' },
+      'mirzapur_jalwa': { audio: '/audio/mirzapur_dekhe_ho.mp3', label: 'Mirzapur dekhe hooo!' }
     };
 
     const taunt = tauntMap[tauntId];
@@ -800,6 +800,12 @@ io.on('connection', socket => {
         playerAvatar: player.avatar,
         audioUrl: taunt.audio,
         label: taunt.label
+      });
+
+      // Also announce on the live ticker!
+      io.to(roomCode).emit('ticker_message', {
+        text: `🎭 ${player.name}: "${taunt.label}"`,
+        type: 'highlight'
       });
     }
   });
@@ -833,13 +839,11 @@ io.on('connection', socket => {
         if (room.buzzerInterval) clearInterval(room.buzzerInterval);
       }
 
-      // Reassign host if host disconnected
       if (socket.id === room.hostSocketId) {
         const remainingIds = Object.keys(room.players);
         if (remainingIds.length > 0) {
           room.hostSocketId = remainingIds[0];
         } else {
-          // Cleanup empty room immediately
           if (room.timerInterval) clearInterval(room.timerInterval);
           if (room.revealTimeout) clearTimeout(room.revealTimeout);
           if (room.buzzerInterval) clearInterval(room.buzzerInterval);
@@ -872,21 +876,18 @@ io.on('connection', socket => {
 function getRandomUnusedQuestion(room) {
   let pool = questionsBank;
 
-  // Host Category Filter
   if (room.selectedCategory === 'tmkoc') {
     pool = questionsBank.filter(q => q.category.includes('TMKOC'));
   } else if (room.selectedCategory === 'bollywood') {
-    pool = questionsBank.filter(q => q.category.includes('Bollywood') || q.category.includes('Movie'));
+    pool = questionsBank.filter(q => q.category.includes('Bollywood') || q.category.includes('Movie') || q.category.includes('Celebrity'));
   } else if (room.selectedCategory === 'cricket') {
     pool = questionsBank.filter(q => q.category.includes('Cricket'));
   } else if (room.selectedCategory === 'audio_only') {
     pool = audioQuestions;
   }
 
-  // Safety fallback if pool is empty
   if (!pool || pool.length === 0) pool = questionsBank;
 
-  // Check if room used all questions from this pool
   const unusedFromPool = pool.filter(q => !room.usedQuestionIds.has(q.id));
   if (unusedFromPool.length === 0) {
     room.usedQuestionIds.clear();
@@ -894,7 +895,7 @@ function getRandomUnusedQuestion(room) {
 
   room.questionCounter = (room.questionCounter || 0) + 1;
 
-  // In 'all' mode: balance audio clue roughly every 3rd question if available
+  // In 'all' mode: balance real audio clue roughly every 3rd question
   if (room.selectedCategory === 'all' && (room.questionCounter % 3 === 0)) {
     const unusedAudio = audioQuestions.filter(q => !room.usedQuestionIds.has(q.id));
     if (unusedAudio.length > 0) {
@@ -904,7 +905,6 @@ function getRandomUnusedQuestion(room) {
     }
   }
 
-  // Pick random candidate from unused
   const candidates = pool.filter(q => !room.usedQuestionIds.has(q.id));
   const candidate = candidates.length > 0
     ? candidates[Math.floor(Math.random() * candidates.length)]
@@ -945,11 +945,9 @@ function nextQuestion(roomCode) {
   room.buzzerLockedPlayers.clear();
   room.status = 'playing';
 
-  // Calculate half-time for letter hint reveal
   const halfTime = Math.floor(room.roundTimer / 2);
   let hintRevealed = false;
 
-  // Secure payload: NEVER send correctAnswer or acceptableAnswers during active round
   io.to(roomCode).emit('new_question', {
     id: q.id,
     category: q.category,
@@ -974,7 +972,6 @@ function nextQuestion(roomCode) {
       totalDuration: room.timerDuration || 30
     });
 
-    // Smart Letter Hint at Half-Time
     if (!hintRevealed && room.roundTimer <= halfTime) {
       hintRevealed = true;
       const maskedHint = generateLetterHint(q.correctAnswer);
@@ -996,7 +993,7 @@ function nextQuestion(roomCode) {
   }, 1000);
 }
 
-// Function: End round (strictly minimal reveal, no clutter)
+// Function: End round (Transition duration = exactly 5 seconds)
 function endRound(roomCode, winnerPlayer, pointDelta = 1) {
   const room = rooms[roomCode];
   if (!room) return;
@@ -1028,30 +1025,39 @@ function endRound(roomCode, winnerPlayer, pointDelta = 1) {
       : null,
     correctAnswer: q.correctAnswer,
     targetPoints: target,
+    transitionSeconds: 5, // Exactly 5 seconds duration
     isTeamMode: room.isTeamMode,
     teamScores: room.teamScores,
     leaderboard: getLeaderboard(room)
   });
 
+  // Ticker broadcast visible during transition
+  io.to(roomCode).emit('ticker_message', {
+    text: winnerPlayer
+      ? `🎉 ${winnerPlayer.name} won +${pointDelta} pt! Answer: "${q.correctAnswer}". Next in 5s...`
+      : `⏱️ Round Over! Answer: "${q.correctAnswer}". Next question in 5s...`,
+    type: 'highlight'
+  });
+
   // Check victory condition
   if (room.isTeamMode) {
     if ((room.teamScores.jetha || 0) >= target) {
-      room.revealTimeout = setTimeout(() => declareTeamWinner(roomCode, 'jetha'), 3200);
+      room.revealTimeout = setTimeout(() => declareTeamWinner(roomCode, 'jetha'), 3500);
       return;
     }
     if ((room.teamScores.baburao || 0) >= target) {
-      room.revealTimeout = setTimeout(() => declareTeamWinner(roomCode, 'baburao'), 3200);
+      room.revealTimeout = setTimeout(() => declareTeamWinner(roomCode, 'baburao'), 3500);
       return;
     }
   } else if (winnerPlayer && winnerPlayer.score >= target) {
-    room.revealTimeout = setTimeout(() => declareMatchWinner(roomCode, winnerPlayer), 3200);
+    room.revealTimeout = setTimeout(() => declareMatchWinner(roomCode, winnerPlayer), 3500);
     return;
   }
 
-  // Next question after 4 seconds
+  // Exactly 5 seconds duration between questions (as explicitly requested!)
   room.revealTimeout = setTimeout(() => {
     nextQuestion(roomCode);
-  }, 4000);
+  }, 5000);
 }
 
 // Function: Declare Solo Match Winner
