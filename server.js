@@ -776,20 +776,20 @@ io.on('connection', socket => {
     lastTauntTime[socket.id] = now;
 
     const tauntMap = {
-      'jethalal_chai': { audio: '/audio/tmkoc_jethalal.mp3', label: 'Chai piyo, biscuit khao!' },
-      'champaklal_jethiya': { audio: '/audio/tmkoc_champaklal.mp3', label: 'Ae Jethiya!' },
+      'champaklal_jethiya': { audio: '/audio/champak_lal.mp3', label: 'Ae Jethiya!' },
       'baburao_style': { audio: '/audio/hera_pheri_maja_aayega.mp3', label: 'Arre baba bahut maja aayega!' },
+      'baburao_gunda': { audio: '/audio/kya_gunda_banega_re_tu.mp3', label: 'Kya gunda banega re tu!' },
       'paisa_double': { audio: '/audio/akshay_paisa_double.mp3', label: '25 Din Mein Paisa Double!' },
-      'nana_control': { audio: '/audio/nana_patekar_voice.mp3', label: 'Control Uday Control!' },
-      'rajpal_tadap': { audio: '/audio/rajpal_yadav_tadap.mp3', label: 'Aisi tadap hi aisi hai!' },
-      'amitabh_crore': { audio: '/audio/amitabh_7_crore.mp3', label: 'Saat Crore!!' },
+      'akshay_miracle': { audio: '/audio/akshay_miracle.mp3', label: 'Miracle! Miracle!' },
+      'nana_control': { audio: '/audio/nana_patekar_laugh.mp3', label: 'Control Uday Control!' },
+      'rajpal_tadap': { audio: '/audio/raha_nahi_jaata_rajpal_yadav.mp3', label: 'Aisi tadap hi aisi hai!' },
+      'amitabh_crore': { audio: '/audio/7_crore_kbc.mp3', label: 'Saat Crore!!' },
       'pushpa_jhukega': { audio: '/audio/pushpa_dialogue.mp3', label: 'Main jhukega nahi!' },
-      'bhide_secretary': { audio: '/audio/bhide_ekmev_secretary.mp3', label: 'Ekmev Secretary!' },
-      'popatlal_cancel': { audio: '/audio/popatlal_cancel.mp3', label: 'Cancel Kardo!' },
+      'singham_satakli': { audio: '/audio/aata_majhi_satakli.mp3', label: 'Aata majhi satakli!' },
       'daya_garba': { audio: '/audio/dayaben_hey_maa.mp3', label: 'Hey Maa Mataji!' },
+      'cid_gadbad': { audio: '/audio/nahi_nahi_saluke_yaha_kuchh_to.mp3', label: 'Kuch toh gadbad hai Daya!' },
       'khatam_tata': { audio: '/audio/khatam_tata_goodbye.mp3', label: 'Khatam... Tata... Goodbye!' },
-      'bhau_sochna': { audio: '/audio/hindustani_bhau_sochna.mp3', label: 'Sochna padta hai re!' },
-      'mirzapur_jalwa': { audio: '/audio/mirzapur_dekhe_ho.mp3', label: 'Mirzapur dekhe hooo!' }
+      'rancho_all_well': { audio: '/audio/rancho_3_idiots.mp3', label: 'Aal Izz Well!' }
     };
 
     const taunt = tauntMap[tauntId];
