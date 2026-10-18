@@ -24,6 +24,9 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('*', (req, res) => {
+  if (req.path.startsWith('/audio/')) {
+    return res.status(404).send('Audio not found');
+  }
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
