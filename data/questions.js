@@ -1,4 +1,3 @@
-// Fun Guessing - Clean, Deduplicated Question Bank (1397 Unique Questions)
 const questions = [
   {
     "id": "audio_q_00001",
@@ -174,34 +173,6 @@ const questions = [
       "big b",
       "bachchan",
       "shahenshah"
-    ]
-  },
-  {
-    "id": "audio_q_00013",
-    "category": "🎙️ KBC & Amitabh Bachchan",
-    "question": "Listen to the intense angry dialogue delivery! Name the legendary Bollywood \"Angry Young Man\" speaking here!",
-    "audioFile": "/audio/angry_amitabh.mp3",
-    "correctAnswer": "Amitabh Bachchan",
-    "acceptableAnswers": [
-      "amitabh bachchan",
-      "amitabh",
-      "big b",
-      "bachchan",
-      "angry young man"
-    ]
-  },
-  {
-    "id": "audio_q_00014",
-    "category": "🎙️ KBC & Amitabh Bachchan",
-    "question": "Audio Clue: Name the legendary Bollywood \"Angry Young Man\" speaking here!",
-    "audioFile": "/audio/angry_amitabh.mp3",
-    "correctAnswer": "Amitabh Bachchan",
-    "acceptableAnswers": [
-      "amitabh bachchan",
-      "amitabh",
-      "big b",
-      "bachchan",
-      "angry young man"
     ]
   },
   {
@@ -494,32 +465,6 @@ const questions = [
       "nana patekar",
       "uday",
       "nana"
-    ]
-  },
-  {
-    "id": "audio_q_00037",
-    "category": "🎬 Welcome Comedy Audio",
-    "question": "Listen to this unique villainous laugh! Which painter gangster from Welcome, played by Anil Kapoor, is laughing?",
-    "audioFile": "/audio/majnu_bhai_laugh.mp3",
-    "correctAnswer": "Majnu Bhai (Anil Kapoor)",
-    "acceptableAnswers": [
-      "majnu bhai",
-      "anil kapoor",
-      "majnu",
-      "sagar"
-    ]
-  },
-  {
-    "id": "audio_q_00038",
-    "category": "🎬 Welcome Comedy Audio",
-    "question": "Audio Clue: Which painter gangster from Welcome, played by Anil Kapoor, is laughing?",
-    "audioFile": "/audio/majnu_bhai_laugh.mp3",
-    "correctAnswer": "Majnu Bhai (Anil Kapoor)",
-    "acceptableAnswers": [
-      "majnu bhai",
-      "anil kapoor",
-      "majnu",
-      "sagar"
     ]
   },
   {
@@ -883,86 +828,6 @@ const questions = [
     ]
   },
   {
-    "id": "audio_q_00067",
-    "category": "🎙️ Shah Rukh Khan (King Khan)",
-    "question": "Listen to the voice and tone! Name the romantic megastar famously known as the King of Bollywood!",
-    "audioFile": "/audio/srk_voice.mp3",
-    "correctAnswer": "Shah Rukh Khan (SRK)",
-    "acceptableAnswers": [
-      "shah rukh khan",
-      "shahrukh khan",
-      "srk",
-      "king khan",
-      "badshah"
-    ]
-  },
-  {
-    "id": "audio_q_00068",
-    "category": "🎙️ Shah Rukh Khan (King Khan)",
-    "question": "Audio Clue: Name the romantic megastar famously known as the King of Bollywood!",
-    "audioFile": "/audio/srk_voice.mp3",
-    "correctAnswer": "Shah Rukh Khan (SRK)",
-    "acceptableAnswers": [
-      "shah rukh khan",
-      "shahrukh khan",
-      "srk",
-      "king khan",
-      "badshah"
-    ]
-  },
-  {
-    "id": "audio_q_00069",
-    "category": "🎙️ Shah Rukh Khan (King Khan)",
-    "question": "Listen to the dialogue voice clip! Name the Bollywood icon who starred in DDLJ, Kuch Kuch Hota Hai, and Pathaan!",
-    "audioFile": "/audio/shahrukh_khan_call.mp3",
-    "correctAnswer": "Shah Rukh Khan (SRK)",
-    "acceptableAnswers": [
-      "shah rukh khan",
-      "shahrukh khan",
-      "srk",
-      "king khan"
-    ]
-  },
-  {
-    "id": "audio_q_00070",
-    "category": "🎙️ Shah Rukh Khan (King Khan)",
-    "question": "Audio Clue: Name the Bollywood icon who starred in DDLJ, Kuch Kuch Hota Hai, and Pathaan!",
-    "audioFile": "/audio/shahrukh_khan_call.mp3",
-    "correctAnswer": "Shah Rukh Khan (SRK)",
-    "acceptableAnswers": [
-      "shah rukh khan",
-      "shahrukh khan",
-      "srk",
-      "king khan"
-    ]
-  },
-  {
-    "id": "audio_q_00071",
-    "category": "📺 CID & Indian Television",
-    "question": "Listen to this legendary suspense theme! Name the longest-running Indian television investigative crime series!",
-    "audioFile": "/audio/cid.mp3",
-    "correctAnswer": "CID (Sony TV)",
-    "acceptableAnswers": [
-      "cid",
-      "c.i.d.",
-      "cid sony tv",
-      "sony cid"
-    ]
-  },
-  {
-    "id": "audio_q_00072",
-    "category": "📺 CID & Indian Television",
-    "question": "Audio Clue: Name the longest-running Indian television investigative crime series!",
-    "audioFile": "/audio/cid.mp3",
-    "correctAnswer": "CID (Sony TV)",
-    "acceptableAnswers": [
-      "cid",
-      "c.i.d.",
-      "cid sony tv",
-      "sony cid"
-    ]
-  },
-  {
     "id": "audio_q_00073",
     "category": "📺 CID & Indian Television",
     "question": "Listen to the audio! \"Nahi nahi Salunke, yahan kuch toh gadbad hai!\" - Name the senior CID officer speaking!",
@@ -988,36 +853,6 @@ const questions = [
       "pradyuman",
       "pradhyuman",
       "acp"
-    ]
-  },
-  {
-    "id": "audio_q_00075",
-    "category": "📺 CID & Indian Television",
-    "question": "Listen to the dialogue! In CID, who famously delivers the line \"Isko toh phasi hogi!\" with his signature hand gesture?",
-    "audioFile": "/audio/cid_acp_pradhuman_fasi.mp3",
-    "correctAnswer": "ACP Pradyuman",
-    "acceptableAnswers": [
-      "acp pradyuman",
-      "acp pradhyuman",
-      "pradyuman",
-      "pradhyuman",
-      "acp",
-      "shivaji satam"
-    ]
-  },
-  {
-    "id": "audio_q_00076",
-    "category": "📺 CID & Indian Television",
-    "question": "Audio Clue: In CID, who famously delivers the line \"Isko toh phasi hogi!\" with his signature hand gesture?",
-    "audioFile": "/audio/cid_acp_pradhuman_fasi.mp3",
-    "correctAnswer": "ACP Pradyuman",
-    "acceptableAnswers": [
-      "acp pradyuman",
-      "acp pradhyuman",
-      "pradyuman",
-      "pradhyuman",
-      "acp",
-      "shivaji satam"
     ]
   },
   {
@@ -1072,64 +907,6 @@ const questions = [
       "jethalal gada",
       "jetha",
       "jethabhai"
-    ]
-  },
-  {
-    "id": "audio_q_00081",
-    "category": "👓 TMKOC Audio Voice",
-    "question": "Listen to the strict lecture! Which Gokuldham elder is angrily disciplining his son Jethiya in TMKOC?",
-    "audioFile": "/audio/champak_lal.mp3",
-    "correctAnswer": "Champaklal Gada (Bapuji)",
-    "acceptableAnswers": [
-      "champaklal",
-      "bapuji",
-      "champak chacha",
-      "champaklal gada",
-      "dadaji",
-      "champak"
-    ]
-  },
-  {
-    "id": "audio_q_00082",
-    "category": "👓 TMKOC Audio Voice",
-    "question": "Audio Clue: Which Gokuldham elder is angrily disciplining his son Jethiya in TMKOC?",
-    "audioFile": "/audio/champak_lal.mp3",
-    "correctAnswer": "Champaklal Gada (Bapuji)",
-    "acceptableAnswers": [
-      "champaklal",
-      "bapuji",
-      "champak chacha",
-      "champaklal gada",
-      "dadaji",
-      "champak"
-    ]
-  },
-  {
-    "id": "audio_q_00083",
-    "category": "👓 TMKOC Audio Voice",
-    "question": "Listen to the voice! Name the father of Jethalal Gada from TMKOC who preaches moral values to the society!",
-    "audioFile": "/audio/champak_lal.mp3",
-    "correctAnswer": "Champaklal Gada (Bapuji)",
-    "acceptableAnswers": [
-      "champaklal",
-      "bapuji",
-      "champak chacha",
-      "champaklal gada",
-      "dadaji"
-    ]
-  },
-  {
-    "id": "audio_q_00084",
-    "category": "👓 TMKOC Audio Voice",
-    "question": "Audio Clue: Name the father of Jethalal Gada from TMKOC who preaches moral values to the society!",
-    "audioFile": "/audio/champak_lal.mp3",
-    "correctAnswer": "Champaklal Gada (Bapuji)",
-    "acceptableAnswers": [
-      "champaklal",
-      "bapuji",
-      "champak chacha",
-      "champaklal gada",
-      "dadaji"
     ]
   },
   {
@@ -1396,32 +1173,6 @@ const questions = [
       "kapil sharma show",
       "kapil sharma",
       "tkss"
-    ]
-  },
-  {
-    "id": "audio_q_00105",
-    "category": "🎵 Bollywood Music Audio",
-    "question": "Listen to this spooky comedy tune! \"Hare Ram Hare Krishna\" - Name the Akshay Kumar horror-comedy blockbuster!",
-    "audioFile": "/audio/song_bhool_bhulaiyaa.mp3",
-    "correctAnswer": "Bhool Bhulaiyaa",
-    "acceptableAnswers": [
-      "bhool bhulaiyaa",
-      "bhool bhulaiya",
-      "bhul bhulaiya",
-      "akshay kumar"
-    ]
-  },
-  {
-    "id": "audio_q_00106",
-    "category": "🎵 Bollywood Music Audio",
-    "question": "Audio Clue: \"Hare Ram Hare Krishna\" - Name the Akshay Kumar horror-comedy blockbuster!",
-    "audioFile": "/audio/song_bhool_bhulaiyaa.mp3",
-    "correctAnswer": "Bhool Bhulaiyaa",
-    "acceptableAnswers": [
-      "bhool bhulaiyaa",
-      "bhool bhulaiya",
-      "bhul bhulaiya",
-      "akshay kumar"
     ]
   },
   {
@@ -15355,5 +15106,4 @@ const questions = [
     ]
   }
 ];
-
 module.exports = questions;

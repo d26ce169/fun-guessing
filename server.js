@@ -784,7 +784,7 @@ io.on('connection', socket => {
     lastTauntTime[socket.id] = now;
 
     const tauntMap = {
-      'champaklal_jethiya': { audio: '/audio/champak_lal.mp3', label: 'Ae Jethiya!' },
+      'jethalal_diwali': { audio: '/audio/tmkoc_jethalal_diwali.mp3', label: 'Happy Diwali!' },
       'baburao_style': { audio: '/audio/hera_pheri_maja_aayega.mp3', label: 'Arre baba bahut maja aayega!' },
       'baburao_gunda': { audio: '/audio/kya_gunda_banega_re_tu.mp3', label: 'Kya gunda banega re tu!' },
       'paisa_double': { audio: '/audio/akshay_paisa_double.mp3', label: '25 Din Mein Paisa Double!' },
